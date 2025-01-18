@@ -1,0 +1,8 @@
+<div [ngClass]="{'theme-light': !themeService.isDarkMode(), 'theme-dark': themeService.isDarkMode()}"
+     style="max-height: 100vh;">
+
+  <div class="w-100 main-body">
+    <router-outlet/>
+  </div>
+
+</div>

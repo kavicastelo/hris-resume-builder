@@ -1,0 +1,273 @@
+.theme-purple-light {
+  --color-primary-100: #9b59b6;
+  --color-primary-200: #af7ac5;
+  --color-primary-300: #c39bd5;
+  --color-primary-400: #d2b4de;
+  --color-primary-500: #e8daef;
+  --color-primary-600: #f4edf9;
+  --color-primary-600-opacity-3: rgba(244, 237, 249, 0.3);
+  --color-primary-600-opacity-6: rgba(244, 237, 249, 0.6);
+  --color-primary-600-opacity-9: rgba(244, 237, 249, 0.9);
+
+  --color-surface-100: #ffffff;
+  --color-surface-200: #f6f8fa;
+  --color-surface-300: #eaeef2;
+  --color-surface-400: #d1d5da;
+  --color-surface-500: #c0c6cc;
+  --color-surface-600: #b1b7bc;
+
+  --color-surface-mixed-100: #eaeef2;
+  --color-surface-mixed-200: #f6f8fa;
+  --color-surface-mixed-300: #d1d5da;
+  --color-surface-mixed-400: #c0c6cc;
+  --color-surface-mixed-500: #b1b7bc;
+  --color-surface-mixed-600: #a0a6ad;
+
+  --color-secondary-100: #8e44ad;
+  --color-secondary-200: #a65ebd;
+  --color-secondary-300: #bb73cc;
+  --color-secondary-400: #d4a1e2;
+  --color-secondary-500: #e5ccf0;
+  --color-secondary-600: #e5ccf0;
+  --color-secondary-600-opacity-3: rgba(229, 204, 240, 0.3);
+  --color-secondary-600-opacity-6: rgba(229, 204, 240, 0.6);
+  --color-secondary-600-opacity-9: rgba(229, 204, 240, 0.9);
+
+  --color-text-100: #1a1a1a;
+  --color-text-200: #2c3e50;
+  --color-text-300: #3b4a5b;
+  --color-text-400: #53616d;
+  --color-text-500: #6a7a85;
+  --color-text-600: #8a9298;
+
+  --color-danger-100: #d73a49;
+  --color-danger-200: #b92f3b;
+  --color-danger-300: #a1232f;
+
+  --color-code-100: #e36209;
+
+  --color-highlight-100: #ffd33d;
+  --color-accent-100: #0366d6;
+  --color-neutral-accent-100: #6f42c1;
+  --color-box-shadow-100: rgba(27, 31, 35, 0.15);
+  --color-nav-bar-100: #333333;
+}
+
+.theme-purple-dark {
+  --color-primary-100: #8e44ad; /* Deep Purple */
+  --color-primary-200: #a569bd;
+  --color-primary-300: #b884d6;
+  --color-primary-400: #d0a5e8;
+  --color-primary-500: #e9c6f0;
+  --color-primary-600: #f6e1f8;
+  --color-primary-600-opacity-3: rgba(246, 225, 248, 0.3);
+  --color-primary-600-opacity-6: rgba(246, 225, 248, 0.6);
+  --color-primary-600-opacity-9: rgba(246, 225, 248, 0.9);
+
+  --color-surface-100: #0d1117;
+  --color-surface-200: #161b22;
+  --color-surface-300: #21262d;
+  --color-surface-400: #30363d;
+  --color-surface-500: #484f58;
+  --color-surface-600: #6e7681;
+
+  --color-surface-mixed-100: #1f2126;
+  --color-surface-mixed-200: #24272d;
+  --color-surface-mixed-300: #30363d;
+  --color-surface-mixed-400: #394147;
+  --color-surface-mixed-500: #484f58;
+  --color-surface-mixed-600: #5c646d;
+
+  --color-secondary-100: #7d3c98; /* Darker secondary purple */
+  --color-secondary-200: #9646ab;
+  --color-secondary-300: #b075c3;
+  --color-secondary-400: #d2a3de;
+  --color-secondary-500: #e8cbee;
+  --color-secondary-600: #e8cbee;
+  --color-secondary-600-opacity-3: rgba(232, 203, 238, 0.3);
+  --color-secondary-600-opacity-6: rgba(232, 203, 238, 0.6);
+  --color-secondary-600-opacity-9: rgba(232, 203, 238, 0.9);
+
+  --color-text-100: #e6e6e6;
+  --color-text-200: #d1d1d1;
+  --color-text-300: #b3b3b3;
+  --color-text-400: #999999;
+  --color-text-500: #808080;
+  --color-text-600: #666666;
+
+  --color-danger-100: #ff6c6b;
+  --color-danger-200: #d73a49;
+  --color-danger-300: #b92f3b;
+
+  --color-code-100: #f2cc60;
+
+  --color-highlight-100: #ffa657;
+  --color-accent-100: #6f42c1;
+  --color-neutral-accent-100: #2f81f7;
+  --color-box-shadow-100: rgba(0, 0, 0, 0.3);
+  --color-nav-bar-100: #d1d1d1;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif!important;
+
+  ::-moz-selection { /* Code for Firefox */
+    color: #fff;
+    background: var(--color-primary-200);
+  }
+
+  ::selection {
+    color: #fff;
+    background: var(--color-primary-200);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', serif;
+  color: var(--color-text-100);
+}
+
+code, pre {
+  font-family: 'Source Code Pro', monospace;
+  color: var(--color-code-100);
+}
+
+p, ol, ul, li {
+  color: var(--color-text-400);
+}
+
+.main-body {
+  width: 100% !important;
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+  background-color: var(--color-surface-mixed-100);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 0;
+  transition: all .3s ease;
+
+  @media screen and (max-width: 992px) {
+    display: none;
+  }
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-mixed-300);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-mixed-500);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-300);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--color-primary-300);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.btn-1, .btn-2, .btn-3{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 550;
+  background-color: var(--color-primary-200);
+  border-radius: 5px;
+  padding: 6px 20px;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  border: none;
+  outline: none;
+
+  i{
+    margin-right: 10px;
+    color: #fff;
+  }
+
+  &:hover{
+    background-color: var(--color-primary-100);
+  }
+}
+
+.btn-2{
+  background-color: var(--color-primary-600-opacity-6);
+  border: 1px solid var(--color-surface-mixed-300);
+  color: var(--color-primary-200);
+
+  &:hover{
+    color: #fff;
+  }
+}
+
+.btn-3{
+  background-color: var(--color-danger-200);
+  color: #fff;
+
+  &:hover{
+    background-color: var(--color-danger-100);
+  }
+}
+
+@media print {
+  @page {
+    header: '';
+    footer: '';
+  }
+
+  body {
+    visibility: hidden; /* Hide everything except #cv */
+  }
+
+  #cv {
+    visibility: visible;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    padding: 20px; /* Optional for better layout */
+  }
+
+  /* Prevent breaking of critical sections */
+  #cv > * {
+    page-break-inside: avoid; /* Prevent breaking in the middle of elements */
+    break-inside: avoid; /* Modern equivalent */
+    margin-bottom: 20px;
+  }
+
+  /* Ensure specific sections break onto new pages if needed */
+  .experiences,
+  .educations,
+  .skills,
+  .projects,
+  .certificates {
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+
+  /* Remove unnecessary styling */
+  .col-md-4,
+  .form-card-1,
+  .customization {
+    display: none; /* Hide customization form */
+  }
+
+  /* Enforce page breaks for manual control */
+  .page-break {
+    page-break-before: always;
+    break-before: always; /* Modern browsers */
+  }
+}

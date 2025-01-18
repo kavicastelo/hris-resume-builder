@@ -1,0 +1,7 @@
+<div [ngClass]="{'theme-light': !themeService.isDarkMode(), 'theme-dark': themeService.isDarkMode()}">
+
+  <div class="w-100 main-body">
+    <router-outlet/>
+  </div>
+
+</div>

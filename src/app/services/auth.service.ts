@@ -1,0 +1,16 @@
+import { Injectable } from '@angular/core';
+import {CookieService} from "ngx-cookie-service";
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  constructor(private cookieService: CookieService) { }
+
+  public userID() {
+    return this.cookieService.get('user-token-id').toString();
+  }
+
+}
