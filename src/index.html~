@@ -7,7 +7,19 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Talentboozt - CV Generator</title>
 
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description"
+        content="Explore Thousands of Job Openings & Career Options. Partnered with Top Companies to help you find the perfect fit.">
+  <meta name="keywords"
+        content="top job, job vacancies colombo, top jobs, job vacancies 2024, government job vacancies 2024, job vacancies in sri lanka,
+  job application, job in helsinki, job vacancies, job vacancies kandy, private job vacancies, online job vacancies, ifm job vacancies,
+  job vacancies near me, urgent job vacancies, uk job vacancies, remote job vacancies, online job vacancies, linkedin jobs">
+  <meta name="author" content="kavi castelo">
+  <meta name="author" content="kavindu kokila">
+  <meta name="author" content="talentboozt">
+  <link rel="icon" type="image/x-icon" href="../public/favicon.ico">
+  <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../public/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../public/favicon-16x16.png">
 
   <!--  bootstrap cdn style -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
