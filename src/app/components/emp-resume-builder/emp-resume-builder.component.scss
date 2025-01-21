@@ -218,13 +218,13 @@
       text-transform: capitalize;
     }
 
-    .company, .degree{
+    .company, .degree, .name {
       font-size: 20px;
       font-weight: 600;
       margin-bottom: 2px;
       color: var(--color-text-100);
     }
-    .position, .institution{
+    .position, .institution, .location{
       font-size: 18px;
       color: var(--color-text-300);
       margin-bottom: 5px;
@@ -233,6 +233,11 @@
       text-align: left;
       color: var(--color-text-300);
       margin-bottom: 10px;
+    }
+
+    .sm-text{
+      font-size: 14px;
+      color: var(--color-text-300);
     }
 
     .skills-wrapper{
@@ -247,6 +252,44 @@
         color: var(--color-text-200);
         font-size: 16px;
         margin: 2px;
+      }
+    }
+
+    .certificate{
+      width: 100%;
+      min-height: 150px;
+      background-color: var(--color-surface-mixed-300);
+      padding: 12px;
+
+      .organization{
+        font-size: 17px;
+        font-weight: 550;
+        color: var(--color-text-100);
+      }
+
+      .title, .date{
+        color: var(--color-text-100);
+        font-size: 15px;
+      }
+
+      .date{
+        color: var(--color-text-200);
+      }
+
+      .view, .id{
+        font-size: 13px;
+        color: var(--color-text-100);
+
+        a{
+          text-decoration: none;
+          font-size: 13px;
+          color: var(--color-primary-200);
+          transition: all .3s ease-in;
+
+          &:hover{
+            color: var(--color-primary-100);
+          }
+        }
       }
     }
   }
