@@ -79,7 +79,9 @@
         </div>
         <div class="my-2">
           <button class="btn-1 mb-2 w-100" (click)="printCV()">Download CV</button>
-          <button class="btn-1 w-100">Professional Support</button>
+          <a href="mailto:talentboozt@gmail.com" style="text-decoration: none">
+            <button class="btn-1 w-100">Professional Support</button>
+          </a>
         </div>
       </div>
     </div>
@@ -126,15 +128,32 @@
         <div class="projects page-break" *ngIf="resumeForm.get('projects')?.value">
           <h5>Projects</h5>
           <div class="project" *ngFor="let p of projects; index as i">
-            <div class="name">{{p.name + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
-            <div class="description">{{p?.description || ''}}</div>
+            <div class="name">{{p.title + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
+            <div class="location">{{p.company}} {{' - '+p.role}}</div>
+            <div class="sm-text" *ngIf="p.source">Source: {{p.source}}</div>
+            <div class="sm-text" *ngIf="p.demo">Demo: {{p.demo}}</div>
+            <div class="mb-2"></div>
           </div>
         </div>
 
         <div class="certificates page-break" *ngIf="resumeForm.get('certificates')?.value">
           <h5>Certifications</h5>
-          <div class="certificate" *ngFor="let c of certificates; index as i">
-            {{c}}
+          <div class="row">
+            <div class="col-12" *ngFor="let ec of employee.empCertificates[0].certificates">
+              <div class="certificate">
+                <div class="d-flex flex-column align-items-start justify-content-start w-100 gap-2 mb-3">
+                  <div class="organization">{{ec.organization}}</div>
+                  <div class="title">{{ec.name}}</div>
+                  <div class="date">{{ec.date}}</div>
+                </div>
+                <div class="d-flex flex-column align-items-end justify-content-end w-100 gap-2">
+                  <div class="view">
+                    <a href="{{ec.certificateUrl}}">{{ec.certificateUrl}}</a>
+                  </div>
+                  <div class="id">{{ec.certificateId}}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
