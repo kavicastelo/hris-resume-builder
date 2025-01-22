@@ -1,0 +1,296 @@
+.form-card-1{
+  width: 100%;
+  max-width: 600px;
+  margin: max(30px, 5vw) auto;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: var(--color-surface-200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  -webkit-box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+  -moz-box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+  box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+
+  .form-wrapper{
+    row-gap: 20px;
+
+    label{
+      color: var(--color-text-300);
+    }
+
+    input, select, textarea{
+      border: 1px solid var(--color-surface-mixed-300);
+      padding: 8px 15px;
+      border-radius: 5px;
+      width: 100%;
+      background-color: var(--color-surface-200);
+      color: var(--color-text-100);
+      font-size: 14px;
+
+      &::placeholder{
+        color: var(--color-text-300);
+      }
+
+      &:focus{
+        outline: none;
+      }
+    }
+
+    select{
+      option{
+        color: var(--color-text-100);
+        background-color: var(--color-surface-200);
+        border: none;
+        outline: none;
+        padding: 0 5px;
+        cursor: pointer;
+      }
+    }
+
+    input[type=file]::file-selector-button {
+      background-color: var(--color-primary-200);
+      color: #fff;
+      transition: all .3s ease-in-out;
+
+      &:hover{
+        background-color: var(--color-primary-100);
+      }
+    }
+
+    .input-group{
+      .input-group-text{
+        background-color: var(--color-surface-200);
+        border: 1px solid var(--color-surface-mixed-300);
+      }
+
+      #twitter{
+        svg{
+          fill: #4ac7ff;
+        }
+      }
+      #facebook{
+        svg{
+          fill: #3b5999;
+        }
+      }
+      #instagram{
+        svg{
+          stroke: #ff3b5a;
+
+          .in-dot{
+            fill: #6e30e4;
+          }
+          .in-circle{
+            stroke: #ff9118;
+          }
+        }
+      }
+      #linkedin{
+        svg{
+          fill: #007bee;
+        }
+      }
+      #github{
+        svg{
+          stroke: var(--color-text-100);
+        }
+      }
+
+      input{
+        border-left: none;
+      }
+
+      .btn.btn-outline-secondary{
+        outline: none!important;
+        border: 1px solid var(--color-surface-mixed-300)!important;
+      }
+    }
+  }
+
+  h5{
+    width: 100%;
+    text-align: left;
+  }
+
+  .notification-text{
+    margin: 0;
+  }
+  .form-check-input{
+    border: 1px solid var(--color-surface-mixed-300);
+    //width: auto!important;
+  }
+  .form-check-input:checked{
+    background-color: var(--color-primary-200);
+    border-color: var(--color-primary-200);
+  }
+  .form-check-label{
+    color: var(--color-text-100);
+  }
+  .form-check{
+    gap: 5px;
+  }
+
+  .form-radio-input{
+    width: 12px;
+    height: 12px;
+    border: 1px solid var(--color-surface-mixed-300);
+  }
+  .form-radio-input:checked{
+    background-color: var(--color-primary-200);
+    border-color: var(--color-primary-200);
+  }
+  .form-radio-label{
+    color: var(--color-text-100);
+  }
+  .form-radio{
+    gap: 5px;
+  }
+
+  hr{
+    width: 100%;
+    border: none;
+    height: 1px;
+    background-color: var(--color-surface-mixed-400);
+    margin: 0;
+  }
+}
+
+.customization{
+  .form-check{
+    .form-check-input{
+      width: auto;
+      margin-right: 4px;
+    }
+  }
+}
+
+.cv-render{
+  width: 210mm; /* A4 width */
+  min-height: 297mm; /* A4 height */
+  padding: 20mm;
+  margin: max(30px, 5vw) auto;
+  background-color: var(--color-surface-200);
+  -webkit-box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+  -moz-box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+  box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+  font-family: Arial, sans-serif;
+
+  .image-wrapper{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .name{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .role{
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .contact-info{
+    color: var(--color-text-300);
+    font-size: 18px;
+  }
+  .intro{
+    text-align: justify;
+  }
+
+  .experiences, .educations, .skills, .projects, .certificates{
+    margin: 16px 0;
+    h5{
+      font-size: 16px;
+      margin: 20px 0;
+      font-weight: 600;
+      color: var(--color-text-300);
+      text-transform: capitalize;
+    }
+
+    .company, .degree, .name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 2px;
+      color: var(--color-text-100);
+    }
+    .position, .institution, .location{
+      font-size: 18px;
+      color: var(--color-text-300);
+      margin-bottom: 5px;
+    }
+    .description{
+      text-align: left;
+      color: var(--color-text-300);
+      margin-bottom: 10px;
+    }
+
+    .sm-text{
+      font-size: 14px;
+      color: var(--color-text-300);
+    }
+
+    .skills-wrapper{
+      display: flex;
+      flex-wrap: wrap;
+
+      .skill{
+        width: fit-content;
+        padding: 3px 8px;
+        border-radius: 5px;
+        background-color: var(--color-surface-mixed-100);
+        color: var(--color-text-200);
+        font-size: 16px;
+        margin: 2px;
+      }
+    }
+
+    .certificate{
+      width: 100%;
+      min-height: 150px;
+      background-color: var(--color-surface-mixed-300);
+      padding: 12px;
+
+      .organization{
+        font-size: 17px;
+        font-weight: 550;
+        color: var(--color-text-100);
+      }
+
+      .title, .date{
+        color: var(--color-text-100);
+        font-size: 15px;
+      }
+
+      .date{
+        color: var(--color-text-200);
+      }
+
+      .view, .id{
+        font-size: 13px;
+        color: var(--color-text-100);
+
+        a{
+          text-decoration: none;
+          font-size: 13px;
+          color: var(--color-primary-200);
+          transition: all .3s ease-in;
+
+          &:hover{
+            color: var(--color-primary-100);
+          }
+        }
+      }
+    }
+  }
+}
