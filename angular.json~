@@ -94,13 +94,7 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              "src/_redirects",
-              "src/site.webmanifest",
-              "src/.nojekyll",
-              "src/sitemap.xml",
-              "src/robots.txt",
-              "src/netlify.toml"
+              }
             ],
             "styles": [
               "src/styles.scss"
