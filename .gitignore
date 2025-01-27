@@ -46,3 +46,6 @@ src/environments/*
 
 # Cache
 *~
+
+# Utilities
+/src/app/shared/utilities
