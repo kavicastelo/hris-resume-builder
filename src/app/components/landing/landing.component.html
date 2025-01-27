@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="hero-left">
+
+        <h1>From Template to </h1>
+        <h1>Triumph, Design Your </h1>
+        <h1>Resume Like a <span>Pro</span>!</h1>
+
+        <div>
+          <p>Craft a polished resume that highlights your unique strengths and sets you apart from the competition.</p>
+        </div>
+
+        <div class="action-area">
+          <label for="userId">Your Talentboozt User ID: <a href="https://talentboozt.com/register">Don't have one?</a></label>
+          <input type="text" id="userId" placeholder="Enter your Talentboozt User ID">
+          <div class="error-message">{{errorMessage}}</div>
+
+          <div class="d-flex align-items-center justify-content-between gap-2 my-3">
+            <button class="btn-1" (click)="checkID()">Generate CV</button>
+            <button class="btn-2"><span class="red-dot"></span><span class="dot-animation"></span>Professional Support</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="img-area-wrapper">
+        <div class="image-area">
+          <img src="/imgs/hero.webp" alt="hero" loading="lazy">
+          <div class="overlay"></div>
+        </div>
+
+        <div class="top-img">
+          <img src="/imgs/hero-2.webp" alt="hero-top" loading="lazy">
+          <div class="overlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
