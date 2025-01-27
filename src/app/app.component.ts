@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ThemeService} from './services/theme.service';
-import {NgClass} from '@angular/common';
+import {NgClass, NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgClass],
+  imports: [RouterOutlet, NgClass, NgOptimizedImage],
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -1,0 +1,179 @@
+.hero-left {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 50px 0;
+
+  h1 {
+    font-size: max(30px, 3vw);
+    font-weight: 500;
+    margin: 6px 0;
+    letter-spacing: 5px;
+
+    span {
+      color: var(--color-primary-200);
+    }
+  }
+
+  p{
+    font-size: max(16px, 1.2vw);
+  }
+
+  .bold-p {
+    font-weight: 450;
+  }
+
+  .action-area{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 20px 0;
+
+    label{
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: var(--color-text-300);
+
+      a{
+        text-decoration: none;
+        color: var(--color-primary-200);
+        transition: all .3s ease-in;
+
+        &:hover{
+          color: var(--color-primary-100);
+        }
+      }
+    }
+
+    input{
+      width: 100%;
+      padding: 8px 14px;
+      border: none;
+      outline: none;
+      border-radius: 4px;
+      background-color: var(--color-surface-200);
+      color: var(--color-text-100);
+      font-size: max(16px, 1vw);
+
+      &::placeholder{
+        color: var(--color-text-300);
+      }
+
+      &:focus{
+        outline: none;
+      }
+    }
+
+    .error-message{
+      width: 100%;
+      font-size: 14px;
+      color: var(--color-danger-100);
+    }
+
+    @keyframes rings-animation {
+      0%{
+        scale: .8;
+        opacity: 1;
+      }
+
+      50%{
+        scale: 1.2;
+      }
+
+      100%{
+        scale: 2;
+        opacity: 0;
+      }
+    }
+
+    .btn-2{
+      position: relative;
+      color: var(--color-text-100);
+
+      .red-dot, .dot-animation{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        translate: 50% -50%;
+        border-radius: 50%;
+      }
+
+      .red-dot{
+        background-color: var(--color-danger-100);
+        z-index: 2;
+      }
+
+      .dot-animation{
+        border: 2px solid var(--color-danger-100);
+        z-index: 2;
+        animation: rings-animation 1s ease-in-out infinite;
+      }
+
+      &:hover{
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.img-area-wrapper{
+  position: relative;
+  width: 100%;
+
+  .image-area{
+    margin-top: 12px;
+    width: 90%;
+    max-height: 85vh;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 4px 8px 16px 8px var(--color-box-shadow-100);
+    border-radius: 10px;
+
+    img{
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 10%, #ffffff);
+    }
+  }
+
+  .top-img{
+    position: absolute;
+    width: 60%;
+    max-height: 70vh;
+    overflow: hidden;
+    bottom: -20vh;
+    right: 0;
+    z-index: 2;
+    border-radius: 8px;
+    box-shadow: 4px 4px 16px 8px var(--color-box-shadow-100);
+
+    img{
+      width: 100%;
+    }
+
+    .overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.0) 30%, #ffffff);
+    }
+  }
+}
