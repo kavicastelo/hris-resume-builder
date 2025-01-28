@@ -1,0 +1,124 @@
+.heading-tag{
+  color: var(--color-text-100);
+  font-size: max(24px ,2vw);
+  font-weight: 600;
+  margin: 20px 0;
+  text-align: center;
+  max-width: 800px;
+  font-family: 'Merriweather', serif;
+}
+
+.heading-desc{
+  color: var(--color-text-300);
+  font-size: max(16px ,1.2vw);
+  font-weight: 400;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 600px;
+  font-family: "Poppins", sans-serif;
+}
+
+.img-wrapper{
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+
+  img{
+    width: 100%;
+  }
+}
+
+.card-1, .card-2{
+  border-radius: 16px;
+  border: 1px solid var(--color-surface-mixed-300);
+  background-color: var(--color-surface-200);
+  padding: 30px;
+  box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.card-1{
+  max-width: 800px;
+  margin: 30px auto;
+
+  p{
+    width: 100%;
+    text-align: left;
+  }
+
+  @keyframes rings-animation {
+    0%{
+      scale: .8;
+      opacity: 1;
+    }
+
+    50%{
+      scale: 1.2;
+    }
+
+    100%{
+      scale: 2;
+      opacity: 0;
+    }
+  }
+
+  .btn-1{
+    width: fit-content;
+    position: relative;
+
+    .red-dot, .dot-animation{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 12px;
+      height: 12px;
+      translate: 50% -50%;
+      border-radius: 50%;
+    }
+
+    .red-dot{
+      background-color: var(--color-danger-100);
+      z-index: 2;
+    }
+
+    .dot-animation{
+      border: 2px solid var(--color-danger-100);
+      z-index: 2;
+      animation: rings-animation 1s ease-in-out infinite;
+    }
+  }
+}
+
+.card-2{
+  max-width: 300px;
+  margin: 15px auto;
+
+  .num-wrapper{
+    width: 40px;
+    height: 40px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary-200);
+
+    span{
+      color: var(--color-primary-200);
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  p{
+    text-align: center;
+  }
+}
+
+.p-bold{
+  font-weight: 600;
+}
