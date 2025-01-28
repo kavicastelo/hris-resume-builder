@@ -86,4 +86,8 @@ export class EmpResumeBuilderComponent implements OnInit {
       window.print();
     }
   }
+
+  openSupport() {
+    this.router.navigate(['/support']);
+  }
 }

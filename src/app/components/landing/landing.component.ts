@@ -35,4 +35,8 @@ export class LandingComponent {
       }
     }
   }
+
+  openSupport() {
+    this.router.navigate(['/support']);
+  }
 }
