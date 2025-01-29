@@ -85,16 +85,18 @@
     </div>
     <div class="col-12 col-md-8 col-lg-9">
       <div class="cv-render" id="cv">
-        <div class="d-flex align-items-center justify-content-end w-100" *ngIf="resumeForm.get('avatar')?.value">
-          <div class="image-wrapper">
-            <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
-                 alt="avatar">
+        <div>
+          <div class="avatar" *ngIf="resumeForm.get('avatar')?.value">
+            <div class="image-wrapper">
+              <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
+                   alt="avatar">
+            </div>
           </div>
+          <h2 class="name">{{resumeForm.get('name')?.value}}</h2>
+          <h4 class="role">{{resumeForm.get('role')?.value}}</h4>
+          <p class="contact-info">{{resumeForm.get('location')?.value}} {{resumeForm.get('email')?.value ? '  |  ' + resumeForm.get('email')?.value : ''}} {{resumeForm.get('phone')?.value ? '  |  ' + resumeForm.get('phone')?.value : ''}} {{website ? '  |  ' + website : ''}}</p>
+          <p class="intro">{{resumeForm.get('intro')?.value}}</p>
         </div>
-        <h2 class="name">{{resumeForm.get('name')?.value}}</h2>
-        <h4 class="role">{{resumeForm.get('role')?.value}}</h4>
-        <p class="contact-info">{{resumeForm.get('location')?.value}} {{resumeForm.get('email')?.value ? '  |  ' + resumeForm.get('email')?.value : ''}} {{resumeForm.get('phone')?.value ? '  |  ' + resumeForm.get('phone')?.value : ''}} {{website ? '  |  ' + website : ''}}</p>
-        <p class="intro">{{resumeForm.get('intro')?.value}}</p>
 
         <div class="experiences" *ngIf="resumeForm?.get('experiences')?.value">
           <h5>Work Experience</h5>
@@ -123,7 +125,7 @@
           </div>
         </div>
 
-        <div class="projects page-break" *ngIf="resumeForm.get('projects')?.value">
+        <div class="projects" *ngIf="resumeForm.get('projects')?.value">
           <h5>Projects</h5>
           <div class="project" *ngFor="let p of projects; index as i">
             <div class="name">{{p.title + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
@@ -134,7 +136,7 @@
           </div>
         </div>
 
-        <div class="certificates page-break" *ngIf="resumeForm.get('certificates')?.value">
+        <div class="certificates" *ngIf="resumeForm.get('certificates')?.value">
           <h5>Certifications</h5>
           <div class="row">
             <div class="col-12" *ngFor="let ec of employee.empCertificates[0].certificates">

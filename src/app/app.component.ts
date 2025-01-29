@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {ThemeService} from './services/theme.service';
 import {NgClass} from '@angular/common';
 import {FooterComponent} from './components/footer/footer.component';
@@ -14,6 +14,10 @@ import {FooterComponent} from './components/footer/footer.component';
 export class AppComponent {
   title = 'talentboozt_cv_generator';
 
-  constructor(public themeService: ThemeService) {
+  constructor(public themeService: ThemeService, private router: Router) {
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 }
