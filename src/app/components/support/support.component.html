@@ -69,7 +69,7 @@
     <p class="p-bold">Sample Designs</p>
     <div class="row">
       <div class="col-12 col-md-6 col-lg-3" *ngFor="let i of images; index as j">
-        <div class="sample-cv" (click)="openLightbox(0)">
+        <div class="sample-cv" (click)="openLightbox(j)">
           <img src="{{i.src}}" alt="{{i.alt}}">
         </div>
       </div>
