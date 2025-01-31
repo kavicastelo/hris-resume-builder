@@ -65,5 +65,25 @@
         </div>
       </div>
     </div>
+
+    <p class="p-bold">Sample Designs</p>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3" *ngFor="let i of images; index as j">
+        <div class="sample-cv" (click)="openLightbox(0)">
+          <img src="{{i.src}}" alt="{{i.alt}}">
+        </div>
+      </div>
+    </div>
+
+    <div class="lightbox" *ngIf="lightboxVisible">
+      <div class="overlay" (click)="closeLightbox()"></div>
+      <div class="content">
+        <button class="close-btn" (click)="closeLightbox()">&#x2715;</button>
+        <button class="nav-btn prev" (click)="prevImage()">&#8249;</button>
+        <img [src]="images[currentIndex].src" alt="Large View" class="large-image" />
+        <button class="nav-btn next" (click)="nextImage()">&#8250;</button>
+      </div>
+    </div>
+
   </div>
 </div>
