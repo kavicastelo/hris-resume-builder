@@ -431,3 +431,177 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     break-before: always; /* Modern browsers */
   }
 }
+
+// accordion
+$accordion-icon-color: rgb(52, 152, 219);
+$accordion-icon-active-color: rgb(92, 81, 240);
+$accordion-button-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='#{$accordion-icon-color}' stroke-linecap='round' stroke-linejoin='round'><path d='M02 3L5 7L02 11'/></svg>");
+$accordion-button-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='#{$accordion-icon-active-color}' stroke-linecap='round' stroke-linejoin='round'><path d='M02 3L5 7L02 11'/></svg>");
+$accordion-button-icon-plus: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='#{$accordion-icon-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'><path d='M6,2 V12 M-2,7 H12'/></svg>");
+$accordion-button-icon-minus: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='#{$accordion-icon-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'><path d='M-4,7 H12'/></svg>");
+$accordion-icon-transform: rotate(-90deg);
+$accordion-icon-transform2: rotate(180deg);
+$accordion-icon-transform3: rotate(270deg);
+
+@function escape-svg($string) {
+  @return str-replace($string, '"', '\"');
+}
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+.accordion{
+  margin: 12px 0;
+  --bs-accordion-border-color: var(--color-surface-mixed-100);
+  --bs-accordion-active-color: var(--color-text-100);
+  --bs-accordion-active-bg: var(--color-surface-mixed-100);
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-btn-focus-border-color: transparent;
+  --bs-accordion-btn-icon: #{escape-svg($accordion-button-icon)};
+  --bs-accordion-btn-active-icon: #{escape-svg($accordion-button-active-icon)};
+  --bs-accordion-btn-icon-transform: #{$accordion-icon-transform};
+  --bs-accordion-btn-padding-y: 8px;
+  --bs-accordion-btn-padding-x: 12px;
+  --bs-accordion-body-padding-y: 5px;
+  --bs-accordion-body-padding-x: 20px;
+}
+.accordion-button{
+  color: var(--color-text-300);
+  background-color: var(--color-surface-mixed-100);
+  border: none!important;
+  outline: none!important;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+.accordion-button:after {
+  order: -1; //swap order
+  margin-left: 0;
+  margin-right:0.3em; // just extra space between text and icon
+}
+.accordion-body{
+  color: var(--color-text-400);
+  background-color: var(--color-surface-mixed-100);
+  border: none!important;
+  outline: none!important;
+  border-radius: 0;
+  font-size: 14px;
+}
+
+.accordion.fq{
+  --bs-accordion-border-color: #0d1117;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-active-bg: #0d1117;
+  --bs-accordion-btn-icon: #{escape-svg($accordion-button-icon-plus)};
+  --bs-accordion-btn-active-icon: #{escape-svg($accordion-button-icon-minus)};
+  --bs-accordion-btn-icon-transform: #{$accordion-icon-transform2};
+  --bs-accordion-body-padding-y: 8px;
+  --bs-accordion-body-padding-x: 40px;
+  --bs-accordion-btn-padding-y: 12px;
+
+  .accordion-button{
+    color: #fff;
+    background-color: #0d1117;
+    font-size: 20px;
+    font-weight: 450;
+    font-family: sans-serif, "Poppins" !important;
+  }
+
+  .accordion-body{
+    color: #8d949c;
+    background-color: #0d1117;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.accordion.faq{
+  border-color: transparent;
+  margin-bottom: 20px;
+  --bs-accordion-active-color: #fff;
+  --bs-accordion-active-bg: #0d1117;
+  --bs-accordion-btn-icon: #{escape-svg($accordion-button-icon)};
+  --bs-accordion-btn-active-icon: #{escape-svg($accordion-button-active-icon)};
+  --bs-accordion-btn-icon-transform: #{$accordion-icon-transform3};
+  --bs-accordion-body-padding-y: 12px;
+  --bs-accordion-body-padding-x: 40px;
+  --bs-accordion-btn-padding-y: 20px;
+  --bs-accordion-btn-padding-x: 30px;
+
+  .accordion-item{
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid var(--color-surface-mixed-400);
+    background-color: var(--color-surface-mixed-100);
+  }
+
+  .accordion-header{
+    background-color: var(--color-surface-mixed-100);
+    border-radius: 8px;
+  }
+
+  .accordion-button{
+    color: var(--color-text-200);
+    background-color: var(--color-surface-mixed-100);
+    outline: none!important;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  }
+  .accordion-button:after {
+    order: 1; //swap order
+    margin-left: 0.5em;
+    margin-right:0;
+  }
+
+  .accordion-body{
+    color: var(--color-text-300);
+    background-color: var(--color-surface-mixed-100);
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 10px;
+  }
+}
+
+.accordion.nav{
+  --bs-accordion-border-color: transparentize(#0d1117, 0);
+  --bs-accordion-active-color: transparentize(#0d1117, 0);
+  --bs-accordion-active-bg: transparentize(#0d1117, 0);
+  --bs-accordion-btn-icon: none;
+  --bs-accordion-btn-active-icon: none;
+  --bs-accordion-body-padding-y: 8px;
+  --bs-accordion-body-padding-x: 40px;
+  --bs-accordion-btn-padding-y: 12px;
+  background-color: transparent;
+  display: flex;
+  justify-content: flex-end;
+
+  .accordion-item{
+    background-color: transparent !important;
+  }
+
+  .accordion-button{
+    color: var(--color-nav-bar-100);
+    background-color: transparent !important;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+
+  .accordion-body{
+    color: var(--color-nav-bar-100);
+    background-color: transparent !important;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 5px 0;
+    padding: 0;
+  }
+}
