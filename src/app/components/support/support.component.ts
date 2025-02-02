@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {Utilities} from '../../shared/utilities/utilities';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-support',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    ReactiveFormsModule
   ],
   standalone: true,
   templateUrl: './support.component.html',
@@ -36,6 +38,18 @@ export class SupportComponent {
     }
   ]
 
+  cvForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    dob: new FormControl(''),
+    careerStage: new FormControl('', [Validators.required]),
+    jobTitle: new FormControl('', [Validators.required]),
+    link: new FormControl(''),
+    message: new FormControl('')
+  })
+
+  commonError: string = '';
+
   openLightbox(index: number): void {
     this.currentIndex = index;
     this.lightboxVisible = true;
@@ -52,5 +66,14 @@ export class SupportComponent {
   prevImage(): void {
     this.currentIndex =
       (this.currentIndex - 1 + this.images.length) % this.images.length;
+  }
+
+  sendRequest(): void {
+    if (this.cvForm.valid) {
+      this.commonError = '';
+      console.log(this.cvForm.value);
+    } else {
+      this.commonError = 'Please fill out all required fields.';
+    }
   }
 }

@@ -26,7 +26,7 @@
         Let us help you build a resume that opens doors to endless opportunities.
       </p>
 
-      <button class="btn-1"><span class="red-dot"></span><span class="dot-animation"></span>Request Us</button>
+      <button class="btn-1" data-bs-toggle="modal" data-bs-target="#cvRequestModel"><span class="red-dot"></span><span class="dot-animation"></span>Request Us</button>
     </div>
 
     <p class="p-bold">Let Our Experts Guide You – Just Follow These Easy Steps to Success!</p>
@@ -113,5 +113,88 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<div class="modal" id="cvRequestModel" tabindex="-1" aria-labelledby="cvRequestModelLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title fs-5" id="cvRequestModelLabel">Send a Request</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cvForm" class="w-100">
+          <div class="row form-wrapper">
+            <div class="col-12">
+              <div class="form-group">
+                <label for="name">Your Name *</label>
+                <input type="text" id="name" class="form-control" placeholder="John Doe"
+                       formControlName="name">
+                <div class="error-msg">{{commonError}}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" class="form-control" placeholder="XwVpP@example.com"
+                       formControlName="email">
+                <div class="error-msg">{{commonError}}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" class="form-control" placeholder="DD/MM/YYYY"
+                       formControlName="dob">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="careerStage">Career Stage *</label>
+                <select class="form-control" id="careerStage" formControlName="careerStage">
+                  <option selected>Fresh Graduate</option>
+                  <option>Executive</option>
+                  <option>Manager</option>
+                  <option>Senior Manager</option>
+                  <option>Director</option>
+                  <option>VP</option>
+                  <option>CEO</option>
+                  <option>Other</option>
+                </select>
+                <div class="error-msg">{{commonError}}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="jobTitle">Job Title *</label>
+                <input type="text" id="jobTitle" class="form-control" placeholder="Software Engineer"
+                       formControlName="jobTitle">
+                <div class="error-msg">{{commonError}}</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="link">Link of the Job Ad</label>
+                <input type="text" id="link" class="form-control" placeholder="https://..."
+                       formControlName="link">
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea type="text" id="message" class="form-control" placeholder="I am a software engineer..."
+                          formControlName="message" rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-1 me-2" (click)="sendRequest()">Send</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
