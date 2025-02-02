@@ -85,5 +85,33 @@
       </div>
     </div>
 
+    <div class="fq-wrapper">
+      <div class="fq-title">
+        Frequently Asked Questions
+      </div>
+      <div *ngFor="let f of utilities.faq">
+        <div class="fq-sub-title">
+          {{f.category}}
+        </div>
+
+        <div class="accordion fq" id="{{f.category}}">
+          <div class="accordion-item" *ngFor="let q of f.questions">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#'+f.id+q.id" aria-expanded="false" [attr.aria-controls]="f.id+q.id">
+                {{q.question}}
+              </button>
+            </h2>
+            <div id="{{f.id+q.id}}" class="accordion-collapse collapse" [attr.data-bs-parent]="'#'+f.category">
+              <div class="accordion-body">
+                {{q.answer}}
+              </div>
+            </div>
+          </div>
+          <div class="separator"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
