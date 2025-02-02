@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
+import {Utilities} from '../../shared/utilities/utilities';
 
 @Component({
   selector: 'app-support',
@@ -14,6 +15,7 @@ import {NgForOf, NgIf} from '@angular/common';
 export class SupportComponent {
   lightboxVisible: boolean = false;
   currentIndex: number = 0;
+  utilities = Utilities
 
   images = [
     {
