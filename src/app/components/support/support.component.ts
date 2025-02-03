@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {Utilities} from '../../shared/utilities/utilities';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CommonService} from '../../services/common.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-support',
@@ -50,6 +52,9 @@ export class SupportComponent {
 
   commonError: string = '';
 
+  constructor(private commonService: CommonService, private toastr: ToastrService) {
+  }
+
   openLightbox(index: number): void {
     this.currentIndex = index;
     this.lightboxVisible = true;
@@ -71,9 +76,19 @@ export class SupportComponent {
   sendRequest(): void {
     if (this.cvForm.valid) {
       this.commonError = '';
-      console.log(this.cvForm.value);
+      this.commonService.sendRequest({
+        ...this.cvForm.value
+      }).subscribe((res: any) => {
+        this.cvForm.reset();
+        this.toastr.success('Your CV request has been sent successfully.');
+      }, (err: any) => {
+        this.toastr.error('Something went wrong. Please try again.');
+      });
     } else {
       this.commonError = 'Please fill out all required fields.';
     }
+  }
+  test() {
+    this.toastr.info('Please wait...');
   }
 }

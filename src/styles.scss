@@ -1,3 +1,4 @@
+@use "sass:string";
 .theme-purple-light {
   --color-primary-100: #9b59b6;
   --color-primary-200: #af7ac5;
@@ -448,9 +449,9 @@ $accordion-icon-transform3: rotate(270deg);
 }
 
 @function str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
+  $index: string.index($string, $search);
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
   }
   @return $string;
 }
@@ -604,4 +605,8 @@ $accordion-icon-transform3: rotate(270deg);
     margin: 5px 0;
     padding: 0;
   }
+}
+
+.toast-container {
+  z-index: 9999 !important;
 }
