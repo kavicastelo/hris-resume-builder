@@ -192,7 +192,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn-1 me-2" (click)="sendRequest()">Send</button>
+        <button type="button" class="btn-1 me-2" (click)="sendRequest()" [disabled]="loading">{{loading ? 'Sending...' : 'Send Request'}}</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
