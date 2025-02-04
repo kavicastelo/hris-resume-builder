@@ -20,6 +20,7 @@ export class SupportComponent {
   lightboxVisible: boolean = false;
   currentIndex: number = 0;
   utilities = Utilities
+  loading: boolean = false;
 
   images = [
     {
@@ -75,14 +76,17 @@ export class SupportComponent {
 
   sendRequest(): void {
     if (this.cvForm.valid) {
+      this.loading = true;
       this.commonError = '';
       this.commonService.sendRequest({
         ...this.cvForm.value
       }).subscribe((res: any) => {
         this.cvForm.reset();
         this.toastr.success('Your CV request has been sent successfully.');
+        this.loading = false;
       }, (err: any) => {
         this.toastr.error('Something went wrong. Please try again.');
+        this.loading = false;
       });
     } else {
       this.commonError = 'Please fill out all required fields.';
