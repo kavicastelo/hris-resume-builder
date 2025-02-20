@@ -1,1 +1,113 @@
-<p>step-projects works!</p>
+<div class="form-card-1">
+  <h5>Projects :</h5>
+
+  <form (ngSubmit)="addProject()">
+    <div class="row form-wrapper">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="PName">Project Title</label>
+          <input type="text" class="form-control" id="PName" [(ngModel)]="newProject.name"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="PCompany">Company</label>
+          <input type="text" class="form-control" id="PCompany" [(ngModel)]="newProject.company"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="PRole">Your Role</label>
+          <input type="text" class="form-control" id="PRole" [(ngModel)]="newProject.role"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="PStart">Start Year/Month</label>
+          <input type="text" placeholder="2023 Feb" class="form-control" id="PStart" [(ngModel)]="newProject.startDate"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="PEnd">End Year/Month</label>
+          <input type="text" placeholder="2024 Dec" class="form-control" id="PEnd" [(ngModel)]="newProject.endDate"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="PDemo">Demo Link</label>
+          <input type="text" class="form-control" id="PDemo" [(ngModel)]="newProject.demo"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="PSource">Source Link</label>
+          <input type="text" class="form-control" id="PSource" [(ngModel)]="newProject.source"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="PDesc">Project Description</label>
+          <textarea type="text" class="form-control" id="PDesc" rows="5" [(ngModel)]="newProject.description"
+                    [ngModelOptions]="{standalone: true}" required></textarea>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="form-check me-2">
+              <input class="form-check-input" type="checkbox" value="" id="PPresent" [(ngModel)]="newProject.present"
+                     [ngModelOptions]="{standalone: true}" required>
+            </div>
+            <p class="notification-text">I'm currently working on this project.</p>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-1">Add Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="projects.length > 0">
+  <hr>
+  <div class="row experience" *ngFor="let ep of projects; let i = index">
+    <div class="col-3 col-lg-2">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="org-wrapper">
+          {{ep.name.substring(0, 1)}}
+        </div>
+      </div>
+    </div>
+    <div class="col-8 col-lg-9">
+      <div class="d-flex flex-column align-items-start justify-content-center gap-2">
+        <div class="title">{{ep.name}}</div>
+        <div class="year">{{ep.startDate}} - {{ep.endDate}}</div>
+        <div class="location">{{ep.company}} {{' - '+ep.role}}</div>
+        <div class="description"><p>{{ep.description}}</p></div>
+        <div class="d-flex align-items-center justify-content-start gap-3">
+          <a *ngIf="ep.source" href="{{ep.source}}" class="m-0 p-0" style="text-decoration: none">
+            <button class="btn-1">Source</button>
+          </a>
+          <a *ngIf="ep.demo" href="{{ep.demo}}" class="m-0 p-0" style="text-decoration: none">
+            <button class="btn-1">Demo</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="d-flex align-items-center">
+        <button class="btn-3"><i class="material-icons" translate="no" (click)="removeProject(i)">delete</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
