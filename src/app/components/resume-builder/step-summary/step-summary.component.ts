@@ -29,13 +29,11 @@ export class StepSummaryComponent implements OnInit {
     if (savedData){
       this.personalInfo = savedData.personalInfo;
       this.certificates = savedData.certificates;
-      this.education = savedData.education;
+      this.education = savedData.educations;
       this.projects = savedData.projects;
       this.skills = savedData.skills;
       this.experiences = savedData.workExperiences;
     }
-
-    console.log(savedData)
   }
 
   clearAllData() {
