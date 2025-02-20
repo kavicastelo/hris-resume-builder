@@ -1,0 +1,93 @@
+<div class="form-card-1">
+  <h5>Add Education :</h5>
+
+  <form (ngSubmit)="addEducation()">
+    <div class="row form-wrapper">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="EdDegree">Degree</label>
+          <input type="text" class="form-control" id="EdDegree" [(ngModel)]="newEducation.degree"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="EdSchool">School</label>
+          <input type="text" class="form-control" id="EdSchool" [(ngModel)]="newEducation.school"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="EdCountry">Country</label>
+          <input type="text" class="form-control" id="EdCountry" [(ngModel)]="newEducation.country"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="EdStart">Start Year</label>
+          <input type="number" class="form-control" id="EdStart" [(ngModel)]="newEducation.startDate"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="EdEnd">End Year</label>
+          <input type="number" class="form-control" id="EdEnd" [(ngModel)]="newEducation.endDate"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="EdDesc">Short Description</label>
+          <input type="text" class="form-control" id="EdDesc" [(ngModel)]="newEducation.description"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="form-check me-2">
+              <input class="form-check-input" type="checkbox" value="" id="EdPresent" [(ngModel)]="newEducation.present"
+                     [ngModelOptions]="{standalone: true}" required>
+            </div>
+            <p class="notification-text">I'm currently studying here.</p>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-1">Add Education</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="educations.length > 0">
+  <hr>
+  <div class="row experience" *ngFor="let ed of educations; let i = index">
+    <div class="col-3 col-lg-2">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="org-wrapper">
+          {{ed.school.substring(0, 1)}}
+        </div>
+        <div class="year">
+          {{ed.startDate}} - {{ed.endDate}}
+        </div>
+      </div>
+    </div>
+    <div class="col-8 col-lg-9">
+      <div class="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
+        <div class="title">{{ed.degree}}</div>
+        <div class="location">{{ed.school}} - {{ed.country}}</div>
+        <div class="description">{{ed.description}}</div>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="d-flex align-items-center">
+        <button class="btn-3"><i class="material-icons" translate="no" (click)="removeEducation(i)">delete</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
