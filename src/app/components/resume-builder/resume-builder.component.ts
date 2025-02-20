@@ -7,6 +7,7 @@ import {StepSkillsComponent} from './step-skills/step-skills.component';
 import {StepProjectsComponent} from './step-projects/step-projects.component';
 import {StepSummaryComponent} from './step-summary/step-summary.component';
 import {ResumePreviewComponent} from './resume-preview/resume-preview.component';
+import {StepCertificatesComponent} from './step-certificates/step-certificates.component';
 
 @Component({
   selector: 'app-resume-builder',
@@ -19,7 +20,8 @@ import {ResumePreviewComponent} from './resume-preview/resume-preview.component'
     StepSkillsComponent,
     StepProjectsComponent,
     StepSummaryComponent,
-    ResumePreviewComponent
+    ResumePreviewComponent,
+    StepCertificatesComponent
   ],
   templateUrl: './resume-builder.component.html',
   styleUrl: './resume-builder.component.scss',
@@ -27,7 +29,7 @@ import {ResumePreviewComponent} from './resume-preview/resume-preview.component'
 })
 export class ResumeBuilderComponent {
   currentStep = 0;
-  steps = [0, 1, 2, 3, 4, 5, 6];
+  steps = [0, 1, 2, 3, 4, 5, 6, 7];
 
   nextStep(): void {
     if (this.currentStep < this.steps.length - 1) {

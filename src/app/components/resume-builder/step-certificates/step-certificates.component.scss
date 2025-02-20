@@ -58,7 +58,7 @@
       color: var(--color-text-200);
     }
 
-    .view, .id{
+    .view, .id, .remove{
       font-size: 13px;
       color: var(--color-text-100);
 
@@ -71,6 +71,17 @@
         &:hover{
           color: var(--color-primary-100);
         }
+      }
+    }
+
+    .remove{
+      color: red;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      i{
+        font-size: 15px;
       }
     }
   }
