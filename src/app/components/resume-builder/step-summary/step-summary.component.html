@@ -1,1 +1,47 @@
-<p>step-summary works!</p>
+<div class="form-card-1">
+  <div class="top-title">Summary Report</div>
+  <div *ngIf="personalInfo">
+    <div class="title">Personal Info</div>
+    <ul>
+      <li *ngIf="personalInfo.firstname"><strong>Name: </strong>{{personalInfo.firstname + ' ' +personalInfo.lastname}}</li>
+      <li *ngIf="personalInfo.email"><strong>Email: </strong>{{personalInfo.email}}</li>
+      <li *ngIf="personalInfo.phone"><strong>Phone: </strong>{{personalInfo.phone}}</li>
+      <li *ngIf="personalInfo.occupation"><strong>Occupation: </strong>{{personalInfo.occupation}}</li>
+      <li *ngIf="personalInfo.dob"><strong>DOB: </strong>{{personalInfo.dob}}</li>
+      <li *ngIf="personalInfo.bio"><strong>Intro: </strong>{{personalInfo.bio}}</li>
+    </ul>
+  </div>
+  <div *ngIf="experiences">
+    <div class="title">Experiences</div>
+    <ul>
+      <li *ngFor="let e of experiences"><strong>{{e.occupation}}</strong> at <strong>{{e.organization}}</strong>({{e.startDate + '-' + e.endDate}})</li>
+    </ul>
+  </div>
+  <div *ngIf="education">
+    <div class="title">Education</div>
+    <ul>
+      <li *ngFor="let e of education"><strong>{{e.degree}}</strong> from <strong>{{e.school}}({{e.startDate + '-' + e.endDate}})</strong></li>
+    </ul>
+  </div>
+  <div *ngIf="skills">
+    <div class="title">Skills</div>
+    <ul>
+      <li *ngFor="let s of skills"><strong>{{s.skill}}</strong><span *ngIf="s.percentage">{{' with ' + s.percentage + '%'}}</span></li>
+    </ul>
+  </div>
+  <div *ngIf="certificates">
+    <div class="title">Certificates</div>
+    <ul>
+      <li *ngFor="let c of certificates"><strong>{{c.name}}</strong> by <strong>{{c.organization}}</strong></li>
+    </ul>
+  </div>
+  <div *ngIf="projects">
+    <div class="title">Projects</div>
+    <ul>
+      <li *ngFor="let p of projects">{{p.name}}</li>
+    </ul>
+  </div>
+  <div class="d-flex align-items-end justify-content-end w-100">
+    <button class="btn-3" (click)="clearAllData()"><i class="material-icons" translate="no">delete</i> Clear Data</button>
+  </div>
+</div>
