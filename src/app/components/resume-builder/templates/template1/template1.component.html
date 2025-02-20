@@ -1,0 +1,68 @@
+<div class="cv-render" id="cv">
+  <!-- Personal Information Section -->
+  <header style="text-align: center; margin-bottom: 30px;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 5px; color: #333;">{{personalInfo.firstname}} {{personalInfo.lastname}}</h1>
+    <p style="font-size: 1.1rem; color: #666;">{{personalInfo.occupation}}</p>
+    <p style="font-size: 0.9rem; color: #666;">{{personalInfo.bio}}</p>
+    <ul class="list-inline" style="padding: 0; margin: 10px 0;">
+      <li class="list-inline-item" style="margin-right: 15px;"><strong>Email:</strong> {{personalInfo.email}}</li>
+      <li class="list-inline-item" style="margin-right: 15px;"><strong>Phone:</strong> {{personalInfo.phone}}</li>
+      <li class="list-inline-item"><strong>DOB:</strong> {{personalInfo.dob}}</li>
+    </ul>
+  </header>
+
+  <!-- Experience Section -->
+  <section style="margin-bottom: 30px;">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Experience</h2>
+    <div style="margin-bottom: 20px;" *ngFor="let e of experiences">
+      <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{e.occupation}} at {{e.organization}}</h3>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{e.country}} | {{e.startDate}} - {{e.endDate}}</p>
+      <p style="font-size: 0.9rem; color: #444;">{{e.description}}</p>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section style="margin-bottom: 30px;">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Education</h2>
+    <div style="margin-bottom: 20px;" *ngFor="let e of education">
+      <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{e.degree}} at {{e.school}}</h3>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{e.country}} | {{e.startDate}} - {{e.endDate}}</p>
+      <p style="font-size: 0.9rem; color: #444;">{{e.description}}</p>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section style="margin-bottom: 30px;">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Skills</h2>
+    <div class="row">
+      <div class="col-md-6" style="margin-bottom: 10px;" *ngFor="let s of skills">
+        <p style="font-size: 0.9rem; color: #444; margin-bottom: 5px;">{{s.skill}} <span style="float: right;">{{s.percentage}}%</span></p>
+        <div class="progress">
+          <div class="progress-bar" [ngStyle]="{'width': s.percentage ? s.percentage +'%': '0%'}"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates Section -->
+  <section style="margin-bottom: 30px;">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Certificates</h2>
+    <div style="margin-bottom: 20px;" *ngFor="let c of certificates">
+      <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{c.name}}</h3>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{c.organization}} | {{c.date}} | ID: {{c.certificateId}}</p>
+      <a href="{{c.certificateUrl}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">View Certificate</a>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section style="margin-bottom: 30px;">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Projects</h2>
+    <div style="margin-bottom: 20px;" *ngFor="let p of projects">
+      <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{p.name}} at {{p.company}}</h3>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{p.role}} | {{p.startDate}} - {{p.endDate}}</p>
+      <p style="font-size: 0.9rem; color: #444;">{{p.description}}</p>
+      <a href="{{p.demo}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none; margin-right: 10px;">Demo</a>
+      <a href="{{p.source}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">Source Code</a>
+    </div>
+  </section>
+</div>

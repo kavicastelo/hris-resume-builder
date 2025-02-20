@@ -1,0 +1,67 @@
+<div class="cv-render" id="cv">
+  <div *ngIf="personalInfo">
+    <h2 class="name">{{personalInfo.firstname + ' ' + personalInfo.lastname}}</h2>
+    <h4 class="role">{{personalInfo.occupation}}</h4>
+    <p class="contact-info">{{personalInfo.email ? personalInfo.email : ''}} {{personalInfo.phone ? '  |  ' + personalInfo.phone : ''}}</p>
+    <p class="intro">{{personalInfo.bio}}</p>
+  </div>
+
+  <div class="experiences" *ngIf="experiences">
+    <h5>Work Experience</h5>
+    <div *ngFor="let e of experiences; index as i">
+      <div class="company">{{e.organization}}</div>
+      <div class="position">{{e.occupation + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
+      <div class="description">{{e?.description || ''}}</div>
+    </div>
+  </div>
+
+  <div class="educations" *ngIf="education">
+    <h5>Education</h5>
+    <div *ngFor="let e of education; index as i">
+      <div class="degree">{{e.degree + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
+      <div class="institution">{{e.school + '  |  ' + e?.country}}</div>
+      <div class="description">{{e?.description || ''}}</div>
+    </div>
+  </div>
+
+  <div class="skills" *ngIf="skills">
+    <h5>Skills</h5>
+    <div class="skills-wrapper">
+      <div class="skill" *ngFor="let s of skills; index as i">
+        {{s.skill}}
+      </div>
+    </div>
+  </div>
+
+  <div class="projects" *ngIf="projects">
+    <h5>Projects</h5>
+    <div class="project" *ngFor="let p of projects; index as i">
+      <div class="name">{{p.name + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
+      <div class="location">{{p.company}} {{' - '+p.role}}</div>
+      <div class="sm-text" *ngIf="p.source">Source: {{p.source}}</div>
+      <div class="sm-text" *ngIf="p.demo">Demo: {{p.demo}}</div>
+      <div class="mb-2"></div>
+    </div>
+  </div>
+
+  <div class="certificates" *ngIf="certificates">
+    <h5>Certifications</h5>
+    <div class="row">
+      <div class="col-6" *ngFor="let ec of certificates">
+        <div class="certificate">
+          <div class="d-flex flex-column align-items-start justify-content-start w-100 gap-2 mb-3">
+            <div class="organization">{{ec.organization}}</div>
+            <div class="title">{{ec.name}}</div>
+            <div class="date">{{ec.date}}</div>
+          </div>
+          <div class="d-flex flex-column align-items-end justify-content-end w-100 gap-2">
+            <div class="view">
+              <a href="{{ec.certificateUrl}}">{{ec.certificateUrl}}</a>
+            </div>
+            <div class="id">{{ec.certificateId}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

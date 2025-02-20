@@ -383,6 +383,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
+.cv-render{
+  width: 210mm; /* A4 width */
+  min-height: 297mm; /* A4 height */
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 5mm;
+}
+
 @media print {
   @page {
     header: '';
