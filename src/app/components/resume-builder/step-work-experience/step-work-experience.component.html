@@ -1,0 +1,93 @@
+<div class="form-card-1">
+  <h5>Work Experience :</h5>
+
+  <form (ngSubmit)="addExperience()">
+    <div class="row form-wrapper">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="ExOccupation">Occupation</label>
+          <input type="text" class="form-control" id="ExOccupation" [(ngModel)]="newExperience.occupation"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="ExCountry">Country</label>
+          <input type="text" class="form-control" id="ExCountry" [(ngModel)]="newExperience.country"
+                 [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="ExOrg">Organization</label>
+          <input type="text" class="form-control" id="ExOrg" [(ngModel)]="newExperience.organization"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="ExStart">Start Year</label>
+          <input type="number" class="form-control" id="ExStart" [(ngModel)]="newExperience.startDate"
+                 [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="form-group">
+          <label for="ExEnd">End Year</label>
+          <input type="number" class="form-control" id="ExEnd" [(ngModel)]="newExperience.endDate"
+                 [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-group">
+          <label for="ExDesc">Short Description</label>
+          <input type="text" class="form-control" id="ExDesc" [(ngModel)]="newExperience.description"
+                 [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="form-check me-2">
+              <input class="form-check-input" type="checkbox" value="" id="ExPresent"
+                     [(ngModel)]="newExperience.present" [ngModelOptions]="{standalone: true}">
+            </div>
+            <p class="notification-text">I'm currently working here.</p>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-1">Add Experience</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="workExperiences.length > 0">
+  <hr>
+  <div class="row experience" *ngFor="let ex of workExperiences; let i = index">
+    <div class="col-3 col-lg-2">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="org-wrapper">
+          {{ex.organization.substring(0, 1)}}
+        </div>
+        <div class="year">
+          {{ex.startDate}} - {{ex.endDate}}
+        </div>
+      </div>
+    </div>
+    <div class="col-8 col-lg-9">
+      <div class="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
+        <div class="title">{{ex.occupation}}</div>
+        <div class="location">{{ex.organization}} - {{ex.country}}</div>
+        <div class="description">{{ex.description}}</div>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="d-flex align-items-center">
+        <button class="btn-3"><i class="material-icons" translate="no" (click)="removeExperience(i)">delete</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

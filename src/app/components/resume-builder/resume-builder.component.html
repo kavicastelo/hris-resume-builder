@@ -1,0 +1,15 @@
+<div class="stepper">
+  <button (click)="prevStep()" [disabled]="currentStep === 0">Previous</button>
+  <span>Step {{ currentStep + 1 }} of {{ steps.length }}</span>
+  <button (click)="nextStep()" [disabled]="currentStep === steps.length - 1">Next</button>
+</div>
+
+<div [ngSwitch]="currentStep">
+  <app-step-personal-info *ngSwitchCase="0"></app-step-personal-info>
+  <app-step-work-experience *ngSwitchCase="1"></app-step-work-experience>
+  <app-step-education *ngSwitchCase="2"></app-step-education>
+  <app-step-skills *ngSwitchCase="3"></app-step-skills>
+  <app-step-projects *ngSwitchCase="4"></app-step-projects>
+  <app-step-summary *ngSwitchCase="5"></app-step-summary>
+  <app-resume-preview *ngSwitchCase="6"></app-resume-preview>
+</div>

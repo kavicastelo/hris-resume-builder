@@ -1,0 +1,42 @@
+<div class="d-md-flex">
+  <div class="form-card-1 justify-content-start">
+    <h5>Add Skills :</h5>
+
+    <form (ngSubmit)="addSkill()">
+      <div class="row form-wrapper">
+        <div class="col-12 col-lg-6">
+          <div class="form-group">
+            <label for="skill">Skill</label>
+            <input type="text" class="form-control" id="skill" [(ngModel)]="newSkill.skill" [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="form-group">
+            <label for="skillPer">Percentage</label>
+            <input type="text" class="form-control" id="skillPer" [(ngModel)]="newSkill.percentage" [ngModelOptions]="{standalone: true}" required>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="form-group d-flex align-items-end w-100 h-100">
+            <button type="submit" class="btn-1" translate="no">Add Skill</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="skill-set w-100" *ngIf="skills.length > 0">
+      <hr>
+      <div class="row my-2" *ngFor="let skill of skills; let i = index">
+        <div class="col-6">
+          <p>{{skill.skill}}</p>
+        </div>
+        <div class="col-3">
+          <p>{{skill.percentage}}%</p>
+        </div>
+        <div class="col-3">
+          <button class="btn-3" (click)="removeSkill(i)"><i class="material-icons" translate="no">delete</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
