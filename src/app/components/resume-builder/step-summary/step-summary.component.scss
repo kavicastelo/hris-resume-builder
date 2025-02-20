@@ -1,0 +1,31 @@
+.form-card-1{
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  .top-title{
+    color: var(--color-text-100);
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .title{
+    color: var(--color-text-100);
+    font-size: 18px;
+    font-weight: 550;
+    margin-bottom: 8px;
+  }
+
+  ul{
+    li{
+      color: var(--color-text-300);
+
+      strong{
+        color: var(--color-text-200);
+        font-weight: 550;
+      }
+    }
+  }
+}
