@@ -61,7 +61,7 @@ export class ResumePreviewComponent implements OnInit{
       this.projects = savedData.projects;
       this.skills = savedData.skills;
       this.experiences = savedData.workExperiences;
-      this.avatar = this.resumeForm.get('avatar')?.value ? savedData.avatar : '';
+      this.avatar = savedData.avatar;
     }
   }
 
@@ -91,9 +91,5 @@ export class ResumePreviewComponent implements OnInit{
 
   openSupport() {
     this.router.navigate(['/support']);
-  }
-
-  setAvatar() {
-    this.resumeForm.get('avatar')?.setValue(this.avatar);
   }
 }

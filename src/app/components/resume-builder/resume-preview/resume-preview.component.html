@@ -6,7 +6,7 @@
           <form [formGroup]="resumeForm">
             <h5>Appearance</h5>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar" (selectionchange)="setAvatar()">
+              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar">
               <label class="form-check-label" for="avatar">
                 Avatar
               </label>
@@ -102,6 +102,7 @@
           [skills]="skills"
           [certificates]="certificates"
           [projects]="projects"
+          [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template1>
         <app-template2
           *ngSwitchCase="1"
@@ -111,6 +112,7 @@
           [skills]="skills"
           [certificates]="certificates"
           [projects]="projects"
+          [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template2>
         <app-template3
           *ngSwitchCase="2"
@@ -120,7 +122,7 @@
           [skills]="skills"
           [certificates]="certificates"
           [projects]="projects"
-          [avatar]="avatar"
+          [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template3>
       </div>
     </div>
