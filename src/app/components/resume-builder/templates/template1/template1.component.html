@@ -9,18 +9,18 @@
 
   <!-- Personal Information Section -->
   <header style="text-align: center; margin-bottom: 30px;" *ngIf="personalInfo">
-    <h1 style="font-size: 2.5rem; margin-bottom: 5px; color: #333;">{{personalInfo.firstname}} {{personalInfo.lastname}}</h1>
-    <p style="font-size: 1.1rem; color: #666;">{{personalInfo.occupation}}</p>
-    <p style="font-size: 0.9rem; color: #666;">{{personalInfo.bio}}</p>
+    <h1 style="font-size: 2.5rem; margin-bottom: 5px; color: #333;">{{personalInfo.firstname ? personalInfo.firstname +' '+ personalInfo.lastname : ''}}</h1>
+    <p style="font-size: 1.1rem; color: #666;">{{personalInfo.occupation ? personalInfo.occupation : ''}}</p>
+    <p style="font-size: 0.9rem; color: #666;">{{personalInfo.bio ? personalInfo.bio : ''}}</p>
     <ul class="list-inline" style="padding: 0; margin: 10px 0;">
-      <li class="list-inline-item" style="margin-right: 15px;"><strong>Email:</strong> {{personalInfo.email}}</li>
-      <li class="list-inline-item" style="margin-right: 15px;"><strong>Phone:</strong> {{personalInfo.phone}}</li>
-      <li class="list-inline-item"><strong>DOB:</strong> {{personalInfo.dob}}</li>
+      <li class="list-inline-item" style="margin-right: 15px;" [ngStyle]="{'display': personalInfo.email ? 'block' : 'none'}"><strong>Email:</strong> {{personalInfo.email ? personalInfo.email : 'N/A'}}</li>
+      <li class="list-inline-item" style="margin-right: 15px;" [ngStyle]="{'display': personalInfo.phone ? 'block' : 'none'}"><strong>Phone:</strong> {{personalInfo.phone ? personalInfo.phone : 'N/A'}}</li>
+      <li class="list-inline-item" [ngStyle]="{'display': personalInfo.dob ? 'block' : 'none'}"><strong>DOB:</strong> {{personalInfo.dob ? personalInfo.dob : 'N/A'}}</li>
     </ul>
   </header>
 
   <!-- Experience Section -->
-  <section style="margin-bottom: 30px;" *ngIf="experiences">
+  <section style="margin-bottom: 30px;" *ngIf="experiences.length > 0">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Experience</h2>
     <div style="margin-bottom: 20px;" *ngFor="let e of experiences">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{e.occupation}} at {{e.organization}}</h3>
@@ -30,7 +30,7 @@
   </section>
 
   <!-- Education Section -->
-  <section style="margin-bottom: 30px;" *ngIf="education">
+  <section style="margin-bottom: 30px;" *ngIf="education.length > 0">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Education</h2>
     <div style="margin-bottom: 20px;" *ngFor="let e of education">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{e.degree}} at {{e.school}}</h3>
@@ -40,7 +40,7 @@
   </section>
 
   <!-- Skills Section -->
-  <section style="margin-bottom: 30px;" *ngIf="skills">
+  <section style="margin-bottom: 30px;" *ngIf="skills.length > 0">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Skills</h2>
     <div class="row">
       <div class="col-md-6" style="margin-bottom: 10px;" *ngFor="let s of skills">
@@ -53,7 +53,7 @@
   </section>
 
   <!-- Certificates Section -->
-  <section style="margin-bottom: 30px;" *ngIf="certificates">
+  <section style="margin-bottom: 30px;" *ngIf="certificates.length > 0">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Certificates</h2>
     <div style="margin-bottom: 20px;" *ngFor="let c of certificates">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{c.name}}</h3>
@@ -63,7 +63,7 @@
   </section>
 
   <!-- Projects Section -->
-  <section style="margin-bottom: 30px;" *ngIf="projects">
+  <section style="margin-bottom: 30px;" *ngIf="projects.length > 0">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Projects</h2>
     <div style="margin-bottom: 20px;" *ngFor="let p of projects">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{p.name}} at {{p.company}}</h3>

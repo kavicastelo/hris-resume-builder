@@ -6,7 +6,7 @@
           <form [formGroup]="resumeForm">
             <h5>Appearance</h5>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar">
+              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar" [disabled]="locked">
               <label class="form-check-label" for="avatar">
                 Avatar
               </label>
@@ -20,39 +20,13 @@
               </select>
             </div>
 
-            <h5 class="my-2">Personal Details</h5>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" placeholder="John Doe"
-                     formControlName="name">
+            <h5 class="my-3">Sections</h5>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="personalInfo" formControlName="personalInfo">
+              <label class="form-check-label" for="personalInfo">
+                Personal Info
+              </label>
             </div>
-            <div class="form-group">
-              <label for="role">Role</label>
-              <input type="text" id="role" class="form-control" placeholder="Software Engineer"
-                     formControlName="role">
-            </div>
-            <div class="form-group">
-              <label for="location">Location</label>
-              <input type="text" id="location" class="form-control" placeholder="New York, USA"
-                     formControlName="location">
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" id="email" class="form-control" placeholder="XwVpP@example.com"
-                     formControlName="email">
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="text" id="phone" class="form-control" placeholder="(123) 456-7890"
-                     formControlName="phone">
-            </div>
-            <div class="form-group">
-              <label for="intro">Intro Text</label>
-              <textarea type="text" id="intro" class="form-control" placeholder="I am a software engineer..."
-                        formControlName="intro" rows="5"></textarea>
-            </div>
-
-            <h5 class="my-2">Sections</h5>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="" id="experiences" formControlName="experiences">
               <label class="form-check-label" for="experiences">
@@ -84,6 +58,38 @@
                 Certifications
               </label>
             </div>
+
+            <h5 class="my-3">Personal Details</h5>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="form-control" placeholder="John Doe"
+                     formControlName="name">
+            </div>
+            <div class="form-group">
+              <label for="role">Role</label>
+              <input type="text" id="role" class="form-control" placeholder="Software Engineer"
+                     formControlName="role">
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" class="form-control" placeholder="New York, USA"
+                     formControlName="location">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" id="email" class="form-control" placeholder="XwVpP@example.com"
+                     formControlName="email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" id="phone" class="form-control" placeholder="(123) 456-7890"
+                     formControlName="phone">
+            </div>
+            <div class="form-group">
+              <label for="intro">Intro Text</label>
+              <textarea type="text" id="intro" class="form-control" placeholder="I am a software engineer..."
+                        formControlName="intro" rows="5"></textarea>
+            </div>
           </form>
         </div>
         <div class="my-2">
@@ -96,32 +102,32 @@
       <div [ngSwitch]="selectedCV">
         <app-template1
           *ngSwitchCase="0"
-          [personalInfo]="personalInfo"
-          [experiences]="experiences"
-          [education]="education"
-          [skills]="skills"
-          [certificates]="certificates"
-          [projects]="projects"
+          [personalInfo]="resumeForm.get('personalInfo')?.value ? personalInfo : {}"
+          [experiences]="resumeForm.get('experiences')?.value ? experiences : []"
+          [education]="resumeForm.get('educations')?.value ? education : []"
+          [skills]="resumeForm.get('skills')?.value ? skills : []"
+          [certificates]="resumeForm.get('certificates')?.value ? certificates : []"
+          [projects]="resumeForm.get('projects')?.value ? projects : []"
           [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template1>
         <app-template2
           *ngSwitchCase="1"
-          [personalInfo]="personalInfo"
-          [experiences]="experiences"
-          [education]="education"
-          [skills]="skills"
-          [certificates]="certificates"
-          [projects]="projects"
+          [personalInfo]="resumeForm.get('personalInfo')?.value ? personalInfo : {}"
+          [experiences]="resumeForm.get('experiences')?.value ? experiences : []"
+          [education]="resumeForm.get('educations')?.value ? education : []"
+          [skills]="resumeForm.get('skills')?.value ? skills : []"
+          [certificates]="resumeForm.get('certificates')?.value ? certificates : []"
+          [projects]="resumeForm.get('projects')?.value ? projects : []"
           [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template2>
         <app-template3
           *ngSwitchCase="2"
-          [personalInfo]="personalInfo"
-          [experiences]="experiences"
-          [education]="education"
-          [skills]="skills"
-          [certificates]="certificates"
-          [projects]="projects"
+          [personalInfo]="resumeForm.get('personalInfo')?.value ? personalInfo : {}"
+          [experiences]="resumeForm.get('experiences')?.value ? experiences : []"
+          [education]="resumeForm.get('educations')?.value ? education : []"
+          [skills]="resumeForm.get('skills')?.value ? skills : []"
+          [certificates]="resumeForm.get('certificates')?.value ? certificates : []"
+          [projects]="resumeForm.get('projects')?.value ? projects : []"
           [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template3>
       </div>

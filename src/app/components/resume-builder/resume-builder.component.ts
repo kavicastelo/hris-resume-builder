@@ -67,6 +67,15 @@ export class ResumeBuilderComponent implements OnInit{
     });
     if (this.employeeId) {
       this.getEmployee(this.employeeId);
+    } else {
+      this.resumeStorage.saveData('personalInfo', this.personalInfo);
+      this.resumeStorage.saveData('workExperiences', this.experiences);
+      this.resumeStorage.saveData('educations', this.education);
+      this.resumeStorage.saveData('skills', this.skills);
+      this.resumeStorage.saveData('projects', this.projects);
+      this.resumeStorage.saveData('certificates', this.certificates);
+      this.resumeStorage.saveData('avatar', this.avatar);
+      this.resumeStorage.saveData('unlocked', false);
     }
   }
 
@@ -146,6 +155,7 @@ export class ResumeBuilderComponent implements OnInit{
       this.resumeStorage.saveData('projects', this.projects);
       this.resumeStorage.saveData('certificates', this.certificates);
       this.resumeStorage.saveData('avatar', this.avatar);
+      this.resumeStorage.saveData('unlocked', true);
     });
   }
 

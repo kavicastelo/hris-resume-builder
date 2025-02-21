@@ -6,13 +6,13 @@
              alt="avatar">
       </div>
     </div>
-    <h2 class="name">{{personalInfo.firstname + ' ' + personalInfo.lastname}}</h2>
-    <h4 class="role">{{personalInfo.occupation}}</h4>
+    <h2 class="name">{{personalInfo.firstname ? personalInfo.firstname + ' ' + personalInfo.lastname : ''}}</h2>
+    <h4 class="role">{{personalInfo.occupation ? personalInfo.occupation : ''}}</h4>
     <p class="contact-info">{{personalInfo.email ? personalInfo.email : ''}} {{personalInfo.phone ? '  |  ' + personalInfo.phone : ''}}</p>
-    <p class="intro">{{personalInfo.bio}}</p>
+    <p class="intro">{{personalInfo.bio ? personalInfo.bio : ''}}</p>
   </div>
 
-  <div class="experiences" *ngIf="experiences">
+  <div class="experiences" *ngIf="experiences.length > 0">
     <h5>Work Experience</h5>
     <div *ngFor="let e of experiences; index as i">
       <div class="company">{{e.organization}}</div>
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="educations" *ngIf="education">
+  <div class="educations" *ngIf="education.length > 0">
     <h5>Education</h5>
     <div *ngFor="let e of education; index as i">
       <div class="degree">{{e.degree + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="skills" *ngIf="skills">
+  <div class="skills" *ngIf="skills.length > 0">
     <h5>Skills</h5>
     <div class="skills-wrapper">
       <div class="skill" *ngFor="let s of skills; index as i">
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <div class="projects" *ngIf="projects">
+  <div class="projects" *ngIf="projects.length > 0">
     <h5>Projects</h5>
     <div class="project" *ngFor="let p of projects; index as i">
       <div class="name">{{p.name + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="certificates" *ngIf="certificates">
+  <div class="certificates" *ngIf="certificates.length > 0">
     <h5>Certifications</h5>
     <div class="row">
       <div class="col-6" *ngFor="let ec of certificates">
