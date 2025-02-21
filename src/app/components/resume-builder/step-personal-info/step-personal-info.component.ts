@@ -33,9 +33,15 @@ export class StepPersonalInfoComponent implements OnInit{
   }
 
   saveData(): void {
-    if (this.personalInfo.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+    if (this.isValidEmail(this.personalInfo.email) && this.personalInfo.email) {
       this.resumeStorage.saveData('personalInfo', this.personalInfo);
+    } else {
+      this.alertService.errorMessage('Please enter a valid email address', 'Error');
     }
-    this.alertService.errorMessage('Please enter a valid email address', 'Error');
+  }
+
+  isValidEmail(email: string): boolean {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
   }
 }

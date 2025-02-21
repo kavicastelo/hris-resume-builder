@@ -2,6 +2,13 @@
   <div class="wrapper">
     <!-- Left Column (Personal Info, Skills, Certificates) -->
     <div class="left-column" *ngIf="personalInfo">
+      <!-- Avatar -->
+      <div class="avatar" *ngIf="avatar">
+        <div class="image-wrapper">
+          <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
+               alt="avatar">
+        </div>
+      </div>
       <!-- Personal Information -->
       <header style="text-align: center; margin-bottom: 30px;">
         <h1>{{personalInfo.firstname}} {{personalInfo.lastname}}</h1>
