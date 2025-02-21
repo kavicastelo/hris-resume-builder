@@ -37,7 +37,15 @@ export class StepSummaryComponent implements OnInit {
   }
 
   clearAllData() {
-    if (confirm('Are you sure to clear all data?'))
+    if (confirm('Are you sure to clear all data?')){
       this.resumeStorage.clearData();
+
+      this.personalInfo = {};
+      this.certificates = [];
+      this.education = [];
+      this.projects = [];
+      this.skills = [];
+      this.experiences = [];
+    }
   }
 }

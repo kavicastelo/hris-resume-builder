@@ -1,11 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {NgForOf, NgStyle} from '@angular/common';
+import {NgForOf, NgIf, NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-template1',
   imports: [
     NgForOf,
-    NgStyle
+    NgStyle,
+    NgIf
   ],
   templateUrl: './template1.component.html',
   styleUrl: './template1.component.scss',

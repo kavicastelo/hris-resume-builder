@@ -384,11 +384,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .cv-render{
-  width: 210mm; /* A4 width */
-  min-height: 297mm; /* A4 height */
+  //width: 210mm; /* A4 width */
+  //min-height: 297mm; /* A4 height */
   font-family: Arial, sans-serif;
   background-color: white;
-  padding: 5mm;
+  padding: 0 5mm;
 }
 
 @media print {
@@ -407,13 +407,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     top: 0;
     left: 0;
     margin: 0 auto;
-    padding: 20px; /* Optional for better layout */
+    //padding: 20px; /* Optional for better layout */
   }
 
   /* Prevent breaking of critical sections */
   #cv > * {
-    page-break-inside: avoid; /* Prevent breaking in the middle of elements */
-    break-inside: avoid; /* Modern equivalent */
+    //page-break-inside: avoid; /* Prevent breaking in the middle of elements */
+    //break-inside: avoid; /* Modern equivalent */
     margin-bottom: 20px;
   }
 
