@@ -33,6 +33,8 @@ export class ResumePreviewComponent implements OnInit{
   selectedCV = 0;
   resumeForm!: FormGroup;
 
+  locked: boolean = true;
+
 
   constructor(private resumeStorage: ResumeStorageService, private fb: FormBuilder, private router: Router) {
     this.resumeForm = this.fb.group({
@@ -42,17 +44,19 @@ export class ResumePreviewComponent implements OnInit{
       email: ['', Validators.email],
       phone: [''],
       intro: [''],
-      experiences: ['checked'],
-      educations: ['checked'],
-      skills: ['checked'],
-      projects: [''],
-      certificates: [''],
-      avatar: [''],
+      personalInfo: [true],
+      experiences: [true],
+      educations: [true],
+      skills: [true],
+      projects: [false],
+      certificates: [false],
+      avatar: [{value: false, disabled: true}],
       cvType: ['0']
     });
   }
 
   ngOnInit() {
+    this.locked = true;
     const savedData = this.resumeStorage.getData();
     if (savedData){
       this.personalInfo = savedData.personalInfo;
@@ -62,6 +66,11 @@ export class ResumePreviewComponent implements OnInit{
       this.skills = savedData.skills;
       this.experiences = savedData.workExperiences;
       this.avatar = savedData.avatar;
+
+      if (savedData.unlocked){
+        this.locked = false;
+        this.resumeForm.get('avatar')?.enable();
+      }
     }
   }
 

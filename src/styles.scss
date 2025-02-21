@@ -747,6 +747,10 @@ $accordion-icon-transform3: rotate(270deg);
     background-color: var(--color-primary-200);
     border-color: var(--color-primary-200);
   }
+  .form-check-input:disabled{
+    background-color: var(--color-surface-mixed-300);
+    border-color: var(--color-surface-mixed-300);
+  }
   .form-check-label{
     color: var(--color-text-100);
   }

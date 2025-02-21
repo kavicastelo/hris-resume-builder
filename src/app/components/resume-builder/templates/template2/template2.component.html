@@ -11,23 +11,23 @@
       </div>
       <!-- Personal Information -->
       <header style="text-align: center; margin-bottom: 30px;">
-        <h1>{{personalInfo.firstname}} {{personalInfo.lastname}}</h1>
-        <p>{{personalInfo.occupation}}</p>
-        <p>{{personalInfo.bio}}</p>
+        <h1>{{personalInfo.firstname ? personalInfo.firstname +' '+ personalInfo.lastname : ''}}</h1>
+        <p>{{personalInfo.occupation ? personalInfo.occupation : ''}}</p>
+        <p>{{personalInfo.bio ? personalInfo.bio : ''}}</p>
       </header>
 
       <!-- Contact Information -->
       <section style="margin-bottom: 30px;" *ngIf="personalInfo">
         <h2 style="color: #fff; border-bottom: 2px solid #fff;">Contact</h2>
         <ul>
-          <li><strong>Email:</strong> {{personalInfo.email}}</li>
-          <li><strong>Phone:</strong> {{personalInfo.phone}}</li>
-          <li><strong>DOB:</strong> {{personalInfo.dob}}</li>
+          <li [ngStyle]="{'display': personalInfo.email ? 'block' : 'none'}"><strong>Email:</strong> {{personalInfo.email ? personalInfo.email : 'N/A'}}</li>
+          <li [ngStyle]="{'display': personalInfo.phone ? 'block' : 'none'}"><strong>Phone:</strong> {{personalInfo.phone ? personalInfo.phone : 'N/A'}}</li>
+          <li [ngStyle]="{'display': personalInfo.dob ? 'block' : 'none'}"><strong>DOB:</strong> {{personalInfo.dob ? personalInfo.dob : 'N/A'}}</li>
         </ul>
       </section>
 
       <!-- Skills -->
-      <section style="margin-bottom: 30px;" *ngIf="skills">
+      <section style="margin-bottom: 30px;" *ngIf="skills.length > 0">
         <h2 style="color: #fff; border-bottom: 2px solid #fff;">Skills</h2>
         <div style="margin-bottom: 10px;" *ngFor="let s of skills">
           <p>{{s.skill}} <span style="float: right;">{{s.percentage}}%</span></p>
@@ -38,7 +38,7 @@
       </section>
 
       <!-- Certificates -->
-      <section style="margin-bottom: 30px;" *ngIf="certificates">
+      <section style="margin-bottom: 30px;" *ngIf="certificates.length > 0">
         <h2 style="color: #fff; border-bottom: 2px solid #fff;">Certificates</h2>
         <div style="margin-bottom: 15px;" *ngFor="let c of certificates">
           <h3>{{c.name}}</h3>
@@ -51,7 +51,7 @@
     <!-- Right Column (Experience, Education, Projects) -->
     <div class="right-column">
       <!-- Experience -->
-      <section style="margin-bottom: 30px;" *ngIf="certificates">
+      <section style="margin-bottom: 30px;" *ngIf="experiences.length > 0">
         <h2>Experience</h2>
         <div style="margin-bottom: 20px;" *ngFor="let e of experiences">
           <h3>{{e.occupation}} at {{e.organization}}</h3>
@@ -61,7 +61,7 @@
       </section>
 
       <!-- Education -->
-      <section style="margin-bottom: 30px;" *ngIf="education">
+      <section style="margin-bottom: 30px;" *ngIf="education.length > 0">
         <h2>Education</h2>
         <div style="margin-bottom: 20px;" *ngFor="let e of education">
           <h3>{{e.degree}} at {{e.school}}</h3>
@@ -71,7 +71,7 @@
       </section>
 
       <!-- Projects -->
-      <section style="margin-bottom: 30px;" *ngIf="projects">
+      <section style="margin-bottom: 30px;" *ngIf="projects.length > 0">
         <h2>Projects</h2>
         <div style="margin-bottom: 20px;" *ngFor="let p of projects">
           <h3>{{p.name}} at {{p.company}}</h3>
