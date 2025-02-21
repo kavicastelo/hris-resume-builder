@@ -3,8 +3,8 @@ import {Template1Component} from "../templates/template1/template1.component";
 import {ResumeStorageService} from '../../../services/resume-storage.service';
 import {Template2Component} from '../templates/template2/template2.component';
 import {Template3Component} from '../templates/template3/template3.component';
-import {NgSwitch, NgSwitchCase} from '@angular/common';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NgForOf, NgSwitch, NgSwitchCase} from '@angular/common';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,7 +15,9 @@ import {Router} from '@angular/router';
     Template3Component,
     ReactiveFormsModule,
     NgSwitch,
-    NgSwitchCase
+    NgSwitchCase,
+    FormsModule,
+    NgForOf
   ],
   templateUrl: './resume-preview.component.html',
   styleUrl: './resume-preview.component.scss',
@@ -28,6 +30,7 @@ export class ResumePreviewComponent implements OnInit{
   projects: any[] = [];
   skills: any[] = [];
   experiences: any[] = [];
+
   avatar: any;
 
   selectedCV = 0;
@@ -35,15 +38,26 @@ export class ResumePreviewComponent implements OnInit{
 
   locked: boolean = true;
 
+  references: any[] = [];
+  newReference = {
+    name: '',
+    phone: '',
+    email: '',
+    company: ''
+  }
+  languages: any[] = [];
+  newLanguage = {
+    name: '',
+    level: 'Full Professional Proficiency'
+  }
+  hobbies: any[] = [];
+  newHobby = {
+    name: ''
+  }
+
 
   constructor(private resumeStorage: ResumeStorageService, private fb: FormBuilder, private router: Router) {
     this.resumeForm = this.fb.group({
-      name: [''],
-      role: [''],
-      location: [''],
-      email: ['', Validators.email],
-      phone: [''],
-      intro: [''],
       personalInfo: [true],
       experiences: [true],
       educations: [true],
@@ -66,6 +80,16 @@ export class ResumePreviewComponent implements OnInit{
       this.skills = savedData.skills;
       this.experiences = savedData.workExperiences;
       this.avatar = savedData.avatar;
+
+      if (savedData.references) {
+        this.references = savedData.references;
+      }
+      if (savedData.languages) {
+        this.languages = savedData.languages;
+      }
+      if (savedData.hobbies) {
+        this.hobbies = savedData.hobbies;
+      }
 
       if (savedData.unlocked){
         this.locked = false;
@@ -100,5 +124,68 @@ export class ResumePreviewComponent implements OnInit{
 
   openSupport() {
     this.router.navigate(['/support']);
+  }
+
+  addReference() {
+    if (this.newReference.name && this.newReference.phone && this.newReference.email && this.newReference.company) {
+      this.references.push({ ...this.newReference });
+      this.saveReferenceData();
+      this.resetReferenceForm();
+    }
+  }
+
+  removeReference(index: number): void {
+    this.references.splice(index, 1);
+    this.saveReferenceData();
+  }
+
+  saveReferenceData(): void {
+    this.resumeStorage.saveData('references', this.references);
+  }
+
+  resetReferenceForm(): void {
+    this.newReference = { name: '', phone: '', email: '', company: '' };
+  }
+
+  addLanguage() {
+    if (this.newLanguage.name && this.newLanguage.level) {
+      this.languages.push({ ...this.newLanguage });
+      this.saveLanguageData();
+      this.resetLanguageForm();
+    }
+  }
+
+  removeLanguage(index: number): void {
+    this.languages.splice(index, 1);
+    this.saveLanguageData();
+  }
+
+  saveLanguageData(): void {
+    this.resumeStorage.saveData('languages', this.languages);
+  }
+
+  resetLanguageForm(): void {
+    this.newLanguage = { name: '', level: '' };
+  }
+
+  addHobby() {
+    if (this.newHobby.name) {
+      this.hobbies.push({ ...this.newHobby });
+      this.saveHobbyData();
+      this.resetHobbyForm();
+    }
+  }
+
+  removeHobby(index: number): void {
+    this.hobbies.splice(index, 1);
+    this.saveHobbyData();
+  }
+
+  saveHobbyData(): void {
+    this.resumeStorage.saveData('hobbies', this.hobbies);
+  }
+
+  resetHobbyForm(): void {
+    this.newHobby = { name: '' };
   }
 }

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 col-md-4 col-lg-3">
       <div class="customization form-card-1">
-        <div class="form-wrapper">
+        <div class="form-wrapper w-100">
           <form [formGroup]="resumeForm">
             <h5>Appearance</h5>
             <div class="form-check">
@@ -58,39 +58,161 @@
                 Certifications
               </label>
             </div>
-
-            <h5 class="my-3">Personal Details</h5>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" placeholder="John Doe"
-                     formControlName="name">
-            </div>
-            <div class="form-group">
-              <label for="role">Role</label>
-              <input type="text" id="role" class="form-control" placeholder="Software Engineer"
-                     formControlName="role">
-            </div>
-            <div class="form-group">
-              <label for="location">Location</label>
-              <input type="text" id="location" class="form-control" placeholder="New York, USA"
-                     formControlName="location">
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" id="email" class="form-control" placeholder="XwVpP@example.com"
-                     formControlName="email">
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="text" id="phone" class="form-control" placeholder="(123) 456-7890"
-                     formControlName="phone">
-            </div>
-            <div class="form-group">
-              <label for="intro">Intro Text</label>
-              <textarea type="text" id="intro" class="form-control" placeholder="I am a software engineer..."
-                        formControlName="intro" rows="5"></textarea>
-            </div>
           </form>
+
+          <h5 class="my-3">Extra Sections</h5>
+          <div class="accordion w-100" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  References
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <form (ngSubmit)="addReference()">
+                    <div class="row form-wrapper">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" id="name" class="form-control" [(ngModel)]="newReference.name"
+                                 [ngModelOptions]="{standalone: true}">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="company">Company</label>
+                          <input type="text" id="company" class="form-control" [(ngModel)]="newReference.company"
+                                 [ngModelOptions]="{standalone: true}">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="phone">Phone</label>
+                          <input type="text" id="phone" class="form-control" [(ngModel)]="newReference.phone"
+                                 [ngModelOptions]="{standalone: true}">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="text" id="email" class="form-control" [(ngModel)]="newReference.email"
+                                 [ngModelOptions]="{standalone: true}">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <button type="submit" class="btn-1">Add Reference</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div *ngFor="let reference of references; let i = index">
+                    <hr>
+                    <div class="row my-2">
+                      <div class="col-9">
+                        <p>{{reference.name}}</p>
+                      </div>
+                      <div class="col-3">
+                        <button class="btn-3" style="width: fit-content; height: fit-content; padding: 0" (click)="removeReference(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Languages
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <form (ngSubmit)="addLanguage()">
+                    <div class="row form-wrapper">
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="name">Language</label>
+                          <input type="text" id="language" class="form-control" [(ngModel)]="newLanguage.name"
+                                 [ngModelOptions]="{standalone: true}">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="company">Level</label>
+                          <select id="level" class="form-control" [(ngModel)]="newLanguage.level"
+                                  [ngModelOptions]="{standalone: true}">
+                            <option value="Elementary Proficiency">Elementary Proficiency</option>
+                            <option value="Limited Working Proficiency">Limited Working Proficiency</option>
+                            <option value="Full Professional Proficiency">Full Professional Proficiency</option>
+                            <option value="Native or bilingual Proficiency">Native or bilingual Proficiency</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <button type="submit" class="btn-1">Add Language</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div *ngFor="let language of languages; let i = index">
+                    <hr>
+                    <div class="row my-2">
+                      <div class="col-9">
+                        <p>{{language.name}}</p>
+                      </div>
+                      <div class="col-3">
+                        <button class="btn-3" style="width: fit-content; height: fit-content; padding: 0" (click)="removeLanguage(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Interests & Hobbies
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <form (ngSubmit)="addHobby()">
+                    <div class="row form-wrapper">
+                      <div class="col-10">
+                        <div class="form-group">
+                          <label for="name">Interests & Hobbies</label>
+                          <input type="text" id="hobby" class="form-control" [(ngModel)]="newHobby.name"
+                                 [ngModelOptions]="{standalone: true}">
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-group">
+                          <label for="name"></label>
+                          <button type="submit" class="btn-1">+</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div>
+                    <div *ngFor="let hobby of hobbies; let i = index">
+                      <hr>
+                      <div class="row my-2">
+                        <div class="col-9">
+                          <p>{{hobby.name}}</p>
+                        </div>
+                        <div class="col-3">
+                          <button class="btn-3" style="width: fit-content; height: fit-content; padding: 0" (click)="removeHobby(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="my-2">
           <button class="btn-1 mb-2 w-100" (click)="printCV()">Download CV</button>
@@ -108,6 +230,9 @@
           [skills]="resumeForm.get('skills')?.value ? skills : []"
           [certificates]="resumeForm.get('certificates')?.value ? certificates : []"
           [projects]="resumeForm.get('projects')?.value ? projects : []"
+          [languages]="languages.length > 0 ? languages : []"
+          [hobbies]="hobbies.length > 0 ? hobbies : []"
+          [references]="references.length > 0 ? references : []"
           [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template1>
         <app-template2
@@ -118,6 +243,9 @@
           [skills]="resumeForm.get('skills')?.value ? skills : []"
           [certificates]="resumeForm.get('certificates')?.value ? certificates : []"
           [projects]="resumeForm.get('projects')?.value ? projects : []"
+          [languages]="languages.length > 0 ? languages : []"
+          [hobbies]="hobbies.length > 0 ? hobbies : []"
+          [references]="references.length > 0 ? references : []"
           [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template2>
         <app-template3
@@ -128,6 +256,9 @@
           [skills]="resumeForm.get('skills')?.value ? skills : []"
           [certificates]="resumeForm.get('certificates')?.value ? certificates : []"
           [projects]="resumeForm.get('projects')?.value ? projects : []"
+          [languages]="languages.length > 0 ? languages : []"
+          [hobbies]="hobbies.length > 0 ? hobbies : []"
+          [references]="references.length > 0 ? references : []"
           [avatar]="resumeForm.get('avatar')?.value ? avatar : ''"
         ></app-template3>
       </div>

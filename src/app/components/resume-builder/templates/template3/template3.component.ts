@@ -18,5 +18,8 @@ export class Template3Component {
   @Input('projects') projects: any[] = []
   @Input('skills') skills: any[] =[]
   @Input('experiences') experiences: any[] = []
+  @Input('references') references: any[] = []
+  @Input('languages') languages: any[] = []
+  @Input('hobbies') hobbies: any[] = []
   @Input('avatar') avatar: any = ''
 }
