@@ -73,4 +73,50 @@
       <a href="{{p.source}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">Source Code</a>
     </div>
   </section>
+
+  <!-- Languages Section -->
+  <section style="margin-bottom: 30px;" *ngIf="languages.length > 0">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Languages</h2>
+    <div style="margin-bottom: 20px;">
+      <table>
+        <tr *ngFor="let l of languages">
+          <td style="padding-right: 20mm">
+            <ul style="margin-bottom: 0">
+              <li>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 0">{{l.name}}</p>
+              </li>
+            </ul>
+          </td>
+          <td><p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{l.level}}</p></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- Hobbies Section -->
+  <section style="margin-bottom: 30px;" *ngIf="hobbies.length > 0">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Interests & Hobbies</h2>
+    <div style="margin-bottom: 20px;">
+      <ul>
+        <li *ngFor="let h of hobbies">
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{h.name}}</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- References Section -->
+  <section style="margin-bottom: 30px;" *ngIf="references.length > 0">
+    <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">References</h2>
+    <div style="margin-bottom: 20px;" *ngFor="let r of references">
+      <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{r.name}}</h3>
+      <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">{{r.company}}</p>
+      <table>
+        <tr>
+          <td style="padding-right: 5mm"><a href="mailto:{{r.email}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.email}}</a></td>
+          <td><a href="tel:{{r.phone}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.phone}}</a></td>
+        </tr>
+      </table>
+    </div>
+  </section>
 </div>

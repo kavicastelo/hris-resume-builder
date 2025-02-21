@@ -8,7 +8,6 @@ import {StepProjectsComponent} from './step-projects/step-projects.component';
 import {StepSummaryComponent} from './step-summary/step-summary.component';
 import {ResumePreviewComponent} from './resume-preview/resume-preview.component';
 import {StepCertificatesComponent} from './step-certificates/step-certificates.component';
-import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {EmployeeService} from '../../services/employee.service';
@@ -53,6 +52,9 @@ export class ResumeBuilderComponent implements OnInit{
   projects: any[] = [];
   skills: any[] = [];
   experiences: any[] = [];
+  references: any[] = [];
+  languages: any[] = [];
+  hobbies: any[] = [];
   avatar: any;
 
   constructor(private router: Router,
@@ -75,6 +77,9 @@ export class ResumeBuilderComponent implements OnInit{
       this.resumeStorage.saveData('projects', this.projects);
       this.resumeStorage.saveData('certificates', this.certificates);
       this.resumeStorage.saveData('avatar', this.avatar);
+      this.resumeStorage.saveData('references', this.references);
+      this.resumeStorage.saveData('languages', this.languages);
+      this.resumeStorage.saveData('hobbies', this.hobbies);
       this.resumeStorage.saveData('unlocked', false);
     }
   }
