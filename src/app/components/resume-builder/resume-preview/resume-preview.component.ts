@@ -3,7 +3,7 @@ import {Template1Component} from "../templates/template1/template1.component";
 import {ResumeStorageService} from '../../../services/resume-storage.service';
 import {Template2Component} from '../templates/template2/template2.component';
 import {Template3Component} from '../templates/template3/template3.component';
-import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
+import {NgSwitch, NgSwitchCase} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
@@ -13,8 +13,6 @@ import {Router} from '@angular/router';
     Template1Component,
     Template2Component,
     Template3Component,
-    NgForOf,
-    NgIf,
     ReactiveFormsModule,
     NgSwitch,
     NgSwitchCase
@@ -30,6 +28,7 @@ export class ResumePreviewComponent implements OnInit{
   projects: any[] = [];
   skills: any[] = [];
   experiences: any[] = [];
+  avatar: any;
 
   selectedCV = 0;
   resumeForm!: FormGroup;
@@ -62,6 +61,7 @@ export class ResumePreviewComponent implements OnInit{
       this.projects = savedData.projects;
       this.skills = savedData.skills;
       this.experiences = savedData.workExperiences;
+      this.avatar = this.resumeForm.get('avatar')?.value ? savedData.avatar : '';
     }
   }
 
@@ -91,5 +91,9 @@ export class ResumePreviewComponent implements OnInit{
 
   openSupport() {
     this.router.navigate(['/support']);
+  }
+
+  setAvatar() {
+    this.resumeForm.get('avatar')?.setValue(this.avatar);
   }
 }

@@ -1,5 +1,11 @@
 <div class="cv-render" id="cv">
   <div *ngIf="personalInfo">
+    <div class="avatar" *ngIf="avatar">
+      <div class="image-wrapper">
+        <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
+             alt="avatar">
+      </div>
+    </div>
     <h2 class="name">{{personalInfo.firstname + ' ' + personalInfo.lastname}}</h2>
     <h4 class="role">{{personalInfo.occupation}}</h4>
     <p class="contact-info">{{personalInfo.email ? personalInfo.email : ''}} {{personalInfo.phone ? '  |  ' + personalInfo.phone : ''}}</p>

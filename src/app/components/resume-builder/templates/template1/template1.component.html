@@ -1,6 +1,6 @@
 <div class="cv-render" id="cv">
   <!-- Personal Information Section -->
-  <header style="text-align: center; margin-bottom: 30px;">
+  <header style="text-align: center; margin-bottom: 30px;" *ngIf="personalInfo">
     <h1 style="font-size: 2.5rem; margin-bottom: 5px; color: #333;">{{personalInfo.firstname}} {{personalInfo.lastname}}</h1>
     <p style="font-size: 1.1rem; color: #666;">{{personalInfo.occupation}}</p>
     <p style="font-size: 0.9rem; color: #666;">{{personalInfo.bio}}</p>
@@ -12,7 +12,7 @@
   </header>
 
   <!-- Experience Section -->
-  <section style="margin-bottom: 30px;">
+  <section style="margin-bottom: 30px;" *ngIf="experiences">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Experience</h2>
     <div style="margin-bottom: 20px;" *ngFor="let e of experiences">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{e.occupation}} at {{e.organization}}</h3>
@@ -22,7 +22,7 @@
   </section>
 
   <!-- Education Section -->
-  <section style="margin-bottom: 30px;">
+  <section style="margin-bottom: 30px;" *ngIf="education">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Education</h2>
     <div style="margin-bottom: 20px;" *ngFor="let e of education">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{e.degree}} at {{e.school}}</h3>
@@ -32,7 +32,7 @@
   </section>
 
   <!-- Skills Section -->
-  <section style="margin-bottom: 30px;">
+  <section style="margin-bottom: 30px;" *ngIf="skills">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Skills</h2>
     <div class="row">
       <div class="col-md-6" style="margin-bottom: 10px;" *ngFor="let s of skills">
@@ -45,7 +45,7 @@
   </section>
 
   <!-- Certificates Section -->
-  <section style="margin-bottom: 30px;">
+  <section style="margin-bottom: 30px;" *ngIf="certificates">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Certificates</h2>
     <div style="margin-bottom: 20px;" *ngFor="let c of certificates">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{c.name}}</h3>
@@ -55,7 +55,7 @@
   </section>
 
   <!-- Projects Section -->
-  <section style="margin-bottom: 30px;">
+  <section style="margin-bottom: 30px;" *ngIf="projects">
     <h2 style="font-size: 1.8rem; color: #333; border-bottom: 2px solid #333; padding-bottom: 5px;">Projects</h2>
     <div style="margin-bottom: 20px;" *ngFor="let p of projects">
       <h3 style="font-size: 1.4rem; margin-bottom: 5px; color: #555;">{{p.name}} at {{p.company}}</h3>

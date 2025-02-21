@@ -1,17 +1,20 @@
-.cv-render{
+.wrapper{
   display: flex;
   margin: 0;
   padding: 0;
+  width: 210mm;
 }
 .left-column {
-  flex: 1;
+  width: 33%;
+  //flex: 1;
   background-color: #007bff;
   color: #fff;
   padding: 20px;
   border-radius: 8px 0 0 8px;
 }
 .right-column {
-  flex: 2;
+  width: 66%;
+  //flex: 2;
   padding: 20px;
 }
 h1 {

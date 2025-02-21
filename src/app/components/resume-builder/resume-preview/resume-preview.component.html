@@ -6,7 +6,7 @@
           <form [formGroup]="resumeForm">
             <h5>Appearance</h5>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar">
+              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar" (selectionchange)="setAvatar()">
               <label class="form-check-label" for="avatar">
                 Avatar
               </label>
@@ -120,6 +120,7 @@
           [skills]="skills"
           [certificates]="certificates"
           [projects]="projects"
+          [avatar]="avatar"
         ></app-template3>
       </div>
     </div>

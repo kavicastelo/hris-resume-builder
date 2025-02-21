@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ResumeStorageService} from '../../../services/resume-storage.service';
 import {FormsModule} from '@angular/forms';
+import {AlertsService} from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-step-personal-info',
@@ -22,7 +23,7 @@ export class StepPersonalInfoComponent implements OnInit{
     bio: ''
   };
 
-  constructor(private resumeStorage: ResumeStorageService) {}
+  constructor(private resumeStorage: ResumeStorageService, private alertService: AlertsService) {}
 
   ngOnInit(): void {
     const savedData = this.resumeStorage.getData();
@@ -32,6 +33,9 @@ export class StepPersonalInfoComponent implements OnInit{
   }
 
   saveData(): void {
-    this.resumeStorage.saveData('personalInfo', this.personalInfo);
+    if (this.personalInfo.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      this.resumeStorage.saveData('personalInfo', this.personalInfo);
+    }
+    this.alertService.errorMessage('Please enter a valid email address', 'Error');
   }
 }
