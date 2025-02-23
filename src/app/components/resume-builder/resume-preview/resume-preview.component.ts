@@ -135,7 +135,7 @@ export class ResumePreviewComponent implements OnInit{
         window.print();
       }
     } else {
-      this.router.navigate(['/sign/in']);
+      this.router.navigate(['/sign/up']);
     }
   }
 

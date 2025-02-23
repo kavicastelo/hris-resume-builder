@@ -33,7 +33,7 @@ export class StepPersonalInfoComponent implements OnInit{
   }
 
   saveData(): void {
-    if (this.isValidEmail(this.personalInfo.email) && this.personalInfo.email) {
+    if (this.isValidEmail(this.personalInfo.email) && this.personalInfo.email && this.personalInfo.firstname) {
       this.resumeStorage.saveData('personalInfo', this.personalInfo);
     } else {
       this.alertService.errorMessage('Please enter a valid email address', 'Error');

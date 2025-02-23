@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,19 @@ export class CommonService {
       link: data.link,
       message: data.message
     }, {headers});
+  }
+
+  subscribeNewsLatter(email: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('admin:password')
+    });
+    return this.http.put(`${this.apiUrl}/news-latter/subscribe`, {email: email}, {headers});
+  }
+
+  sendWelcomeEmail(email: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('admin:password')
+    });
+    return this.http.put(`${this.apiUrl}/email/send-welcome-cv`, {email: email}, {headers});
   }
 }

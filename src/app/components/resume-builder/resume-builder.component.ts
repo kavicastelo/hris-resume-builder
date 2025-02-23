@@ -35,6 +35,7 @@ export class ResumeBuilderComponent implements OnInit{
   currentStep = 0;
   steps = [0, 1, 2, 3, 4, 5, 6, 7];
 
+  replaced: any;
   cookieId: any;
   employeeId: any;
   employee: any;
@@ -68,14 +69,27 @@ export class ResumeBuilderComponent implements OnInit{
     this.cookieId = this.cookieService.userID();
     this.route.queryParamMap.subscribe(params => {
       this.employeeId = params.get('id');
+      this.replaced = params.get('replaced');
     });
     if (this.cookieId && !this.employeeId) {
       this.getEmployee(this.cookieId);
       this.router.navigate(['/resume-builder'], {queryParams: {id: this.cookieId}});
-    }
-    if (this.employeeId) {
+    } else if (this.employeeId) {
       this.getEmployee(this.employeeId);
     } else {
+      const savedData = this.resumeStorage.getData();
+      if (savedData) {
+        this.personalInfo = savedData.personalInfo;
+        this.experiences = savedData.workExperiences;
+        this.education = savedData.educations;
+        this.skills = savedData.skills;
+        this.projects = savedData.projects;
+        this.certificates = savedData.certificates;
+        this.avatar = savedData.avatar;
+        this.references = savedData.references;
+        this.languages = savedData.languages;
+        this.hobbies = savedData.hobbies;
+      }
       this.resumeStorage.saveData('personalInfo', this.personalInfo);
       this.resumeStorage.saveData('workExperiences', this.experiences);
       this.resumeStorage.saveData('educations', this.education);
@@ -159,14 +173,16 @@ export class ResumeBuilderComponent implements OnInit{
       this.avatar = this.employee?.employee?.image || '';
 
       // Saving Mapped Data to Local Storage
-      this.resumeStorage.saveData('personalInfo', this.personalInfo);
-      this.resumeStorage.saveData('workExperiences', this.experiences);
-      this.resumeStorage.saveData('educations', this.education);
-      this.resumeStorage.saveData('skills', this.skills);
-      this.resumeStorage.saveData('projects', this.projects);
-      this.resumeStorage.saveData('certificates', this.certificates);
-      this.resumeStorage.saveData('avatar', this.avatar);
-      this.resumeStorage.saveData('unlocked', true);
+      if (this.replaced){
+        this.resumeStorage.saveData('personalInfo', this.personalInfo);
+        this.resumeStorage.saveData('workExperiences', this.experiences);
+        this.resumeStorage.saveData('educations', this.education);
+        this.resumeStorage.saveData('skills', this.skills);
+        this.resumeStorage.saveData('projects', this.projects);
+        this.resumeStorage.saveData('certificates', this.certificates);
+        this.resumeStorage.saveData('avatar', this.avatar);
+        this.resumeStorage.saveData('unlocked', true);
+      }
     });
   }
 

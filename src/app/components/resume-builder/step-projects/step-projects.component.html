@@ -5,7 +5,7 @@
     <div class="row form-wrapper">
       <div class="col-12">
         <div class="form-group">
-          <label for="PName">Project Title</label>
+          <label for="PName">Project Title *</label>
           <input type="text" class="form-control" id="PName" [(ngModel)]="newProject.name"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="PRole">Your Role</label>
+          <label for="PRole">Your Role *</label>
           <input type="text" class="form-control" id="PRole" [(ngModel)]="newProject.role"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
