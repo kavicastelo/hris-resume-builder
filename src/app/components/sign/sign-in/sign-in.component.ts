@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import {ThemeService} from '../../../services/theme.service';
+import {AfterViewInit, Component} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
 import {AlertsService} from '../../../services/alerts.service';
 import {NgClass} from '@angular/common';
+import {CredentialService} from '../../../services/credential.service';
+import {EncryptionService} from '../../../services/encryption.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +18,7 @@ import {NgClass} from '@angular/common';
   styleUrl: './sign-in.component.scss',
   standalone: true
 })
-export class SignInComponent {
+export class SignInComponent implements AfterViewInit{
 
   attempts = 4;
   disabled: boolean = false;
@@ -32,23 +33,10 @@ export class SignInComponent {
 
   constructor(
     private router: Router,
-    // private credentialService: CredentialService,
-    // private googleAuthService: GoogleAuthService,
-    // private gitHubAuthService: GitHubAuthService,
-    // private facebookAuthService: FacebookAuthService,
-    // private linkedInAuthService: LinkedInAuthService,
-    // private socialAuthService: SocialAuthApiService,
-    // private encryptionService: EncryptionService,
+    private credentialService: CredentialService,
+    private encryptionService: EncryptionService,
     private cookieService: AuthService,
-    public themeService: ThemeService,
     private alertService: AlertsService) { }
-
-  ngOnInit() {
-    // this.googleAuthService.configureOAuth();
-    // this.gitHubAuthService.handleRedirectCallback();
-    // this.facebookAuthService.initializeFacebookSdk().then(r => {});
-    // this.linkedInAuthService.initializeLinkedInSdk().then(r => {});
-  }
 
   ngAfterViewInit() {
     const icons = document.querySelectorAll('.material-icons');
@@ -80,80 +68,45 @@ export class SignInComponent {
       }
 
       const formData = this.loginForm.value;
-      // this.credentialService.fetchCredentialByEmail(formData.email).subscribe(async (response: any) => {
-      //   if (!response) {
-      //     this.alertService.errorMessage('User doesn\'t exist or something went wrong', 'Error');
-      //     return;
-      //   }
-      //
-      //   const encryptedPassword = await this.encryptionService.decryptPassword(response.password?.toString());
-      //
-      //   if (sessionStorage.getItem('LgnAtT') != '0'){
-      //     if (formData.password == encryptedPassword) {
-      //       this.cookieService.createSession(response);
-      //
-      //       if (this.loginForm.get('remember')?.value) {
-      //         localStorage.setItem('email', <string>this.loginForm.get('email')?.value);
-      //         localStorage.setItem('password', <string>this.loginForm.get('password')?.value);
-      //       } else {
-      //         localStorage.removeItem('email');
-      //         localStorage.removeItem('password');
-      //       }
-      //
-      //       if (response.role === 'candidate') {
-      //         this.cookieService.createUserID(response.employeeId);
-      //         this.cookieService.createLevel(response.userLevel);
-      //         this.cookieService.unlock();
-      //         this.router.navigate(['/candidate-profile']);
-      //         this.alertService.successMessage('Login successful', 'Success');
-      //       } else if (response.role === 'employer') {
-      //         if (response.userLevel === "2") {
-      //           this.cookieService.createUserID(response.employeeId);
-      //           this.cookieService.createAdmin(response.email);
-      //           this.cookieService.createOrganizationID(response.companyId);
-      //           this.cookieService.createLevel(response.userLevel);
-      //           this.cookieService.unlock();
-      //           this.router.navigate(['/dashboard']);
-      //         }
-      //         else if (response.userLevel === "3") {
-      //           this.cookieService.createUserID(response.employeeId);
-      //           this.cookieService.createProAdmin(response.email);
-      //           this.cookieService.createOrganizationID(response.companyId);
-      //           this.cookieService.createLevel(response.userLevel);
-      //           this.cookieService.unlock();
-      //           this.router.navigate(['/pro']);
-      //         }
-      //       }
-      //     } else {
-      //       this.alertService.errorMessage('Wrong password', 'Error');
-      //     }
-      //   } else {
-      //     this.alertService.errorMessage('Too many attempts! Try again in 5 minutes', 'Warning');
-      //   }
-      //
-      // }, error => {
-      //   this.alertService.errorMessage('Something went wrong', 'Error');
-      // });
+      this.credentialService.fetchCredentialByEmail(formData.email).subscribe(async (response: any) => {
+        if (!response) {
+          this.alertService.errorMessage('User doesn\'t exist or something went wrong', 'Error');
+          return;
+        }
+
+        const encryptedPassword = await this.encryptionService.decryptPassword(response.password?.toString());
+
+        if (sessionStorage.getItem('LgnAtT') != '0'){
+          if (formData.password == encryptedPassword) {
+            this.cookieService.createSession(response);
+
+            if (this.loginForm.get('remember')?.value) {
+              localStorage.setItem('email', <string>this.loginForm.get('email')?.value);
+              localStorage.setItem('password', <string>this.loginForm.get('password')?.value);
+            } else {
+              localStorage.removeItem('email');
+              localStorage.removeItem('password');
+            }
+
+            this.cookieService.createUserID(response.employeeId);
+            this.cookieService.unlock();
+            this.router.navigate(['/builder'], {queryParams: {id: response.employeeId}});
+            this.alertService.successMessage('Login successful', 'Success');
+            window.location.reload();
+          } else {
+            this.alertService.errorMessage('Wrong password', 'Error');
+          }
+        } else {
+          this.alertService.errorMessage('Too many attempts! Try again in 5 minutes', 'Warning');
+        }
+
+      }, error => {
+        this.alertService.errorMessage('Something went wrong', 'Error');
+      });
     } else {
       this.alertService.errorMessage('Form is not valid', 'Error');
     }
   }
-
-  // loginWithGoogle(): void {
-  //   this.googleAuthService.loginWithGoogle();
-  // }
-  //
-  // loginWithGithub() {
-  //   this.gitHubAuthService.loginWithGitHub();
-  // }
-  //
-  // loginWithLinkedin() {
-  //   this.linkedInAuthService.loginWithLinkedIn();
-  // }
-  //
-  // loginWithFacebook() {
-  //   this.facebookAuthService.loginWithFacebook();
-  // }
 
   togglePasswordVisibility(){
     const input: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
