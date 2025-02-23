@@ -46,9 +46,55 @@
       <div class="location">{{p.company}} {{' - '+p.role}}</div>
       <div class="sm-text" *ngIf="p.source">Source: {{p.source}}</div>
       <div class="sm-text" *ngIf="p.demo">Demo: {{p.demo}}</div>
-      <div class="mb-2"></div>
+      <div class="mb-2">{{p.description}}</div>
     </div>
   </div>
+
+  <!-- Languages Section -->
+  <section class="languages" *ngIf="languages.length > 0">
+    <h5>Languages</h5>
+    <div style="margin-bottom: 20px;">
+      <table>
+        <tr *ngFor="let l of languages">
+          <td style="padding-right: 20mm">
+            <ul style="margin-bottom: 0">
+              <li>
+                <p>{{l.name}}</p>
+              </li>
+            </ul>
+          </td>
+          <td><p>{{l.level}}</p></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- Hobbies Section -->
+  <section class="hobbies" *ngIf="hobbies.length > 0">
+    <h5>Interests & Hobbies</h5>
+    <div style="margin-bottom: 20px;">
+      <ul>
+        <li *ngFor="let h of hobbies">
+          <p>{{h.name}}</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- References Section -->
+  <section class="references" *ngIf="references.length > 0">
+    <h5>References</h5>
+    <div style="margin-bottom: 20px;" *ngFor="let r of references">
+      <div class="name">{{r.name}}</div>
+      <p style="margin-bottom: 0">{{r.company}}</p>
+      <table>
+        <tr>
+          <td style="padding-right: 5mm"><a href="mailto:{{r.email}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.email}}</a></td>
+          <td><a href="tel:{{r.phone}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.phone}}</a></td>
+        </tr>
+      </table>
+    </div>
+  </section>
 
   <div class="certificates" *ngIf="certificates.length > 0">
     <h5>Certifications</h5>
@@ -62,7 +108,7 @@
           </div>
           <div class="d-flex flex-column align-items-end justify-content-end w-100 gap-2">
             <div class="view">
-              <a href="{{ec.certificateUrl}}">{{ec.certificateUrl}}</a>
+              <a href="{{ec.certificateUrl}}">View Certificate</a>
             </div>
             <div class="id">{{ec.certificateId}}</div>
           </div>
