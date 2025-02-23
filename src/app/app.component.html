@@ -5,7 +5,12 @@
       <div class="logo" (click)="goHome()">
         <img [src]="themeService.isDarkMode() ? '/imgs/top-w.webp' : '/imgs/top-b.webp'" alt="logo" loading="lazy" width="200">
       </div>
-      <a href="https://talentboozt.com" target="_blank">Job Portal</a>
+      <div class="d-flex align-items-center gap-2">
+        <a href="https://talentboozt.com" target="_blank">Job Portal</a>
+        <div *ngIf="is_logged_in">
+          <i class="material-icons" (click)="logout()">exit_to_app</i>
+        </div>
+      </div>
     </div>
     <router-outlet/>
     <app-footer></app-footer>
