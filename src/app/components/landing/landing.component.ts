@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Meta, Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   standalone: true,
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
