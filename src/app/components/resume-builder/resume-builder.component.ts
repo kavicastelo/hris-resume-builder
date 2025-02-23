@@ -35,6 +35,7 @@ export class ResumeBuilderComponent implements OnInit{
   currentStep = 0;
   steps = [0, 1, 2, 3, 4, 5, 6, 7];
 
+  cookieId: any;
   employeeId: any;
   employee: any;
 
@@ -64,9 +65,14 @@ export class ResumeBuilderComponent implements OnInit{
               private employeeService: EmployeeService){}
 
   ngOnInit(): void {
+    this.cookieId = this.cookieService.userID();
     this.route.queryParamMap.subscribe(params => {
       this.employeeId = params.get('id');
     });
+    if (this.cookieId && !this.employeeId) {
+      this.getEmployee(this.cookieId);
+      this.router.navigate(['/resume-builder'], {queryParams: {id: this.cookieId}});
+    }
     if (this.employeeId) {
       this.getEmployee(this.employeeId);
     } else {
