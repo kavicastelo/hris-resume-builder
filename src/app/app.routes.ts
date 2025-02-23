@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: 'support', component: SupportComponent },
   { path: 'resume-builder', loadComponent: () => import('./components/resume-builder/resume-builder.component').then(m => m.ResumeBuilderComponent) },
   { path: 'sign', loadComponent: () => import('./components/sign/sign.component').then(m => m.SignComponent), children: [
-    { path: '', redirectTo: '/sign/in', pathMatch: 'full' },
+    { path: '', redirectTo: '/sign/up', pathMatch: 'full' },
     { path: 'in', loadComponent: () => import('./components/sign/sign-in/sign-in.component').then(m => m.SignInComponent) },
     { path: 'up', loadComponent: () => import('./components/sign/sign-up/sign-up.component').then(m => m.SignUpComponent) }
   ]},

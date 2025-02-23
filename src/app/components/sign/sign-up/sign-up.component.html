@@ -24,13 +24,19 @@
         </div>
 
         <div class="col-12">
-          <div class="d-sm-flex align-items-center justify-content-between">
+          <div class="d-sm-flex flex-column align-items-start justify-content-between">
             <div class="form-check">
               <input class="form-check-input me-2" type="checkbox" formControlName="termsCheck" id="termsCheck">
               <label class="form-check-label" for="termsCheck">
                 I accept <a href="https://talentboozt.com/terms-and-conditions">Terms and Conditions</a>
               </label>
               <div class="error-msg">{{termsErrorMsg}}</div>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input me-2" type="checkbox" formControlName="newsCheck" id="newsCheck">
+              <label class="form-check-label" for="newsCheck">
+                I would like to receive Job notifications from Talent Boozt
+              </label>
             </div>
           </div>
         </div>

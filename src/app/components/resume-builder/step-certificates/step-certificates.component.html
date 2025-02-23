@@ -5,28 +5,28 @@
     <div class="row form-wrapper">
       <div class="col-12">
         <div class="form-group">
-          <label for="CName">Certification Name</label>
+          <label for="CName">Certification Name *</label>
           <input type="text" class="form-control" id="CName" [(ngModel)]="newCertificate.name"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
       </div>
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="COrg">Organization</label>
+          <label for="COrg">Organization *</label>
           <input type="text" class="form-control" id="COrg" [(ngModel)]="newCertificate.organization"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
       </div>
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="CDate">Date</label>
+          <label for="CDate">Date *</label>
           <input type="text" placeholder="2023 Feb" class="form-control" id="CDate" [(ngModel)]="newCertificate.date"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
       </div>
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="CCID">Certificate ID</label>
+          <label for="CCID">Certificate ID *</label>
           <input type="text" class="form-control" id="CCID" [(ngModel)]="newCertificate.certificateId"
                  [ngModelOptions]="{standalone: true}" required>
         </div>

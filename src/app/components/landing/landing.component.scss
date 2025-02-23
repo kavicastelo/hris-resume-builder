@@ -234,12 +234,12 @@
     .top-left-layer{
       top: 0;
       left: 0;
-      transform: translate(-50%, -50%) rotate(45deg);
+      transform: translate(-50%, -70%) rotate(45deg);
     }
     .bottom-right-layer{
       bottom: 0;
       right: 0;
-      transform: translate(50%, 50%) rotate(45deg);
+      transform: translate(50%, 70%) rotate(45deg);
     }
   }
 
