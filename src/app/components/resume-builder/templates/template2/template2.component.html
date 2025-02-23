@@ -81,6 +81,52 @@
           <a href="{{p.source}}">Source Code</a>
         </div>
       </section>
+
+      <!-- Languages Section -->
+      <section style="margin-bottom: 30px;" *ngIf="languages.length > 0">
+        <h2>Languages</h2>
+        <div style="margin-bottom: 20px;">
+          <table>
+            <tr *ngFor="let l of languages">
+              <td style="padding-right: 20mm">
+                <ul style="margin-bottom: 0">
+                  <li>
+                    <p>{{l.name}}</p>
+                  </li>
+                </ul>
+              </td>
+              <td><p>{{l.level}}</p></td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- Hobbies Section -->
+      <section style="margin-bottom: 30px;" *ngIf="hobbies.length > 0">
+        <h2>Interests & Hobbies</h2>
+        <div style="margin-bottom: 20px;">
+          <ul>
+            <li *ngFor="let h of hobbies">
+              <p>{{h.name}}</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- References Section -->
+      <section style="margin-bottom: 30px;" *ngIf="references.length > 0">
+        <h2>References</h2>
+        <div style="margin-bottom: 20px;" *ngFor="let r of references">
+          <h3>{{r.name}}</h3>
+          <p>{{r.company}}</p>
+          <table>
+            <tr>
+              <td style="padding-right: 5mm"><a href="mailto:{{r.email}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.email}}</a></td>
+              <td><a href="tel:{{r.phone}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.phone}}</a></td>
+            </tr>
+          </table>
+        </div>
+      </section>
     </div>
   </div>
 </div>
