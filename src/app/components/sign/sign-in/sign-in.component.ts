@@ -90,9 +90,11 @@ export class SignInComponent implements AfterViewInit{
 
             this.cookieService.createUserID(response.employeeId);
             this.cookieService.unlock();
-            this.router.navigate(['/builder'], {queryParams: {id: response.employeeId}});
+            this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId}});
             this.alertService.successMessage('Login successful', 'Success');
-            window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           } else {
             this.alertService.errorMessage('Wrong password', 'Error');
           }

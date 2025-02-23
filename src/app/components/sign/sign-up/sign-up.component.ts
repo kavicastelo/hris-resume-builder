@@ -79,9 +79,11 @@ export class SignUpComponent implements AfterViewInit{
             return;
           }
           this.cookieService.createUserID(response.employeeId);
-          this.router.navigate(['/builder'], {queryParams: {id: response.employeeId}});
+          this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId}});
           this.alertService.successMessage('User registered successfully', 'Success');
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }, error => {
           this.alertService.errorMessage('User already exists or an unexpected error has occurred', 'Unexpected Error');
         });
