@@ -5,7 +5,8 @@ import {Template2Component} from '../templates/template2/template2.component';
 import {Template3Component} from '../templates/template3/template3.component';
 import {NgForOf, NgSwitch, NgSwitchCase} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-resume-preview',
@@ -55,8 +56,14 @@ export class ResumePreviewComponent implements OnInit{
     name: ''
   }
 
+  hasId: boolean = false;
+  hasCookie: boolean = false;
 
-  constructor(private resumeStorage: ResumeStorageService, private fb: FormBuilder, private router: Router) {
+  constructor(private resumeStorage: ResumeStorageService,
+              private fb: FormBuilder,
+              private cookieService: AuthService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.resumeForm = this.fb.group({
       personalInfo: [true],
       experiences: [true],
@@ -96,6 +103,12 @@ export class ResumePreviewComponent implements OnInit{
         this.resumeForm.get('avatar')?.enable();
       }
     }
+
+    this.route.queryParamMap.subscribe(params => {
+      this.hasId = params.get('id') !== null;
+    })
+
+    this.hasCookie = this.cookieService.isExists();
   }
 
   chooseCV() {
@@ -116,9 +129,13 @@ export class ResumePreviewComponent implements OnInit{
   }
 
   printCV() {
-    const content = document.getElementById('cv');
-    if (content) {
-      window.print();
+    if (this.hasId || this.hasCookie) {
+      const content = document.getElementById('cv');
+      if (content) {
+        window.print();
+      }
+    } else {
+      this.router.navigate(['/sign/in']);
     }
   }
 
