@@ -7,6 +7,12 @@
   flex-direction: column;
   padding: 20px 8px;
 
+  .title{
+    font-size: max(28px, 3.6vw);
+    font-weight: 700;
+    color: var(--color-text-100);
+  }
+
   a{
     text-decoration: none;
     color: var(--color-primary-200);
