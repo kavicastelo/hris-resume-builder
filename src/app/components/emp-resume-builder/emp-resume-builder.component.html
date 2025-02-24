@@ -1,162 +1,44 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-md-4 col-lg-3">
-      <div class="customization form-card-1">
-        <div class="form-wrapper">
-          <form [formGroup]="resumeForm">
-            <h5>Appearance</h5>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="avatar" formControlName="avatar">
-              <label class="form-check-label" for="avatar">
-                Avatar
-              </label>
-            </div>
-
-            <h5 class="my-2">Personal Details</h5>
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" placeholder="John Doe"
-                     formControlName="name">
-            </div>
-            <div class="form-group">
-              <label for="role">Role</label>
-              <input type="text" id="role" class="form-control" placeholder="Software Engineer"
-                     formControlName="role">
-            </div>
-            <div class="form-group">
-              <label for="location">Location</label>
-              <input type="text" id="location" class="form-control" placeholder="New York, USA"
-                     formControlName="location">
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" id="email" class="form-control" placeholder="XwVpP@example.com"
-                     formControlName="email">
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="text" id="phone" class="form-control" placeholder="(123) 456-7890"
-                     formControlName="phone">
-            </div>
-            <div class="form-group">
-              <label for="intro">Intro Text</label>
-              <textarea type="text" id="intro" class="form-control" placeholder="I am a software engineer..."
-                        formControlName="intro" rows="5"></textarea>
-            </div>
-
-            <h5 class="my-2">Sections</h5>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="experiences" formControlName="experiences">
-              <label class="form-check-label" for="experiences">
-                Work Experience
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="education" formControlName="educations">
-              <label class="form-check-label" for="education">
-                Education
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="skills" formControlName="skills">
-              <label class="form-check-label" for="skills">
-                Skills
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="projects" formControlName="projects">
-              <label class="form-check-label" for="projects">
-                Projects
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="certifications" formControlName="certificates">
-              <label class="form-check-label" for="certifications">
-                Certifications
-              </label>
-            </div>
-          </form>
-        </div>
-        <div class="my-2">
-          <button class="btn-1 mb-2 w-100" (click)="printCV()">Download CV</button>
-          <button class="btn-1 w-100" (click)="openSupport()">Professional Support</button>
-        </div>
-      </div>
+<div style="position: relative;">
+  <div class="container" style="max-width: 233mm;">
+    <div [ngSwitch]="selectedCV">
+      <app-template1
+        *ngSwitchCase="0"
+        [personalInfo]="personalInfo ? personalInfo : {}"
+        [experiences]="experiences ? experiences : []"
+        [education]="education ? education : []"
+        [skills]="skills ? skills : []"
+        [certificates]="certificates ? certificates : []"
+        [projects]="projects ? projects : []"
+        [avatar]="avatar ? avatar : ''"
+      ></app-template1>
+      <app-template2
+        *ngSwitchCase="1"
+        [personalInfo]="personalInfo ? personalInfo : {}"
+        [experiences]="experiences ? experiences : []"
+        [education]="education ? education : []"
+        [skills]="skills ? skills : []"
+        [certificates]="certificates ? certificates : []"
+        [projects]="projects ? projects : []"
+        [avatar]="avatar ? avatar : ''"
+      ></app-template2>
+      <app-template3
+        *ngSwitchCase="2"
+        [personalInfo]="personalInfo ? personalInfo : {}"
+        [experiences]="experiences ? experiences : []"
+        [education]="education ? education : []"
+        [skills]="skills ? skills : []"
+        [certificates]="certificates ? certificates : []"
+        [projects]="projects ? projects : []"
+        [avatar]="avatar ? avatar : ''"
+      ></app-template3>
     </div>
-    <div class="col-12 col-md-8 col-lg-9">
-      <div class="cv-render" id="cv">
-        <div>
-          <div class="avatar" *ngIf="resumeForm.get('avatar')?.value">
-            <div class="image-wrapper">
-              <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
-                   alt="avatar">
-            </div>
-          </div>
-          <h2 class="name">{{resumeForm.get('name')?.value}}</h2>
-          <h4 class="role">{{resumeForm.get('role')?.value}}</h4>
-          <p class="contact-info">{{resumeForm.get('location')?.value}} {{resumeForm.get('email')?.value ? '  |  ' + resumeForm.get('email')?.value : ''}} {{resumeForm.get('phone')?.value ? '  |  ' + resumeForm.get('phone')?.value : ''}} {{website ? '  |  ' + website : ''}}</p>
-          <p class="intro">{{resumeForm.get('intro')?.value}}</p>
-        </div>
 
-        <div class="experiences" *ngIf="resumeForm?.get('experiences')?.value">
-          <h5>Work Experience</h5>
-          <div *ngFor="let e of experiences; index as i">
-            <div class="company">{{e.company}}</div>
-            <div class="position">{{e.position + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
-            <div class="description">{{e?.description || ''}}</div>
-          </div>
-        </div>
-
-        <div class="educations" *ngIf="resumeForm?.get('educations')?.value">
-          <h5>Education</h5>
-          <div *ngFor="let e of educations; index as i">
-            <div class="degree">{{e.degree + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
-            <div class="institution">{{e.school + '  |  ' + e?.country}}</div>
-            <div class="description">{{e?.description || ''}}</div>
-          </div>
-        </div>
-
-        <div class="skills" *ngIf="resumeForm?.get('skills')?.value">
-          <h5>Skills</h5>
-          <div class="skills-wrapper">
-            <div class="skill" *ngFor="let s of skills; index as i">
-              {{s.skill}}
-            </div>
-          </div>
-        </div>
-
-        <div class="projects" *ngIf="resumeForm.get('projects')?.value">
-          <h5>Projects</h5>
-          <div class="project" *ngFor="let p of projects; index as i">
-            <div class="name">{{p.title + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
-            <div class="location">{{p.company}} {{' - '+p.role}}</div>
-            <div class="sm-text" *ngIf="p.source">Source: {{p.source}}</div>
-            <div class="sm-text" *ngIf="p.demo">Demo: {{p.demo}}</div>
-            <div class="mb-2"></div>
-          </div>
-        </div>
-
-        <div class="certificates" *ngIf="resumeForm.get('certificates')?.value">
-          <h5>Certifications</h5>
-          <div class="row">
-            <div class="col-12" *ngFor="let ec of employee.empCertificates[0].certificates">
-              <div class="certificate">
-                <div class="d-flex flex-column align-items-start justify-content-start w-100 gap-2 mb-3">
-                  <div class="organization">{{ec.organization}}</div>
-                  <div class="title">{{ec.name}}</div>
-                  <div class="date">{{ec.date}}</div>
-                </div>
-                <div class="d-flex flex-column align-items-end justify-content-end w-100 gap-2">
-                  <div class="view">
-                    <a href="{{ec.certificateUrl}}">{{ec.certificateUrl}}</a>
-                  </div>
-                  <div class="id">{{ec.certificateId}}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="loading" *ngIf="loading">
+      <div class="loader"></div>
     </div>
+  </div>
+
+  <div class="download-cv" (click)="printCV()">
+    <i class="material-icons">download</i>
   </div>
 </div>

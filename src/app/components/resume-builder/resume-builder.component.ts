@@ -36,6 +36,7 @@ export class ResumeBuilderComponent implements OnInit{
   steps = [0, 1, 2, 3, 4, 5, 6, 7];
 
   replaced: any;
+  viewPage: any;
   cookieId: any;
   employeeId: any;
   employee: any;
@@ -70,6 +71,7 @@ export class ResumeBuilderComponent implements OnInit{
     this.route.queryParamMap.subscribe(params => {
       this.employeeId = params.get('id');
       this.replaced = params.get('replaced');
+      this.viewPage = params.get('view');
     });
     if (this.cookieId && !this.employeeId) {
       this.getEmployee(this.cookieId);
@@ -101,6 +103,9 @@ export class ResumeBuilderComponent implements OnInit{
       this.resumeStorage.saveData('languages', this.languages);
       this.resumeStorage.saveData('hobbies', this.hobbies);
       this.resumeStorage.saveData('unlocked', false);
+    }
+    if (this.viewPage === '8'){
+      this.currentStep = 7;
     }
   }
 
