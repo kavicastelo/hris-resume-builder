@@ -89,7 +89,7 @@ export class SignUpComponent implements AfterViewInit{
           }
           this.cookieService.createUserID(response.employeeId);
           this.commonService.sendWelcomeEmail(email).subscribe();
-          this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId}});
+          this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId, view: 8}});
           this.alertService.successMessage('User registered successfully', 'Success');
           setTimeout(() => {
             window.location.reload();

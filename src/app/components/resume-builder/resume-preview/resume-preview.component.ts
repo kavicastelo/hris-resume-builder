@@ -3,7 +3,7 @@ import {Template1Component} from "../templates/template1/template1.component";
 import {ResumeStorageService} from '../../../services/resume-storage.service';
 import {Template2Component} from '../templates/template2/template2.component';
 import {Template3Component} from '../templates/template3/template3.component';
-import {NgForOf, NgSwitch, NgSwitchCase} from '@angular/common';
+import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
@@ -18,7 +18,8 @@ import {AuthService} from '../../../services/auth.service';
     NgSwitch,
     NgSwitchCase,
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './resume-preview.component.html',
   styleUrl: './resume-preview.component.scss',
@@ -58,6 +59,9 @@ export class ResumePreviewComponent implements OnInit{
 
   hasId: boolean = false;
   hasCookie: boolean = false;
+  cookieId: any;
+
+  reloadBtn: boolean = true;
 
   constructor(private resumeStorage: ResumeStorageService,
               private fb: FormBuilder,
@@ -102,6 +106,10 @@ export class ResumePreviewComponent implements OnInit{
         this.locked = false;
         this.resumeForm.get('avatar')?.enable();
       }
+
+      if (this.personalInfo?.firstname && this.personalInfo?.email){
+        this.reloadBtn = false;
+      }
     }
 
     this.route.queryParamMap.subscribe(params => {
@@ -137,6 +145,19 @@ export class ResumePreviewComponent implements OnInit{
     } else {
       this.router.navigate(['/sign/up']);
     }
+  }
+
+  reload(){
+    setInterval(()=>{
+      window.location.reload();
+    }, 200)
+  }
+
+  addPersonalInfo(){
+    this.router.navigate(['/resume-builder']);
+    setInterval(()=>{
+      window.location.reload();
+    }, 200)
   }
 
   openSupport() {

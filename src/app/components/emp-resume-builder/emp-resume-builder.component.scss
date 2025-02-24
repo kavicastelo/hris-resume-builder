@@ -1,144 +1,53 @@
-.customization{
-  .form-check{
-    .form-check-input{
-      width: auto;
-      margin-right: 4px;
-    }
+.download-cv{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--color-primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  i{
+    color: white;
+    font-size: 24px;
+  }
+
+  &:hover{
+    background-color: var(--color-primary-200);
   }
 }
 
-.cv-render{
-  width: 210mm; /* A4 width */
-  min-height: 297mm; /* A4 height */
-  padding: 20mm;
-  margin: max(30px, 5vw) auto;
-  background-color: var(--color-surface-200);
-  -webkit-box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
-  -moz-box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
-  box-shadow: 0 4px 6px -8px var(--color-box-shadow-100);
-  font-family: Arial, sans-serif;
+.loading{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
 
-  .avatar{
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    .image-wrapper{
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      overflow: hidden;
-
-      img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
+  .loader{
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 4px solid var(--color-primary-100);
+    border-top: 4px solid transparent;
+    animation: spinner 1s linear infinite;
   }
 
-  .name{
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  .role{
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  .contact-info{
-    color: var(--color-text-300);
-    font-size: 18px;
-  }
-  .intro{
-    text-align: justify;
-  }
-
-  .experiences, .educations, .skills, .projects, .certificates{
-    margin: 16px 0;
-    h5{
-      font-size: 16px;
-      margin: 20px 0;
-      font-weight: 600;
-      color: var(--color-text-300);
-      text-transform: capitalize;
+  @keyframes spinner {
+    0%{
+      transform: rotate(0deg);
     }
-
-    .company, .degree, .name {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 2px;
-      color: var(--color-text-100);
-    }
-    .position, .institution, .location{
-      font-size: 18px;
-      color: var(--color-text-300);
-      margin-bottom: 5px;
-    }
-    .description{
-      text-align: left;
-      color: var(--color-text-300);
-      margin-bottom: 10px;
-    }
-
-    .sm-text{
-      font-size: 14px;
-      color: var(--color-text-300);
-    }
-
-    .skills-wrapper{
-      display: flex;
-      flex-wrap: wrap;
-
-      .skill{
-        width: fit-content;
-        padding: 3px 8px;
-        border-radius: 5px;
-        background-color: var(--color-surface-mixed-100);
-        color: var(--color-text-200);
-        font-size: 16px;
-        margin: 2px;
-      }
-    }
-
-    .certificate{
-      width: 100%;
-      min-height: 150px;
-      background-color: var(--color-surface-mixed-300);
-      padding: 12px;
-
-      .organization{
-        font-size: 17px;
-        font-weight: 550;
-        color: var(--color-text-100);
-      }
-
-      .title, .date{
-        color: var(--color-text-100);
-        font-size: 15px;
-      }
-
-      .date{
-        color: var(--color-text-200);
-      }
-
-      .view, .id{
-        font-size: 13px;
-        color: var(--color-text-100);
-
-        a{
-          text-decoration: none;
-          font-size: 13px;
-          color: var(--color-primary-200);
-          transition: all .3s ease-in;
-
-          &:hover{
-            color: var(--color-primary-100);
-          }
-        }
-      }
+    100%{
+      transform: rotate(360deg);
     }
   }
 }
