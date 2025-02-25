@@ -7,6 +7,7 @@ import {NgClass} from '@angular/common';
 import {CredentialService} from '../../../services/credential.service';
 import {EncryptionService} from '../../../services/encryption.service';
 import {CommonService} from '../../../services/common.service';
+import {WindowService} from '../../../services/common/window.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -38,13 +39,16 @@ export class SignUpComponent implements AfterViewInit{
               private alertService: AlertsService,
               private encryptionService: EncryptionService,
               private commonService: CommonService,
+              private windowService: WindowService,
               private cookieService: AuthService) { }
 
   ngAfterViewInit() {
-    const icons = document.querySelectorAll('.material-icons');
-    icons.forEach((icon) => {
-      icon.setAttribute('translate', 'no');
-    });
+    if (this.windowService.nativeDocument){
+      const icons = document.querySelectorAll('.material-icons');
+      icons.forEach((icon) => {
+        icon.setAttribute('translate', 'no');
+      });
+    }
   }
 
   async registerUser() {
@@ -92,7 +96,8 @@ export class SignUpComponent implements AfterViewInit{
           this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId, view: 8}});
           this.alertService.successMessage('User registered successfully', 'Success');
           setTimeout(() => {
-            window.location.reload();
+            if (this.windowService.nativeWindow)
+              window.location.reload();
           }, 2000);
         }, error => {
           this.alertService.errorMessage('User already exists or an unexpected error has occurred', 'Unexpected Error');
@@ -107,13 +112,15 @@ export class SignUpComponent implements AfterViewInit{
   }
 
   togglePasswordVisibility(){
-    const input: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
-    if (input.type === 'password'){
-      input.type = 'text';
-      this.isp1open = false;
-    } else {
-      input.type = 'password';
-      this.isp1open = true;
+    if (this.windowService.nativeDocument){
+      const input: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
+      if (input.type === 'password'){
+        input.type = 'text';
+        this.isp1open = false;
+      } else {
+        input.type = 'password';
+        this.isp1open = true;
+      }
     }
   }
 }

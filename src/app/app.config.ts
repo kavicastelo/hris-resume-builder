@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
 import {provideToastr} from 'ngx-toastr';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,6 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    provideAnimations()
+    provideAnimations(), provideClientHydration(withEventReplay())
   ]
 };

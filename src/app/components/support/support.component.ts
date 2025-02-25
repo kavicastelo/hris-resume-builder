@@ -5,6 +5,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {CommonService} from '../../services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {Meta, Title} from "@angular/platform-browser";
+import {WindowService} from '../../services/common/window.service';
 
 @Component({
   selector: 'app-support',
@@ -54,7 +55,11 @@ export class SupportComponent implements OnInit {
 
   commonError: string = '';
 
-  constructor(private commonService: CommonService, private meta: Meta, private title: Title, private toastr: ToastrService) {
+  constructor(private commonService: CommonService,
+              private meta: Meta,
+              private title: Title,
+              private windowService: WindowService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {

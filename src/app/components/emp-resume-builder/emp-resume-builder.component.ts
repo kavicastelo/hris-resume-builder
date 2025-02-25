@@ -8,6 +8,7 @@ import {Template1Component} from "../resume-builder/templates/template1/template
 import {Template2Component} from "../resume-builder/templates/template2/template2.component";
 import {Template3Component} from "../resume-builder/templates/template3/template3.component";
 import {ResumeStorageService} from '../../services/resume-storage.service';
+import {WindowService} from '../../services/common/window.service';
 
 @Component({
   selector: 'app-emp-resume-builder',
@@ -46,6 +47,7 @@ export class EmpResumeBuilderComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private cookieService: AuthService,
+              private windowService: WindowService,
               private resumeStorage: ResumeStorageService,
               private employeeService: EmployeeService) {}
 
@@ -161,9 +163,11 @@ export class EmpResumeBuilderComponent implements OnInit {
   }
 
   printCV() {
-    const content = document.getElementById('cv');
-    if (content) {
-      window.print();
+    if (this.windowService.nativeWindow && this.windowService.nativeDocument) {
+      const content = document.getElementById('cv');
+      if (content) {
+        window.print();
+      }
     }
   }
 

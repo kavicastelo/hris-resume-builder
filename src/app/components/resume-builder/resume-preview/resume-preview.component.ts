@@ -7,6 +7,7 @@ import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
+import {WindowService} from '../../../services/common/window.service';
 
 @Component({
   selector: 'app-resume-preview',
@@ -67,6 +68,7 @@ export class ResumePreviewComponent implements OnInit{
               private fb: FormBuilder,
               private cookieService: AuthService,
               private route: ActivatedRoute,
+              private windowService: WindowService,
               private router: Router) {
     this.resumeForm = this.fb.group({
       personalInfo: [true],
@@ -140,7 +142,8 @@ export class ResumePreviewComponent implements OnInit{
     if (this.hasId || this.hasCookie) {
       const content = document.getElementById('cv');
       if (content) {
-        window.print();
+        if (this.windowService.nativeWindow)
+          window.print();
       }
     } else {
       this.router.navigate(['/sign/up']);
@@ -149,14 +152,16 @@ export class ResumePreviewComponent implements OnInit{
 
   reload(){
     setInterval(()=>{
-      window.location.reload();
+      if (this.windowService.nativeWindow)
+        window.location.reload();
     }, 200)
   }
 
   addPersonalInfo(){
     this.router.navigate(['/resume-builder']);
     setInterval(()=>{
-      window.location.reload();
+      if (this.windowService.nativeWindow)
+        window.location.reload();
     }, 200)
   }
 

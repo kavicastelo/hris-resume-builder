@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {WindowService} from './common/window.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,20 +8,24 @@ export class ResumeStorageService {
 
   private storageKey = 'resumeData';
 
-  constructor() {}
+  constructor(private windowService: WindowService ) {}
 
   saveData(step: string, data: any): void {
     let resumeData = this.getData();
     resumeData[step] = data;
-    localStorage.setItem(this.storageKey, JSON.stringify(resumeData));
+    if (this.windowService.nativeLocalStorage)
+      localStorage.setItem(this.storageKey, JSON.stringify(resumeData));
   }
 
   getData(): any {
-    const data = localStorage.getItem(this.storageKey);
-    return data ? JSON.parse(data) : {};
+    if (this.windowService.nativeLocalStorage){
+      const data = localStorage.getItem(this.storageKey);
+      return data ? JSON.parse(data) : {};
+    }
   }
 
   clearData(): void {
-    localStorage.removeItem(this.storageKey);
+    if (this.windowService.nativeLocalStorage)
+      localStorage.removeItem(this.storageKey);
   }
 }
