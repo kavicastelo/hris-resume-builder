@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {ResumeStorageService} from '../../../services/resume-storage.service';
 import {FormsModule} from '@angular/forms';
 import {AlertsService} from '../../../services/alerts.service';
@@ -12,7 +12,7 @@ import {AlertsService} from '../../../services/alerts.service';
   styleUrl: './step-personal-info.component.scss',
   standalone: true
 })
-export class StepPersonalInfoComponent implements OnInit{
+export class StepPersonalInfoComponent implements AfterViewInit{
   personalInfo = {
     firstname: '',
     lastname: '',
@@ -25,9 +25,9 @@ export class StepPersonalInfoComponent implements OnInit{
 
   constructor(private resumeStorage: ResumeStorageService, private alertService: AlertsService) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const savedData = this.resumeStorage.getData();
-    if (savedData.personalInfo) {
+    if (savedData?.personalInfo) {
       this.personalInfo = savedData.personalInfo;
     }
   }
