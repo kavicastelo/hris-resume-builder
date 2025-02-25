@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
+import {WindowService} from './common/window.service';
 
 
 @Injectable({
@@ -7,19 +8,21 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class AuthService {
 
-  constructor(private cookieService: CookieService) { }
+  constructor(private cookieService: CookieService, private windowService: WindowService ) { }
 
   public createUserID(token:any){
     this.cookieService.set('user-token-id',token, {expires: 60* 60* 24* 7, path: '/', sameSite: 'Strict', secure: true});
   }
 
   createSession(user: any) {
-    sessionStorage.setItem('access_token', user.access_token);
+    if (this.windowService.nativeSessionStorage)
+      sessionStorage.setItem('access_token', user.access_token);
   }
 
   public logout(){
     this.cookieService.deleteAll();
-    sessionStorage.clear();
+    if (this.windowService.nativeSessionStorage)
+      sessionStorage.clear();
   }
 
   public isExists():boolean{

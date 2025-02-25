@@ -13,8 +13,6 @@ import {Meta, Title} from '@angular/platform-browser';
 })
 export class LandingComponent implements OnInit {
 
-  errorMessage: string = '';
-
   constructor(private router: Router, private meta: Meta, private title: Title) {
   }
 
@@ -27,30 +25,5 @@ export class LandingComponent implements OnInit {
           'TalentBoozt resume tool, Easy resume creation, Professional resume builder, Customize resume online, ' +
           'Free resume templates, Online CV builder, TalentBoozt profile management' }
     ]);
-  }
-
-  checkID() {
-    this.errorMessage = '';
-    const inputElement: HTMLInputElement = document.getElementById('userId') as HTMLInputElement;
-    const id = inputElement.value;
-
-    if (id === '') {
-      this.errorMessage = 'Please enter your Talentboozt User ID';
-    } else {
-      const objectIdRegex = /^[a-f\d]{24}$/i;
-
-      const isValidObjectId = (id: string) => objectIdRegex.test(id);
-
-      if (!isValidObjectId(id)) {
-        this.errorMessage = 'Please enter a valid Talentboozt User ID';
-      } else {
-        this.errorMessage = '';
-        this.router.navigate(['/resume-builder'], { queryParams: { id: id } });
-      }
-    }
-  }
-
-  openSupport() {
-    this.router.navigate(['/support']);
   }
 }
