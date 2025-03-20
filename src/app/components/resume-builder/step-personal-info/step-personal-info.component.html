@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between gap-2">
       <h5>Personal Detail :</h5>
       <div class="form-group">
-        <button type="submit" class="btn-1">Save</button>
+        <button id="CVG_SPI_Save" type="submit" class="btn-1">Save</button>
       </div>
     </div>
 
@@ -12,7 +12,7 @@
       <div class="col-12 col-md-6">
         <div class="form-group">
           <label for="firstname">First Name *</label>
-          <input type="text" class="form-control" id="firstname" placeholder="John" [(ngModel)]="personalInfo.firstname" required [ngModelOptions]="{standalone: true}">
+          <input  type="text" class="form-control" id="firstname" placeholder="John" [(ngModel)]="personalInfo.firstname" required [ngModelOptions]="{standalone: true}">
         </div>
       </div>
       <div class="col-12 col-md-6">
@@ -42,7 +42,7 @@
       <div class="col-12">
         <div class="form-group">
           <label for="intro">Intro</label>
-          <textarea class="form-control" id="intro" rows="5" placeholder="Your bio" [(ngModel)]="personalInfo.bio" [ngModelOptions]="{standalone: true}"></textarea>
+          <textarea class="form-control" id="intro" type="textarea" rows="5" placeholder="Your bio" [(ngModel)]="personalInfo.bio" [ngModelOptions]="{standalone: true}"></textarea>
         </div>
       </div>
     </div>

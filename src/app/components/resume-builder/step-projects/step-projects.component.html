@@ -69,7 +69,7 @@
             <p class="notification-text">I'm currently working on this project.</p>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn-1">Add Project</button>
+            <button id="CVG_SP_AddPro" type="submit" class="btn-1">Add Project</button>
           </div>
         </div>
       </div>
@@ -95,17 +95,17 @@
         <div class="description"><p>{{ep.description}}</p></div>
         <div class="d-flex align-items-center justify-content-start gap-3">
           <a *ngIf="ep.source" href="{{ep.source}}" class="m-0 p-0" style="text-decoration: none">
-            <button class="btn-1">Source</button>
+            <button id="CVG_SP_Source" type="button" class="btn-1">Source</button>
           </a>
           <a *ngIf="ep.demo" href="{{ep.demo}}" class="m-0 p-0" style="text-decoration: none">
-            <button class="btn-1">Demo</button>
+            <button id="CVG_SP_Demo" type="button" class="btn-1">Demo</button>
           </a>
         </div>
       </div>
     </div>
     <div class="col-1">
       <div class="d-flex align-items-center">
-        <button class="btn-3"><i class="material-icons" translate="no" (click)="removeProject(i)">delete</i>
+        <button id="CVG_SP_Delete" type="button" class="btn-3"><i class="material-icons" translate="no" (click)="removeProject(i)">delete</i>
         </button>
       </div>
     </div>
