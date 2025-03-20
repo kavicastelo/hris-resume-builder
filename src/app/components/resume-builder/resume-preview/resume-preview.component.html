@@ -14,7 +14,7 @@
               </div>
               <div class="form-group">
                 <label for="cvType">Choose Template</label>
-                <select id="cvType" class="form-control" formControlName="cvType" (change)="chooseCV()">
+                <select id="cvType" type="dropdown" class="form-control" formControlName="cvType" (change)="chooseCV()">
                   <option value="0">Template 1</option>
                   <option value="1">Template 2</option>
                   <option value="2">Template 3</option>
@@ -65,7 +65,7 @@
             <div class="accordion w-100" id="accordionExample">
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <button class="accordion-button" id="CVG_RP_References" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     References
                   </button>
                 </h2>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-12">
                           <div class="form-group">
-                            <button type="submit" class="btn-1">Add Reference</button>
+                            <button type="submit" id="CVG_RP_AddReferance" class="btn-1">Add Reference</button>
                           </div>
                         </div>
                       </div>
@@ -115,7 +115,7 @@
                           <p>{{reference.name}}</p>
                         </div>
                         <div class="col-3">
-                          <button class="btn-3" style="width: fit-content; height: fit-content; padding: 0" (click)="removeReference(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
+                          <button class="btn-3" id="CVG_RP_Delete" type="button" style="width: fit-content; height: fit-content; padding: 0" (click)="removeReference(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
                         </div>
                       </div>
                     </div>
@@ -124,7 +124,7 @@
               </div>
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <button class="accordion-button collapsed" id="CVG_RP_Language" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     Languages
                   </button>
                 </h2>
@@ -142,7 +142,7 @@
                         <div class="col-12">
                           <div class="form-group">
                             <label for="company">Level</label>
-                            <select id="level" class="form-control" [(ngModel)]="newLanguage.level"
+                            <select id="level" type="dropdown" class="form-control" [(ngModel)]="newLanguage.level"
                                     [ngModelOptions]="{standalone: true}">
                               <option value="Elementary Proficiency">Elementary Proficiency</option>
                               <option value="Limited Working Proficiency">Limited Working Proficiency</option>
@@ -153,7 +153,7 @@
                         </div>
                         <div class="col-12">
                           <div class="form-group">
-                            <button type="submit" class="btn-1">Add Language</button>
+                            <button id="CVG_RP_AddLanguage" type="submit" class="btn-1">Add Language</button>
                           </div>
                         </div>
                       </div>
@@ -165,7 +165,7 @@
                           <p>{{language.name}}</p>
                         </div>
                         <div class="col-3">
-                          <button class="btn-3" style="width: fit-content; height: fit-content; padding: 0" (click)="removeLanguage(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
+                          <button class="btn-3" id="CVG_RP_RemLanguage" type="button" style="width: fit-content; height: fit-content; padding: 0" (click)="removeLanguage(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
                         </div>
                       </div>
                     </div>
@@ -174,7 +174,7 @@
               </div>
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <button class="accordion-button collapsed" id="CVG_RP_Interests" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     Interests & Hobbies
                   </button>
                 </h2>
@@ -192,7 +192,7 @@
                         <div class="col-2">
                           <div class="form-group">
                             <label for="name"></label>
-                            <button type="submit" class="btn-1">+</button>
+                            <button id="CVG_RP_AddInterest" type="submit" class="btn-1">+</button>
                           </div>
                         </div>
                       </div>
@@ -205,7 +205,7 @@
                             <p>{{hobby.name}}</p>
                           </div>
                           <div class="col-3">
-                            <button class="btn-3" style="width: fit-content; height: fit-content; padding: 0" (click)="removeHobby(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
+                            <button class="btn-3" id="CVG_RP_RemInterest" type="button" style="width: fit-content; height: fit-content; padding: 0" (click)="removeHobby(i)"><i class="material-icons" style="font-size: 14px; margin: 0; padding: 3px" translate="no">delete</i></button>
                           </div>
                         </div>
                       </div>
@@ -216,8 +216,8 @@
             </div>
           </div>
           <div class="my-2">
-            <button class="btn-1 mb-2 w-100" (click)="printCV()">Download CV</button>
-            <button class="btn-1 w-100" (click)="openSupport()">Professional Support</button>
+            <button class="btn-1 mb-2 w-100" id="CVG_RP_Download" type="button" (click)="printCV()">Download CV</button>
+            <button class="btn-1 w-100" id="CVG_RP_ProfSupport" type="button" (click)="openSupport()">Professional Support</button>
           </div>
         </div>
       </div>
@@ -270,8 +270,8 @@
   <div class="reload-section" *ngIf="reloadBtn">
     <p>You have to provide at least your Firstname and Email address for preview CV. Try Reload!</p>
     <div class="d-flex align-items-center justify-content-center gap-3">
-      <button class="reload" (click)="addPersonalInfo()">Add Details</button>
-      <button class="reload" (click)="reload()">Reload</button>
+      <button class="reload" id="CVG_RP_AddDetails" type="button" (click)="addPersonalInfo()">Add Details</button>
+      <button class="reload" id="CVG_RP_Reload" type="button" (click)="reload()">Reload</button>
     </div>
   </div>
 </div>
