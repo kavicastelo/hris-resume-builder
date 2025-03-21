@@ -1,7 +1,7 @@
 <div class="stepper">
-  <button (click)="prevStep()" [disabled]="currentStep === 0">Previous</button>
+  <button id="CVG_RB_Prev" type="button" (click)="prevStep()" [disabled]="currentStep === 0">Previous</button>
   <span>Step {{ currentStep + 1 }} of {{ steps.length }}</span>
-  <button (click)="nextStep()" [disabled]="currentStep === steps.length - 1">Next</button>
+  <button id="CVG_RB_Next" type="button" (click)="nextStep()" [disabled]="currentStep === steps.length - 1">Next</button>
 </div>
 
 <div [ngSwitch]="currentStep">

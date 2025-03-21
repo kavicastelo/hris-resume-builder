@@ -6,9 +6,9 @@
         <img [src]="themeService.isDarkMode() ? '/imgs/top-w.webp' : '/imgs/top-b.webp'" alt="logo" loading="lazy" width="200">
       </div>
       <div class="d-flex align-items-center gap-2">
-        <a href="https://talentboozt.com" target="_blank">Job Portal</a>
+        <a id="CVG_APP_JobPortal" type="link" href="https://talentboozt.com" target="_blank">Job Portal</a>
         <div *ngIf="is_logged_in">
-          <i class="material-icons" (click)="logout()">exit_to_app</i>
+          <i id="CVG_APP_LgOut" type="button" class="material-icons" (click)="logout()">exit_to_app</i>
         </div>
       </div>
     </div>
