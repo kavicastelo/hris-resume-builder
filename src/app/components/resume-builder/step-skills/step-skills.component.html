@@ -18,7 +18,7 @@
         </div>
         <div class="col-12 col-md-6 col-lg-3">
           <div class="form-group d-flex align-items-end w-100 h-100">
-            <button type="submit" class="btn-1" translate="no">Add Skill</button>
+            <button id="CVG_SSK_AddSkill" type="submit" class="btn-1" translate="no">Add Skill</button>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
           <p>{{skill.percentage}}%</p>
         </div>
         <div class="col-3">
-          <button class="btn-3" (click)="removeSkill(i)"><i class="material-icons" translate="no">delete</i></button>
+          <button id="CVG_SSK_DelSkill" type="button" class="btn-3" (click)="removeSkill(i)"><i class="material-icons" translate="no">delete</i></button>
         </div>
       </div>
     </div>
