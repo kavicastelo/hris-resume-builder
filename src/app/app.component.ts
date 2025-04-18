@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {ThemeService} from './services/theme.service';
 import {NgClass, NgIf} from '@angular/common';
 import {FooterComponent} from './components/footer/footer.component';
@@ -16,11 +16,19 @@ export class AppComponent implements OnInit{
   title = 'talentboozt_cv_generator';
   is_logged_in = false;
 
-  constructor(public themeService: ThemeService, private router: Router, private cookieService: AuthService) {
+  constructor(public themeService: ThemeService, private router: Router, private route: ActivatedRoute, private cookieService: AuthService) {
   }
 
   ngOnInit() {
     this.is_logged_in = this.cookieService.isExists();
+    this.route.queryParams.subscribe(params => {
+      const platform = params['platform'] || 'ResumeBuilder';
+      const ref = params['ref'] || '';
+      const promo = params['promo'] || '';
+      this.cookieService.createPlatform(platform);
+      this.cookieService.createReferer(ref);
+      this.cookieService.createPromotion(promo);
+    });
   }
 
   goHome() {

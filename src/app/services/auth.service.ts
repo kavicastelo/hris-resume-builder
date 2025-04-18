@@ -56,4 +56,52 @@ export class AuthService {
     return cookie.length !== 0;
   }
 
+  public createReferer(referer: string) {
+    this.cookieService.set('referer', referer, 60*60*24*30);
+  }
+
+  public createPlatform(platform: string) {
+    this.cookieService.set('platform', platform, 60*60*24*30);
+  }
+
+  public createPromotion(promotion: string) {
+    this.cookieService.set('promotion', promotion, 60*60*24*30);
+  }
+
+  public getReferer() {
+    return this.cookieService.get('referer');
+  }
+
+  public getPlatform() {
+    return this.cookieService.get('platform');
+  }
+
+  public getPromotion() {
+    return this.cookieService.get('promotion');
+  }
+
+  public createAuthToken(token: string) {
+    this.cookieService.set('jwtToken', token, { path: '/', secure: true, sameSite: 'Strict' });
+  }
+
+  getAuthToken(): string | null {
+    return this.cookieService.get('jwtToken');
+  }
+
+  isAuthToken(): boolean {
+    return !!this.getAuthToken();
+  }
+
+  public createRefreshToken(refreshToken: string) {
+    this.cookieService.set('refreshToken', refreshToken, { path: '/', secure: true, sameSite: 'Strict' });
+  }
+
+  public getRefreshToken(): string | null {
+    return this.cookieService.get('refreshToken');
+  }
+
+  public isRefreshToken(): boolean {
+    return !!this.getRefreshToken();
+  }
+
 }

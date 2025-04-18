@@ -21,9 +21,6 @@ export class EmployeeService {
 
   // Fetch all employee-related data asynchronously (from async batch API) with caching
   fetchFullEmployee(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
 
     // Use the cache if initialized
     if (this.cacheInitialized) {
@@ -31,7 +28,7 @@ export class EmployeeService {
     }
 
     // Fetch from API and cache
-    return this.http.get<any>(`${this.baseUrl}/batch/async/getEmployee/${id}`, { headers }).pipe(
+    return this.http.get<any>(`${this.baseUrl}/batch/async/getEmployee/${id}`).pipe(
       tap((data) => {
         this.employeeSubject.next(data); // Cache main employee data
         this.cacheInitialized = true;
@@ -40,89 +37,5 @@ export class EmployeeService {
         return throwError(error); // Re-throw the error so that the component can handle it
       })
     );
-  }
-
-  addSkills(skills: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
-    return this.http.post(`${this.baseUrl}/emp_skills/add` , skills, {headers}).pipe(
-      tap((data) => {
-        this.fetchFullEmployee(skills.employeeId); // Refresh the cache after updating
-      }),
-      catchError((error) => {
-        return throwError(error); // Re-throw the error so that the component can handle it
-      })
-    )
-  }
-
-  addExperience(experience: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
-    return this.http.post(`${this.baseUrl}/emp_experiences/add` , experience, {headers}).pipe(
-      tap((data) => {
-        this.fetchFullEmployee(experience.employeeId); // Refresh the cache after updating
-      }),
-      catchError((error) => {
-        return throwError(error); // Re-throw the error so that the component can handle it
-      })
-    )
-  }
-
-  addEducation(education: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
-    return this.http.post(`${this.baseUrl}/emp_education/add` , education, {headers}).pipe(
-      tap((data) => {
-        this.fetchFullEmployee(education.employeeId); // Refresh the cache after updating
-      }),
-      catchError((error) => {
-        return throwError(error); // Re-throw the error so that the component can handle it
-      })
-    )
-  }
-
-  addProject(project: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
-    return this.http.post(`${this.baseUrl}/emp_projects/add` , project, {headers}).pipe(
-      tap((data) => {
-        this.fetchFullEmployee(project.employeeId); // Refresh the cache after updating
-      }),
-      catchError((error) => {
-        return throwError(error); // Re-throw the error so that the component can handle it
-      })
-    )
-  }
-
-  addCertificate(certificate: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
-    return this.http.post(`${this.baseUrl}/emp_certificates/add` , certificate, {headers}).pipe(
-      tap((data) => {
-        this.fetchFullEmployee(certificate.employeeId); // Refresh the cache after updating
-      }),
-      catchError((error) => {
-        return throwError(error); // Re-throw the error so that the component can handle it
-      })
-    )
-  }
-
-  updateEmployee(employee: EmployeeModel): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
-    return this.http.put(`${this.baseUrl}/employee/update` , employee, {headers}).pipe(
-      tap(data => {
-      this.fetchFullEmployee(employee.id); // Refresh the cache after updating
-    }),
-      catchError((error) => {
-        return throwError(error); // Re-throw the error so that the component can handle it
-      })
-    )
   }
 }

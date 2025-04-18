@@ -7,6 +7,7 @@ import {NgClass} from '@angular/common';
 import {CredentialService} from '../../../services/credential.service';
 import {EncryptionService} from '../../../services/encryption.service';
 import {WindowService} from '../../../services/common/window.service';
+import {TimerService} from '../../../services/common/timer.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -37,6 +38,7 @@ export class SignInComponent implements AfterViewInit{
     private credentialService: CredentialService,
     private encryptionService: EncryptionService,
     private cookieService: AuthService,
+    private timerService: TimerService,
     private windowService: WindowService,
     private alertService: AlertsService) { }
 
@@ -56,15 +58,15 @@ export class SignInComponent implements AfterViewInit{
   }
 
   loginUser() {
-    if (this.windowService.nativeSessionStorage && this.windowService.nativeLocalStorage && this.windowService.nativeWindow) {
-      this.attempts --;
-      if (this.loginForm.valid) {
+    this.attempts --;
+    if (this.loginForm.valid) {
+      if (this.windowService.nativeSessionStorage && this.windowService.nativeLocalStorage) {
         if (this.attempts <= 0 || sessionStorage.getItem('LgnAtT') == '0'){
           sessionStorage.setItem('LgnAtT', '0');
           this.alertService.warningMessage('Too many attempts! Try again in 5 minutes', 'Warning');
           this.loginForm.reset();
           this.disabled = true;
-          setTimeout(()=>{
+          this.timerService.setTimeout(()=>{
             this.attempts = 4;
             sessionStorage.removeItem('LgnAtT');
             this.disabled = false;
@@ -73,46 +75,53 @@ export class SignInComponent implements AfterViewInit{
         }
 
         const formData = this.loginForm.value;
-        this.credentialService.fetchCredentialByEmail(formData.email).subscribe(async (response: any) => {
+        this.credentialService.login(formData.email, formData.password).subscribe(async (response: any) => {
           if (!response) {
             this.alertService.errorMessage('User doesn\'t exist or something went wrong', 'Error');
             return;
           }
-
-          const encryptedPassword = await this.encryptionService.decryptPassword(response.password?.toString());
+          if (response.disabled){
+            this.alertService.errorMessage('Your account is disabled', 'Error');
+            return;
+          }
 
           if (sessionStorage.getItem('LgnAtT') != '0'){
-            if (formData.password == encryptedPassword) {
-              this.cookieService.createSession(response);
+            this.cookieService.createSession(response);
 
-              if (this.loginForm.get('remember')?.value) {
-                localStorage.setItem('email', <string>this.loginForm.get('email')?.value);
-                localStorage.setItem('password', <string>this.loginForm.get('password')?.value);
-              } else {
-                localStorage.removeItem('email');
-                localStorage.removeItem('password');
-              }
+            if (this.loginForm.get('remember')?.value) {
+              localStorage.setItem('email', <string>this.loginForm.get('email')?.value);
+              localStorage.setItem('password', <string>this.loginForm.get('password')?.value);
+            } else {
+              localStorage.removeItem('email');
+              localStorage.removeItem('password');
+            }
 
-              this.cookieService.createUserID(response.employeeId);
-              this.cookieService.unlock();
-              this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId, view: 8}});
+            this.cookieService.createUserID(response.employeeId);
+            this.cookieService.createAuthToken(response.token);
+            this.cookieService.createRefreshToken(response.refreshToken);
+            this.cookieService.unlock();
+
+            await this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId, view: 8}});
+
+            if (response.active){
               this.alertService.successMessage('Login successful', 'Success');
               setTimeout(() => {
                 window.location.reload();
               }, 2000);
             } else {
-              this.alertService.errorMessage('Wrong password', 'Error');
+              this.alertService.warningMessage('Your account is not active yet! Stay tuned', 'Warning');
             }
+
+            sessionStorage.removeItem('redirect');
           } else {
             this.alertService.errorMessage('Too many attempts! Try again in 5 minutes', 'Warning');
           }
-
         }, error => {
-          this.alertService.errorMessage('Something went wrong', 'Error');
+          this.alertService.errorMessage(error.error.message, "Code: "+error.status);
         });
-      } else {
-        this.alertService.errorMessage('Form is not valid', 'Error');
       }
+    } else {
+      this.alertService.errorMessage('Form is not valid. Please fill in all the required fields', 'Error');
     }
   }
 
