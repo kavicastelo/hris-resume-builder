@@ -13,12 +13,9 @@ export class EncryptionService {
   constructor(private http: HttpClient) { }
 
   async encryptPassword(password: string): Promise<string | any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
     try {
       let response;
-      response =  await this.http.post<any>(`${this.baseUrl}/encryption/encrypt`, {data: password}, {headers}).toPromise();
+      response =  await this.http.post<any>(`${this.baseUrl}/encryption/encrypt`, {data: password}).toPromise();
       return response?.data as string;
     } catch (error:any) {
       console.error('Error during encryption:', error?.data);
@@ -27,12 +24,9 @@ export class EncryptionService {
   }
 
   async decryptPassword(encryptedPassword: string): Promise<string | any> {
-    const headers = new HttpHeaders({
-      'Authorization': 'Basic ' + btoa('admin:password')
-    });
     try {
       let response;
-      response =  await this.http.post<any>(`${this.baseUrl}/encryption/decrypt`, {data: encryptedPassword}, {headers}).toPromise();
+      response =  await this.http.post<any>(`${this.baseUrl}/encryption/decrypt`, {data: encryptedPassword}).toPromise();
       return response?.data as string;
     } catch (error:any) {
       console.error('Error during decryption:', error?.data);

@@ -8,6 +8,7 @@ import {CredentialService} from '../../../services/credential.service';
 import {EncryptionService} from '../../../services/encryption.service';
 import {CommonService} from '../../../services/common.service';
 import {WindowService} from '../../../services/common/window.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
@@ -68,6 +69,9 @@ export class SignUpComponent implements AfterViewInit{
     if (this.registerForm.valid) {
       const formData = this.registerForm.value;
       const password = formData.password;
+      const referer = this.cookieService.getReferer() || null;
+      const platform = this.cookieService.getPlatform();
+      const promotion = this.cookieService.getPromotion() || null;
 
       if (password && password.length >= 6) {
         const isPwned = await this.encryptionService.checkLeakedPassword(password);
@@ -76,31 +80,63 @@ export class SignUpComponent implements AfterViewInit{
           return;
         }
 
-        const encryptedPassword = await this.encryptionService.encryptPassword(password);
         const email: string = formData.email!;
 
-        this.credentialService.addCredential({
+        this.credentialService.register({
           firstname: formData.name?.split(' ')[0],
           lastname: formData.name?.split(' ')[1] || '',
           email: formData.email,
-          password: encryptedPassword,
+          password: password,
           role: "candidate",
           userLevel: "1",
+          referrerId: referer,
+          platform: platform,
+          promotion: promotion,
+          active: true
         }).subscribe((response: any) => {
           if (!response) {
-            this.alertService.errorMessage('User already exists or an unexpected error has occurred', 'Unexpected Error');
+            this.alertService.errorMessage('An unexpected error has occurred', 'Unexpected Error');
+            return;
+          }
+          if (response.accessedPlatforms?.includes(platform) && response.accessedPlatforms?.includes('ResumeBuilder')) {
+            this.alertService.errorMessage('This email has already been registered', 'Email Already Exists');
             return;
           }
           this.cookieService.createUserID(response.employeeId);
-          this.commonService.sendWelcomeEmail(email).subscribe();
+          this.cookieService.createAuthToken(response.token);
+          this.cookieService.createRefreshToken(response.refreshToken);
+          setTimeout(() => {
+            this.commonService.sendWelcomeEmail(email).subscribe();
+          }, 1000);
           this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId, view: 8}});
           this.alertService.successMessage('User registered successfully', 'Success');
           setTimeout(() => {
             if (this.windowService.nativeWindow)
               window.location.reload();
           }, 2000);
-        }, error => {
-          this.alertService.errorMessage('User already exists or an unexpected error has occurred', 'Unexpected Error');
+          if (this.windowService.nativeSessionStorage){
+            if (sessionStorage.getItem('redirect')) {
+              this.router.navigate([sessionStorage.getItem('redirect')]);
+            } else {
+              this.router.navigate(['/']);
+            }
+            this.alertService.successMessage('Registration successful!', 'Success');
+            sessionStorage.removeItem('redirect');
+          }
+        }, (error: HttpErrorResponse) => {
+          switch (error.status) {
+            case 409:
+              this.alertService.errorMessage('This email has already been registered', 'Email Already Exists');
+              break;
+            case 400:
+              this.alertService.errorMessage('Please fill in all the required fields', 'Missing Fields');
+              break;
+            case 500:
+              this.alertService.errorMessage('An unexpected error has occurred', 'Unexpected Error');
+              break;
+            default:
+              this.alertService.errorMessage(error.error.message, "Code: "+error.status);
+          }
         });
       } else {
         this.alertService.errorMessage('Password must be at least 6 characters long', 'Weak Password');
