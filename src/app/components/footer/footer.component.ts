@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {Utilities} from "../../shared/utilities/utilities";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import { Component } from '@angular/core';
+import { Utilities } from "../../shared/utilities/utilities";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-footer',
@@ -11,9 +12,11 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
   ],
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent{
+export class FooterComponent {
 
   utilities = Utilities;
+
+  constructor(public themeService: ThemeService) { }
 
   requestInfoForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
