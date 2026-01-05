@@ -1,113 +1,144 @@
-<div class="form-card-1">
-  <h5>Projects :</h5>
+<div class="step-container">
+  <div class="header-actions">
+    <h5>Projects</h5>
+    <button class="btn-primary-sm" (click)="openModal(-1)">
+      <i class="material-icons">add</i> Add
+    </button>
+  </div>
 
-  <form (ngSubmit)="addProject()">
-    <div class="row form-wrapper">
-      <div class="col-12">
-        <div class="form-group">
-          <label for="PName">Project Title *</label>
-          <input type="text" class="form-control" id="PName" [(ngModel)]="newProject.name"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="PCompany">Company</label>
-          <input type="text" class="form-control" id="PCompany" [(ngModel)]="newProject.company"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="PRole">Your Role *</label>
-          <input type="text" class="form-control" id="PRole" [(ngModel)]="newProject.role"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="PStart">Start Year/Month</label>
-          <input type="text" placeholder="2023 Feb" class="form-control" id="PStart" [(ngModel)]="newProject.startDate"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="PEnd">End Year/Month</label>
-          <input type="text" placeholder="2024 Dec" class="form-control" id="PEnd" [(ngModel)]="newProject.endDate"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="PDemo">Demo Link</label>
-          <input type="text" class="form-control" id="PDemo" [(ngModel)]="newProject.demo"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="PSource">Source Link</label>
-          <input type="text" class="form-control" id="PSource" [(ngModel)]="newProject.source"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="form-group">
-          <label for="PDesc">Project Description</label>
-          <textarea type="text" class="form-control" id="PDesc" rows="5" [(ngModel)]="newProject.description"
-                    [ngModelOptions]="{standalone: true}" required></textarea>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="form-check me-2">
-              <input class="form-check-input" type="checkbox" value="" id="PPresent" [(ngModel)]="newProject.present"
-                     [ngModelOptions]="{standalone: true}" required>
-            </div>
-            <p class="notification-text">I'm currently working on this project.</p>
-          </div>
-          <div class="form-group">
-            <button id="CVG_SP_AddPro" type="submit" class="btn-1">Add Project</button>
-          </div>
-        </div>
-      </div>
+  <div class="empty-state" *ngIf="projects.length === 0">
+    <div class="icon-box">
+      <i class="material-icons">code</i>
     </div>
-  </form>
-</div>
+    <p>No projects added yet.</p>
+    <button class="btn-text" (click)="openModal(-1)">Add Project</button>
+  </div>
 
-<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="projects.length > 0">
-  <hr>
-  <div class="row experience" *ngFor="let ep of projects; let i = index">
-    <div class="col-3 col-lg-2">
-      <div class="d-flex flex-column align-items-center justify-content-center">
-        <div class="org-wrapper">
-          {{ep.name.substring(0, 1)}}
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="projects-list">
+    <div class="project-card" *ngFor="let p of projects; let i = index" cdkDrag>
+
+      <div class="drag-handle" cdkDragHandle>
+        <i class="material-icons">drag_indicator</i>
+      </div>
+
+      <div class="card-content">
+        <div class="main-info">
+          <div class="name">{{p.name}}</div>
+          <div class="role">{{p.role}} <span *ngIf="p.company">at {{p.company}}</span></div>
+        </div>
+        <div class="meta-info">
+          <span class="period" *ngIf="p.startDate">{{p.startDate}} - {{p.endDate}}</span>
+        </div>
+        <div class="links" *ngIf="p.demo || p.source">
+          <a *ngIf="p.demo" [href]="p.demo" target="_blank" (click)="$event.stopPropagation()">Demo</a>
+          <a *ngIf="p.source" [href]="p.source" target="_blank" (click)="$event.stopPropagation()">Source</a>
         </div>
       </div>
-    </div>
-    <div class="col-8 col-lg-9">
-      <div class="d-flex flex-column align-items-start justify-content-center gap-2">
-        <div class="title">{{ep.name}}</div>
-        <div class="year">{{ep.startDate}} - {{ep.endDate}}</div>
-        <div class="location">{{ep.company}} {{' - '+ep.role}}</div>
-        <div class="description"><p>{{ep.description}}</p></div>
-        <div class="d-flex align-items-center justify-content-start gap-3">
-          <a *ngIf="ep.source" href="{{ep.source}}" class="m-0 p-0" style="text-decoration: none">
-            <button id="CVG_SP_Source" type="button" class="btn-1">Source</button>
-          </a>
-          <a *ngIf="ep.demo" href="{{ep.demo}}" class="m-0 p-0" style="text-decoration: none">
-            <button id="CVG_SP_Demo" type="button" class="btn-1">Demo</button>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="col-1">
-      <div class="d-flex align-items-center">
-        <button id="CVG_SP_Delete" type="button" class="btn-3"><i class="material-icons" translate="no" (click)="removeProject(i)">delete</i>
+
+      <div class="actions">
+        <button class="btn-icon" (click)="openModal(i)" title="Edit">
+          <i class="material-icons">edit</i>
+        </button>
+        <button class="btn-icon danger" (click)="removeProject(i)" title="Delete">
+          <i class="material-icons">delete</i>
         </button>
       </div>
+
+      <div *cdkDragPreview class="drag-preview">
+        {{p.name}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-wrapper">
+    <div class="modal-header">
+      <h3>{{ editingIndex > -1 ? 'Edit Project' : 'Add Project' }}</h3>
+      <button class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="saveProject()">
+        <div class="row form-wrapper">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Project Name *</label>
+              <input type="text" class="form-control" [(ngModel)]="newProject.name"
+                [ngModelOptions]="{standalone: true}" required placeholder="My Awesome App">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Role *</label>
+              <input type="text" class="form-control" [(ngModel)]="newProject.role"
+                [ngModelOptions]="{standalone: true}" required placeholder="Lead Developer">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Associated Company</label>
+              <input type="text" class="form-control" [(ngModel)]="newProject.company"
+                [ngModelOptions]="{standalone: true}" placeholder="e.g. Freelance">
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 row g-2">
+            <div class="col-6">
+              <div class="form-group">
+                <label>Start</label>
+                <input type="text" class="form-control" [(ngModel)]="newProject.startDate"
+                  [ngModelOptions]="{standalone: true}" placeholder="Jan 2023">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>End</label>
+                <input type="text" class="form-control" [(ngModel)]="newProject.endDate"
+                  [ngModelOptions]="{standalone: true}" placeholder="Present" [disabled]="newProject.present">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Demo Link</label>
+              <input type="url" class="form-control" [(ngModel)]="newProject.demo" [ngModelOptions]="{standalone: true}"
+                placeholder="https://...">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Source Code</label>
+              <input type="url" class="form-control" [(ngModel)]="newProject.source"
+                [ngModelOptions]="{standalone: true}" placeholder="https://github.com/...">
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="PPresent" [(ngModel)]="newProject.present"
+                [ngModelOptions]="{standalone: true}">
+              <label class="form-check-label" for="PPresent">Currently working on this</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" rows="4" [(ngModel)]="newProject.description"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Describe the project and technologies used..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-text" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Project</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

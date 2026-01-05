@@ -1,93 +1,124 @@
-<div class="form-card-1">
-  <h5>Add Education :</h5>
+<div class="step-container">
+  <div class="header-actions">
+    <h5>Education History</h5>
+    <button class="btn-primary-sm" (click)="openModal(-1)">
+      <i class="material-icons">add</i> Add
+    </button>
+  </div>
 
-  <form (ngSubmit)="addEducation()">
-    <div class="row form-wrapper">
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="EdDegree">Degree *</label>
-          <input type="text" class="form-control" id="EdDegree" [(ngModel)]="newEducation.degree"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="EdSchool">School *</label>
-          <input type="text" class="form-control" id="EdSchool" [(ngModel)]="newEducation.school"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="EdCountry">Country</label>
-          <input type="text" class="form-control" id="EdCountry" [(ngModel)]="newEducation.country"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="form-group">
-          <label for="EdStart">Start Year</label>
-          <input type="number" class="form-control" id="EdStart" [(ngModel)]="newEducation.startDate"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="form-group">
-          <label for="EdEnd">End Year</label>
-          <input type="number" class="form-control" id="EdEnd" [(ngModel)]="newEducation.endDate"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="form-group">
-          <label for="EdDesc">Short Description</label>
-          <input type="text" class="form-control" id="EdDesc" [(ngModel)]="newEducation.description"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="form-check me-2">
-              <input class="form-check-input" type="checkbox" value="" id="EdPresent" [(ngModel)]="newEducation.present"
-                     [ngModelOptions]="{standalone: true}">
-            </div>
-            <p class="notification-text">I'm currently studying here.</p>
-          </div>
-          <div class="form-group">
-            <button id="CVG_SE_AddEdu" type="submit" class="btn-1">Add Education</button>
-          </div>
-        </div>
-      </div>
+  <div class="empty-state" *ngIf="educations.length === 0">
+    <div class="icon-box">
+      <i class="material-icons">school</i>
     </div>
-  </form>
-</div>
+    <p>No education added yet.</p>
+    <button class="btn-text" (click)="openModal(-1)">Add Education</button>
+  </div>
 
-<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="educations.length > 0">
-  <hr>
-  <div class="row experience" *ngFor="let ed of educations; let i = index">
-    <div class="col-3 col-lg-2">
-      <div class="d-flex flex-column align-items-center justify-content-center">
-        <div class="org-wrapper">
-          {{ed.school.substring(0, 1)}}
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="education-list">
+    <div class="education-card" *ngFor="let ed of educations; let i = index" cdkDrag>
+
+      <div class="drag-handle" cdkDragHandle>
+        <i class="material-icons">drag_indicator</i>
+      </div>
+
+      <div class="card-content">
+        <div class="main-info">
+          <div class="degree">{{ed.degree}}</div>
+          <div class="school">{{ed.school}} <span *ngIf="ed.country">• {{ed.country}}</span></div>
         </div>
-        <div class="year">
-          {{ed.startDate}} - {{ed.endDate}}
+        <div class="meta-info">
+          <span class="period">{{ed.startDate}} - {{ed.endDate}}</span>
         </div>
       </div>
-    </div>
-    <div class="col-8 col-lg-9">
-      <div class="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
-        <div class="title">{{ed.degree}}</div>
-        <div class="location">{{ed.school}} - {{ed.country}}</div>
-        <div class="description">{{ed.description}}</div>
-      </div>
-    </div>
-    <div class="col-1">
-      <div class="d-flex align-items-center">
-        <button id="CVG_SE_RemEdu" type="button" class="btn-3"><i class="material-icons" translate="no" (click)="removeEducation(i)">delete</i>
+
+      <div class="actions">
+        <button class="btn-icon" (click)="openModal(i)" title="Edit">
+          <i class="material-icons">edit</i>
+        </button>
+        <button class="btn-icon danger" (click)="removeEducation(i)" title="Delete">
+          <i class="material-icons">delete</i>
         </button>
       </div>
+
+      <div *cdkDragPreview class="drag-preview">
+        {{ed.degree}} at {{ed.school}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-wrapper">
+    <div class="modal-header">
+      <h3>{{ editingIndex > -1 ? 'Edit Education' : 'Add Education' }}</h3>
+      <button class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="saveEducation()">
+        <div class="row form-wrapper">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="EdDegree">Degree *</label>
+              <input type="text" class="form-control" id="EdDegree" [(ngModel)]="newEducation.degree"
+                [ngModelOptions]="{standalone: true}" required placeholder="e.g. Bachelor of Science">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="EdSchool">School / University *</label>
+              <input type="text" class="form-control" id="EdSchool" [(ngModel)]="newEducation.school"
+                [ngModelOptions]="{standalone: true}" required placeholder="e.g. MIT">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="EdCountry">Location</label>
+              <input type="text" class="form-control" id="EdCountry" [(ngModel)]="newEducation.country"
+                [ngModelOptions]="{standalone: true}" placeholder="e.g. Boston, USA">
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 row g-2">
+            <div class="col-6">
+              <div class="form-group">
+                <label>Start Year</label>
+                <input type="text" class="form-control" [(ngModel)]="newEducation.startDate"
+                  [ngModelOptions]="{standalone: true}" placeholder="2016">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>End Year</label>
+                <input type="text" class="form-control" [(ngModel)]="newEducation.endDate"
+                  [ngModelOptions]="{standalone: true}" placeholder="2020" [disabled]="newEducation.present">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="EdPresent" [(ngModel)]="newEducation.present"
+                [ngModelOptions]="{standalone: true}">
+              <label class="form-check-label" for="EdPresent">I am currently studying here</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group">
+              <label for="EdDesc">Description</label>
+              <textarea class="form-control" id="EdDesc" rows="3" [(ngModel)]="newEducation.description"
+                [ngModelOptions]="{standalone: true}" placeholder="Major projects, achievements, etc."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-text" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Education</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

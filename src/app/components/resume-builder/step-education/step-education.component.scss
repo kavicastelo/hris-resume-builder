@@ -1,76 +1,274 @@
-.experience{
-  margin-bottom: 24px;
+@use "../../../shared/styles/utilities" as utils;
 
-  .org-wrapper{
-    width: 100%;
-    min-width: 60px;
-    max-width: 80px;
-    aspect-ratio: 1/1;
+:host {
+  display: block;
+  width: 100%;
+}
+
+.step-container {
+  padding: 1rem 0;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h5 {
+    font-weight: 700;
+    margin: 0;
+    @include utils.gradient-text;
+    font-size: 1.5rem;
+  }
+
+  .btn-primary-sm {
+    @include utils.btn-fill;
+    @include utils.btn-f-3;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  @include utils.glass-premium;
+  border-radius: var(--radius);
+  color: hsl(var(--muted-foreground));
+
+  .icon-box {
+    width: 60px;
+    height: 60px;
+    background: hsla(var(--primary), 0.1);
     border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 10px;
-    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-primary-200);
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
+    margin-bottom: 1rem;
+
+    i {
+      font-size: 2rem;
+      color: hsl(var(--primary));
+    }
   }
 
-  .year{
-    font-size: 16px;
-    color: var(--color-text-300);
+  p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
   }
 
-  .title{
-    font-size: 18px;
-    color: var(--color-text-200);
+  .btn-text {
+    color: hsl(var(--primary));
+    font-weight: 600;
+    background: transparent;
+    border: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
-  .location{
-    font-size: 14px;
-    color: var(--color-secondary-200);
-  }
-  .description{
-    font-size: 16px;
-    color: var(--color-text-300);
+}
+
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 50px;
+}
+
+.education-card {
+  @include utils.glass-premium;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid hsla(var(--border), 0.5);
+  background-color: hsl(var(--background));
+  cursor: move;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: hsl(var(--primary));
+    transform: translateX(4px);
   }
 
-  .certificate{
+  .drag-handle {
+    color: hsl(var(--muted-foreground));
+    cursor: grab;
+    padding: 0.5rem;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .card-content {
+    flex: 1;
+
+    .main-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.25rem;
+
+      .degree {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: hsl(var(--foreground));
+      }
+
+      .school {
+        font-size: 0.95rem;
+        color: hsl(var(--muted-foreground));
+      }
+    }
+
+    .meta-info {
+      font-size: 0.85rem;
+      color: hsl(var(--muted-foreground));
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+
+    .btn-icon {
+      background: transparent;
+      border: none;
+      color: hsl(var(--muted-foreground));
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.2s;
+
+      &:hover {
+        background: hsla(var(--primary), 0.1);
+        color: hsl(var(--primary));
+      }
+
+      &.danger:hover {
+        background: hsla(var(--destructive), 0.1);
+        color: hsl(var(--destructive));
+      }
+
+      i {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+// Reuse modal styles (copied from experience for consistency, could be shared generic class)
+.modal-overlay {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal-wrapper {
     width: 100%;
-    min-height: 150px;
-    background-color: var(--color-surface-mixed-400);
-    padding: 12px;
+    max-width: 600px;
+    @include utils.glass-premium;
+    background: hsl(var(--background));
+    border-radius: var(--radius);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
 
-    .organization{
-      font-size: 17px;
-      font-weight: 550;
-      color: var(--color-text-100);
-    }
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid hsla(var(--border), 0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    .title, .date{
-      color: var(--color-text-100);
-      font-size: 15px;
-    }
+      h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
 
-    .date{
-      color: var(--color-text-200);
-    }
+      .close-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
 
-    .view, .id{
-      font-size: 13px;
-      color: var(--color-text-100);
-
-      a{
-        text-decoration: none;
-        font-size: 13px;
-        color: var(--color-primary-200);
-        transition: all .3s ease-in;
-
-        &:hover{
-          color: var(--color-primary-100);
+        i {
+          font-size: 1.5rem;
         }
+      }
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+
+      .form-group {
+        margin-bottom: 1.25rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          font-size: 0.9rem;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+          @include utils.input-premium;
+        }
+      }
+
+      .form-check {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+
+        input[type="checkbox"] {
+          width: auto;
+          margin: 0;
+        }
+      }
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid hsla(var(--border), 0.5);
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+
+      .btn-text {
+        background: transparent;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        @include utils.btn-fill;
+        @include utils.btn-f-3;
+        padding: 0.6rem 1.5rem;
+        border-radius: 8px;
       }
     }
   }

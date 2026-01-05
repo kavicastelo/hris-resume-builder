@@ -1,0 +1,101 @@
+@use "../../../shared/styles/utilities" as utils;
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.step-container {
+    padding: 1rem 0;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h5 {
+        font-weight: 700;
+        margin: 0;
+        @include utils.gradient-text;
+        font-size: 1.5rem;
+    }
+
+    .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: hsl(var(--muted-foreground));
+        background: hsla(var(--surface-mixed-100), 0.5);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+
+        i {
+            font-size: 1.1rem;
+        }
+
+        &.saving {
+            color: hsl(var(--primary));
+            background: hsla(var(--primary), 0.1);
+        }
+
+        .rotating {
+            animation: spin 1s linear infinite;
+        }
+    }
+}
+
+.form-card-premium {
+    @include utils.glass-premium;
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid hsla(var(--border), 0.5);
+    background-color: hsl(var(--background)); // Opaque enough
+
+    .form-group {
+        margin-bottom: 0.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+            font-size: 0.9rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            @include utils.input-premium;
+            transition: all 0.2s ease;
+
+            &:focus {
+                @include utils.shadow-soft;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form-card-premium {
+        padding: 1.25rem;
+    }
+}

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
-import {Utilities} from '../../shared/utilities/utilities';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CommonService} from '../../services/common.service';
-import {ToastrService} from 'ngx-toastr';
-import {Meta, Title} from "@angular/platform-browser";
-import {WindowService} from '../../services/common/window.service';
+import { Component, OnInit } from '@angular/core';
+import { NgForOf, NgIf } from '@angular/common';
+import { Utilities } from '../../shared/utilities/utilities';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonService } from '../../services/common.service';
+import { ToastrService } from 'ngx-toastr';
+import { Meta, Title } from "@angular/platform-browser";
+import { WindowService } from '../../services/common/window.service';
 
 @Component({
   selector: 'app-support',
@@ -56,20 +56,24 @@ export class SupportComponent implements OnInit {
   commonError: string = '';
 
   constructor(private commonService: CommonService,
-              private meta: Meta,
-              private title: Title,
-              private windowService: WindowService,
-              private toastr: ToastrService) {
+    private meta: Meta,
+    private title: Title,
+    private windowService: WindowService,
+    private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Talentboozt - CV Generator | Support');
+    this.title.setTitle('Talnova - CV Generator | Support');
     this.meta.addTags([
-      { name: 'description', content: 'Get professional resume support from experts with over 13 years of experience for ' +
-          'a minimal charge. Enhance your resume with personalized advice and expert editing.' },
-      { name: 'keywords', content: 'Professional resume support, Affordable resume help, Expert resume writing, ' +
+      {
+        name: 'description', content: 'Get professional resume support from experts with over 13 years of experience for ' +
+          'a minimal charge. Enhance your resume with personalized advice and expert editing.'
+      },
+      {
+        name: 'keywords', content: 'Professional resume support, Affordable resume help, Expert resume writing, ' +
           'Professional resume services, Resume editing services, Minimal charge resume support, Experienced resume writers, ' +
-          'Career support services, Professional CV assistance, Resume consultation' }
+          'Career support services, Professional CV assistance, Resume consultation'
+      }
     ]);
   }
 

@@ -1,16 +1,38 @@
-<div class="stepper">
-  <button id="CVG_RB_Prev" type="button" (click)="prevStep()" [disabled]="currentStep === 0">Previous</button>
-  <span>Step {{ currentStep + 1 }} of {{ steps.length }}</span>
-  <button id="CVG_RB_Next" type="button" (click)="nextStep()" [disabled]="currentStep === steps.length - 1">Next</button>
-</div>
+<div class="builder-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Builder</h3>
+    </div>
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="section-list">
+      <div *ngFor="let section of sections; let i = index" cdkDrag class="section-item"
+        [class.active]="activeSectionIndex === i" (click)="setActiveSection(i)">
+        <div class="drag-handle" cdkDragHandle>
+          <i class="material-icons">drag_indicator</i>
+        </div>
+        <div class="section-content">
+          <i class="material-icons icon">{{section.icon}}</i>
+          <span>{{section.label}}</span>
+        </div>
+      </div>
+    </div>
+  </aside>
 
-<div [ngSwitch]="currentStep">
-  <app-step-personal-info *ngSwitchCase="0"></app-step-personal-info>
-  <app-step-work-experience *ngSwitchCase="1"></app-step-work-experience>
-  <app-step-education *ngSwitchCase="2"></app-step-education>
-  <app-step-skills *ngSwitchCase="3"></app-step-skills>
-  <app-step-projects *ngSwitchCase="4"></app-step-projects>
-  <app-step-certificates *ngSwitchCase="5"></app-step-certificates>
-  <app-step-summary *ngSwitchCase="6"></app-step-summary>
-  <app-resume-preview *ngSwitchCase="7"></app-resume-preview>
+  <!-- Main Content -->
+  <main class="content-area">
+    <div class="content-header">
+      <h2>{{sections[activeSectionIndex].label}}</h2>
+    </div>
+
+    <div class="content-body" [ngSwitch]="sections[activeSectionIndex].id">
+      <app-step-personal-info *ngSwitchCase="0"></app-step-personal-info>
+      <app-step-work-experience *ngSwitchCase="1"></app-step-work-experience>
+      <app-step-education *ngSwitchCase="2"></app-step-education>
+      <app-step-skills *ngSwitchCase="3"></app-step-skills>
+      <app-step-projects *ngSwitchCase="4"></app-step-projects>
+      <app-step-certificates *ngSwitchCase="5"></app-step-certificates>
+      <app-step-summary *ngSwitchCase="6"></app-step-summary>
+      <app-resume-preview *ngSwitchCase="7"></app-resume-preview>
+    </div>
+  </main>
 </div>

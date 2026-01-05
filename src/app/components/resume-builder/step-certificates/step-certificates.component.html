@@ -1,69 +1,108 @@
-<div class="form-card-1">
-  <h5>Certifications :</h5>
+<div class="step-container">
+  <div class="header-actions">
+    <h5>Certifications</h5>
+    <button class="btn-primary-sm" (click)="openModal(-1)">
+      <i class="material-icons">add</i> Add
+    </button>
+  </div>
 
-  <form (ngSubmit)="addCertificate()">
-    <div class="row form-wrapper">
-      <div class="col-12">
-        <div class="form-group">
-          <label for="CName">Certification Name *</label>
-          <input type="text" class="form-control" id="CName" [(ngModel)]="newCertificate.name"
-                 [ngModelOptions]="{standalone: true}" required>
+  <div class="empty-state" *ngIf="certificates.length === 0">
+    <div class="icon-box">
+      <i class="material-icons">workspace_premium</i>
+    </div>
+    <p>No certificates added yet.</p>
+    <button class="btn-text" (click)="openModal(-1)">Add Certificate</button>
+  </div>
+
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="certificates-list">
+    <div class="certificate-card" *ngFor="let c of certificates; let i = index" cdkDrag>
+
+      <div class="drag-handle" cdkDragHandle>
+        <i class="material-icons">drag_indicator</i>
+      </div>
+
+      <div class="card-content">
+        <div class="main-info">
+          <div class="name">{{c.name}}</div>
+          <div class="issuer">{{c.organization}} <span *ngIf="c.date">• {{c.date}}</span></div>
+        </div>
+        <div class="meta-info" *ngIf="c.certificateId">
+          ID: {{c.certificateId}}
+        </div>
+        <div class="links" *ngIf="c.certificateUrl">
+          <a [href]="c.certificateUrl" target="_blank" (click)="$event.stopPropagation()">View Certificate</a>
         </div>
       </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="COrg">Organization *</label>
-          <input type="text" class="form-control" id="COrg" [(ngModel)]="newCertificate.organization"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
+
+      <div class="actions">
+        <button class="btn-icon" (click)="openModal(i)" title="Edit">
+          <i class="material-icons">edit</i>
+        </button>
+        <button class="btn-icon danger" (click)="removeCertificate(i)" title="Delete">
+          <i class="material-icons">delete</i>
+        </button>
       </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="CDate">Date *</label>
-          <input type="text" placeholder="2023 Feb" class="form-control" id="CDate" [(ngModel)]="newCertificate.date"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="CCID">Certificate ID *</label>
-          <input type="text" class="form-control" id="CCID" [(ngModel)]="newCertificate.certificateId"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="CCUrl">Certificate Url</label>
-          <input type="text" class="form-control" id="CCUrl" [(ngModel)]="newCertificate.certificateUrl"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="form-group">
-          <button id="CVG_SC_AddCertificate" type="submit" class="btn-1">Add Certificate</button>
-        </div>
+
+      <div *cdkDragPreview class="drag-preview">
+        {{c.name}}
       </div>
     </div>
-  </form>
+  </div>
 </div>
 
-<div class="container d-flex flex-column align-items-center justify-content-center w-100" *ngIf="certificates.length > 0">
-  <div class="row experience w-100">
-    <div class="col-12 col-md-4 col-lg-3" *ngFor="let ec of certificates; let i = index">
-      <div class="certificate mb-2">
-        <div class="d-flex flex-column align-items-start justify-content-start w-100 gap-2 mb-2">
-          <div class="organization">{{ec.organization}}</div>
-          <div class="title">{{ec.name}}</div>
-          <div class="date">{{ec.date}}</div>
-        </div>
-        <div class="d-flex flex-column align-items-end justify-content-end w-100 gap-2">
-          <div class="view">
-            <a id="CVG_SC_ViCertificate" type="link" href="{{ec.certificateUrl}}">view certificate</a>
+<!-- Modal Overlay -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-wrapper">
+    <div class="modal-header">
+      <h3>{{ editingIndex > -1 ? 'Edit Certificate' : 'Add Certificate' }}</h3>
+      <button class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="saveCertificate()">
+        <div class="row form-wrapper">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Certificate Name *</label>
+              <input type="text" class="form-control" [(ngModel)]="newCertificate.name"
+                [ngModelOptions]="{standalone: true}" required placeholder="AWS Solutions Architect">
+            </div>
           </div>
-          <div class="id">{{ec.certificateId}}</div>
-          <div id="CVG_SC_Delete" type="button" class="remove" (click)="removeCertificate(i)"><i class="material-icons" translate="no">delete</i> remove</div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Issuer / Organization *</label>
+              <input type="text" class="form-control" [(ngModel)]="newCertificate.organization"
+                [ngModelOptions]="{standalone: true}" required placeholder="Amazon Web Services">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Date</label>
+              <input type="text" class="form-control" [(ngModel)]="newCertificate.date"
+                [ngModelOptions]="{standalone: true}" placeholder="Feb 2023">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Credential ID</label>
+              <input type="text" class="form-control" [(ngModel)]="newCertificate.certificateId"
+                [ngModelOptions]="{standalone: true}" placeholder="Optional">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label>Credential URL</label>
+              <input type="url" class="form-control" [(ngModel)]="newCertificate.certificateUrl"
+                [ngModelOptions]="{standalone: true}" placeholder="https://...">
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-text" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Certificate</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

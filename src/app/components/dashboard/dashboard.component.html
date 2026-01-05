@@ -1,0 +1,45 @@
+<div class="dashboard-wrapper">
+    <div class="header">
+        <h1>Welcome back, <span>{{userName}}</span></h1>
+        <button class="logout-btn" (click)="logout()">
+            <i class="material-icons">logout</i>
+        </button>
+    </div>
+
+    <div class="content-grid">
+        <!-- Main Resume Card -->
+        <div class="card resume-card">
+            <div class="card-content">
+                <i class="material-icons card-icon">description</i>
+                <h2>My Resume</h2>
+                <p>Manage your professional profile and CV templates.</p>
+
+                <div class="actions">
+                    <button class="btn-primary" [routerLink]="['/resume-builder']" [queryParams]="{id: employeeId}">
+                        <i class="material-icons">edit</i> Edit Resume
+                    </button>
+                    <button class="btn-secondary" [routerLink]="['/preview']" [queryParams]="{id: employeeId}">
+                        <i class="material-icons">visibility</i> View Public
+                    </button>
+                </div>
+            </div>
+            <div class="card-bg-shape"></div>
+        </div>
+
+        <!-- Stats / Quick Info (Optional) -->
+        <div class="card stats-card">
+            <div class="stat-item">
+                <span class="value">1</span>
+                <span class="label">Resumes</span>
+            </div>
+            <div class="stat-item">
+                <span class="value">0</span>
+                <span class="label">Views</span>
+            </div>
+            <div class="stat-item">
+                <span class="value">0</span>
+                <span class="label">Downloads</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,23 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {NgSwitch, NgSwitchCase} from '@angular/common';
-import {StepPersonalInfoComponent} from './step-personal-info/step-personal-info.component';
-import {StepWorkExperienceComponent} from './step-work-experience/step-work-experience.component';
-import {StepEducationComponent} from './step-education/step-education.component';
-import {StepSkillsComponent} from './step-skills/step-skills.component';
-import {StepProjectsComponent} from './step-projects/step-projects.component';
-import {StepSummaryComponent} from './step-summary/step-summary.component';
-import {ResumePreviewComponent} from './resume-preview/resume-preview.component';
-import {StepCertificatesComponent} from './step-certificates/step-certificates.component';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {EmployeeService} from '../../services/employee.service';
-import {ResumeStorageService} from '../../services/resume-storage.service';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { StepPersonalInfoComponent } from './step-personal-info/step-personal-info.component';
+import { StepWorkExperienceComponent } from './step-work-experience/step-work-experience.component';
+import { StepEducationComponent } from './step-education/step-education.component';
+import { StepSkillsComponent } from './step-skills/step-skills.component';
+import { StepProjectsComponent } from './step-projects/step-projects.component';
+import { StepSummaryComponent } from './step-summary/step-summary.component';
+import { ResumePreviewComponent } from './resume-preview/resume-preview.component';
+import { StepCertificatesComponent } from './step-certificates/step-certificates.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { EmployeeService } from '../../services/employee.service';
+import { ResumeStorageService } from '../../services/resume-storage.service';
+import { CdkDragDrop, moveItemInArray, DragDropModule, CdkDropList, CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-resume-builder',
   imports: [
-    NgSwitch,
-    NgSwitchCase,
+    CommonModule,
+    DragDropModule,
     StepPersonalInfoComponent,
     StepWorkExperienceComponent,
     StepEducationComponent,
@@ -31,9 +32,20 @@ import {ResumeStorageService} from '../../services/resume-storage.service';
   styleUrl: './resume-builder.component.scss',
   standalone: true
 })
-export class ResumeBuilderComponent implements OnInit{
-  currentStep = 0;
-  steps = [0, 1, 2, 3, 4, 5, 6, 7];
+export class ResumeBuilderComponent implements OnInit {
+  activeSectionIndex = 0;
+
+  // Define sections with metadata for Sidebar
+  sections = [
+    { id: 0, label: 'Personal Info', icon: 'person', component: 'personal-info' },
+    { id: 1, label: 'Experience', icon: 'work', component: 'experience' },
+    { id: 2, label: 'Education', icon: 'school', component: 'education' },
+    { id: 3, label: 'Skills', icon: 'psychology', component: 'skills' },
+    { id: 4, label: 'Projects', icon: 'code', component: 'projects' },
+    { id: 5, label: 'Certificates', icon: 'workspace_premium', component: 'certificates' },
+    { id: 6, label: 'Summary', icon: 'summarize', component: 'summary' },
+    { id: 7, label: 'Preview & Download', icon: 'visibility', component: 'preview' }
+  ];
 
   replaced: any;
   viewPage: any;
@@ -61,10 +73,10 @@ export class ResumeBuilderComponent implements OnInit{
   avatar: any;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private cookieService: AuthService,
-              private resumeStorage: ResumeStorageService,
-              private employeeService: EmployeeService){}
+    private route: ActivatedRoute,
+    private cookieService: AuthService,
+    private resumeStorage: ResumeStorageService,
+    private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.cookieId = this.cookieService.userID();
@@ -75,7 +87,7 @@ export class ResumeBuilderComponent implements OnInit{
     });
     if (this.cookieId && !this.employeeId) {
       this.getEmployee(this.cookieId);
-      this.router.navigate(['/resume-builder'], {queryParams: {id: this.cookieId}});
+      this.router.navigate(['/resume-builder'], { queryParams: { id: this.cookieId } });
     } else if (this.employeeId) {
       this.getEmployee(this.employeeId);
     } else {
@@ -104,9 +116,19 @@ export class ResumeBuilderComponent implements OnInit{
       this.resumeStorage.saveData('hobbies', this.hobbies);
       this.resumeStorage.saveData('unlocked', false);
     }
-    if (this.viewPage === '8'){
-      this.currentStep = 7;
+    if (this.viewPage === '8') {
+      this.activeSectionIndex = 7;
     }
+  }
+
+  // Handle Drag & Drop Reordering
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
+  }
+
+  // Set active section
+  setActiveSection(index: number) {
+    this.activeSectionIndex = index;
   }
 
   getEmployee(id: any) {
@@ -178,7 +200,7 @@ export class ResumeBuilderComponent implements OnInit{
       this.avatar = this.employee?.employee?.image || '';
 
       // Saving Mapped Data to Local Storage
-      if (this.replaced){
+      if (this.replaced) {
         this.resumeStorage.saveData('personalInfo', this.personalInfo);
         this.resumeStorage.saveData('workExperiences', this.experiences);
         this.resumeStorage.saveData('educations', this.education);
@@ -189,17 +211,5 @@ export class ResumeBuilderComponent implements OnInit{
         this.resumeStorage.saveData('unlocked', true);
       }
     });
-  }
-
-  nextStep(): void {
-    if (this.currentStep < this.steps.length - 1) {
-      this.currentStep++;
-    }
-  }
-
-  prevStep(): void {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
   }
 }

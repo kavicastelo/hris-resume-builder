@@ -1,39 +1,46 @@
-  <div class="wrapper">
+<div class="wrapper">
   <div class="form-card-1">
     <form [formGroup]="loginForm">
       <div class="row form-wrapper">
         <div class="col-12">
           <label for="email">Email:</label>
-          <input type="email" placeholder="example@example.com" id="email" formControlName="email" autocomplete="section-blue login email">
+          <input type="email" placeholder="example@example.com" id="email" formControlName="email"
+            autocomplete="section-blue login email">
         </div>
 
-        <div class="col-12"> 
+        <div class="col-12">
           <label for="password">Password:</label>
           <div class="input-group w-100 d-flex">
-            <input type="password" placeholder="Password:" id="password" formControlName="password" aria-label="Password:" aria-describedby="button-addon" style="flex:1" autocomplete="section-blue login password">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon" (click)="togglePasswordVisibility()"><i [ngClass]="isp1open? 'fa fa-eye-slash':'fa fa-eye'" aria-hidden="true"></i></button>
+            <input type="password" placeholder="Password:" id="password" formControlName="password"
+              aria-label="Password:" aria-describedby="button-addon" style="flex:1"
+              autocomplete="section-blue login password">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon"
+              (click)="togglePasswordVisibility()"><i [ngClass]="isp1open? 'fa fa-eye-slash':'fa fa-eye'"
+                aria-hidden="true"></i></button>
           </div>
         </div>
 
         <div class="col-12">
           <div class="d-sm-flex align-items-center justify-content-between">
             <div class="form-check">
-              <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" formControlName="remember" style="width: auto">
+              <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault"
+                formControlName="remember" style="width: auto">
               <label class="form-check-label" for="flexCheckDefault">
                 Trust this device
               </label>
             </div>
 
-            <a href="https://talentboozt.com/reset"  id="CVG_SII_FoPass" type="link" class="link">Forgot Password?</a>
+            <a href="https://talnova.io/reset" class="link">Forgot Password?</a>
           </div>
         </div>
 
         <div class="col-12">
-          <button id="CVG_SII_SignIn" type="button" class="btn-1 w-100" (click)="loginUser()" [disabled]="disabled">Sign In</button>
+          <button class="btn-1 w-100" (click)="loginUser()" [disabled]="disabled">Sign In</button>
         </div>
 
         <div class="col-12">
-          <p  class="navigation-text text-center">Don't have an account? <span id="CVG_SII_SignUp" type="link" class="link" routerLink="/sign/up">Sign Up</span></p>
+          <p class="navigation-text text-center">Don't have an account? <span class="link" routerLink="/sign/up">Sign
+              Up</span></p>
         </div>
       </div>
     </form>

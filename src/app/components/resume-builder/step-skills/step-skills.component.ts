@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {ResumeStorageService} from '../../../services/resume-storage.service';
-import {NgForOf, NgIf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ResumeStorageService } from '../../../services/resume-storage.service';
+import { NgForOf, NgIf } from '@angular/common';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-step-skills',
   imports: [
     FormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    DragDropModule
   ],
   templateUrl: './step-skills.component.html',
   styleUrl: './step-skills.component.scss',
@@ -18,10 +20,10 @@ export class StepSkillsComponent implements OnInit {
   skills: any[] = [];
   newSkill = {
     skill: '',
-    percentage: ''
+    percentage: 50
   }
 
-  constructor(private resumeStorage: ResumeStorageService) {}
+  constructor(private resumeStorage: ResumeStorageService) { }
 
   ngOnInit(): void {
     const savedData = this.resumeStorage.getData();
@@ -31,7 +33,7 @@ export class StepSkillsComponent implements OnInit {
   }
 
   addSkill(): void {
-    if (this.newSkill.skill && this.newSkill.percentage) {
+    if (this.newSkill.skill) {
       this.skills.push({ ...this.newSkill });
       this.saveData();
       this.resetForm();
@@ -43,11 +45,16 @@ export class StepSkillsComponent implements OnInit {
     this.saveData();
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.skills, event.previousIndex, event.currentIndex);
+    this.saveData();
+  }
+
   saveData(): void {
     this.resumeStorage.saveData('skills', this.skills);
   }
 
   resetForm(): void {
-    this.newSkill = { skill: '', percentage: '' };
+    this.newSkill = { skill: '', percentage: 50 };
   }
 }

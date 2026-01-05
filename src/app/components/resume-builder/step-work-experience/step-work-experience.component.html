@@ -1,93 +1,125 @@
-<div class="form-card-1">
-  <h5>Work Experience :</h5>
+<div class="step-container">
+  <div class="header-actions">
+    <h5>Work Experience</h5>
+    <button class="btn-primary-sm" (click)="openModal(-1)">
+      <i class="material-icons">add</i> Add
+    </button>
+  </div>
 
-  <form (ngSubmit)="addExperience()">
-    <div class="row form-wrapper">
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="ExOccupation">Occupation *</label>
-          <input type="text" class="form-control" id="ExOccupation" [(ngModel)]="newExperience.occupation"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="ExCountry">Country</label>
-          <input type="text" class="form-control" id="ExCountry" [(ngModel)]="newExperience.country"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="ExOrg">Organization *</label>
-          <input type="text" class="form-control" id="ExOrg" [(ngModel)]="newExperience.organization"
-                 [ngModelOptions]="{standalone: true}" required>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="form-group">
-          <label for="ExStart">Start Year</label>
-          <input type="number" class="form-control" id="ExStart" [(ngModel)]="newExperience.startDate"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="form-group">
-          <label for="ExEnd">End Year</label>
-          <input type="number" class="form-control" id="ExEnd" [(ngModel)]="newExperience.endDate"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="form-group">
-          <label for="ExDesc">Short Description</label>
-          <input type="text" class="form-control" id="ExDesc" [(ngModel)]="newExperience.description"
-                 [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="d-flex align-items-center justify-content-between w-100">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="form-check me-2">
-              <input class="form-check-input" type="checkbox" value="" id="ExPresent"
-                     [(ngModel)]="newExperience.present" [ngModelOptions]="{standalone: true}">
-            </div>
-            <p class="notification-text">I'm currently working here.</p>
-          </div>
-          <div class="form-group">
-            <button id="CVG_SWE_AddExp" type="submit" class="btn-1">Add Experience</button>
-          </div>
-        </div>
-      </div> 
+  <div class="empty-state" *ngIf="workExperiences.length === 0">
+    <div class="icon-box">
+      <i class="material-icons">work_outline</i>
     </div>
-  </form>
-</div>
+    <p>No work experience added yet.</p>
+    <button class="btn-text" (click)="openModal(-1)">Add Experience</button>
+  </div>
 
-<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="workExperiences.length > 0">
-  <hr>
-  <div class="row experience" *ngFor="let ex of workExperiences; let i = index">
-    <div class="col-3 col-lg-2">
-      <div class="d-flex flex-column align-items-center justify-content-center">
-        <div class="org-wrapper">
-          {{ex.organization.split(' ')[0].substring(0, 1)}}
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="experience-list">
+    <div class="experience-card" *ngFor="let ex of workExperiences; let i = index" cdkDrag>
+
+      <div class="drag-handle" cdkDragHandle>
+        <i class="material-icons">drag_indicator</i>
+      </div>
+
+      <div class="card-content">
+        <div class="main-info">
+          <div class="role">{{ex.occupation}}</div>
+          <div class="company">{{ex.organization}} <span *ngIf="ex.country">• {{ex.country}}</span></div>
         </div>
-        <div class="year">
-          {{ex.startDate}} - {{ex.endDate}}
+        <div class="meta-info">
+          <span class="period">{{ex.startDate}} - {{ex.endDate}}</span>
         </div>
       </div>
-    </div>
-    <div class="col-8 col-lg-9">
-      <div class="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
-        <div class="title">{{ex.occupation}}</div>
-        <div class="location">{{ex.organization}} - {{ex.country}}</div>
-        <div class="description">{{ex.description}}</div>
-      </div>
-    </div>
-    <div class="col-1">
-      <div class="d-flex align-items-center">
-        <button id="CVG_SWE_DelExp"  type="button" class="btn-3"><i class="material-icons" translate="no" (click)="removeExperience(i)">delete</i>
+
+      <div class="actions">
+        <button class="btn-icon" (click)="openModal(i)" title="Edit">
+          <i class="material-icons">edit</i>
+        </button>
+        <button class="btn-icon danger" (click)="removeExperience(i)" title="Delete">
+          <i class="material-icons">delete</i>
         </button>
       </div>
+
+      <div *cdkDragPreview class="drag-preview">
+        {{ex.occupation}} at {{ex.organization}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-wrapper">
+    <div class="modal-header">
+      <h3>{{ editingIndex > -1 ? 'Edit Experience' : 'Add Experience' }}</h3>
+      <button class="close-btn" (click)="closeModal()"><i class="material-icons">close</i></button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="saveExperience()">
+        <div class="row form-wrapper">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="ExOccupation">Job Title *</label>
+              <input type="text" class="form-control" id="ExOccupation" [(ngModel)]="newExperience.occupation"
+                [ngModelOptions]="{standalone: true}" required placeholder="e.g. Senior Developer">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="ExOrg">Company *</label>
+              <input type="text" class="form-control" id="ExOrg" [(ngModel)]="newExperience.organization"
+                [ngModelOptions]="{standalone: true}" required placeholder="e.g. Google">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label for="ExCountry">Location</label>
+              <input type="text" class="form-control" id="ExCountry" [(ngModel)]="newExperience.country"
+                [ngModelOptions]="{standalone: true}" placeholder="e.g. New York, USA">
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 row g-2">
+            <div class="col-6">
+              <div class="form-group">
+                <label>Start Year</label>
+                <input type="text" class="form-control" [(ngModel)]="newExperience.startDate"
+                  [ngModelOptions]="{standalone: true}" placeholder="2020">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>End Year</label>
+                <input type="text" class="form-control" [(ngModel)]="newExperience.endDate"
+                  [ngModelOptions]="{standalone: true}" placeholder="Present" [disabled]="newExperience.present">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="ExPresent" [(ngModel)]="newExperience.present"
+                [ngModelOptions]="{standalone: true}">
+              <label class="form-check-label" for="ExPresent">I currently work here</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group">
+              <label for="ExDesc">Description</label>
+              <textarea class="form-control" id="ExDesc" rows="3" [(ngModel)]="newExperience.description"
+                [ngModelOptions]="{standalone: true}"
+                placeholder="Briefly describe your responsibilities..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-text" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn-primary">Save Experience</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

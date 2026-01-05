@@ -1,34 +1,50 @@
-.wrapper{
+@use "../../shared/styles/utilities" as utils;
+
+.wrapper {
   width: 100%;
   min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include utils.flex-center;
   flex-direction: column;
-  padding: 20px 8px;
+  padding: 2rem 1rem;
+  @include utils.mesh-gradient;
 
-  .title{
-    font-size: max(28px, 3.6vw);
+  .title {
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: var(--color-text-100);
+    color: hsl(var(--foreground));
+    margin-bottom: 1rem;
+    text-align: center;
+    @include utils.animate-fade-in;
   }
 
-  a{
-    text-decoration: none;
-    color: var(--color-primary-200);
-    transition: all .3s ease-in;
+  p {
+    text-align: center;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: hsl(var(--muted-foreground));
+    @include utils.animate-fade-in;
+    animation-delay: 0.1s;
+  }
 
-    &:hover{
-      color: var(--color-primary-100);
+  a {
+    text-decoration: none;
+    color: hsl(var(--primary));
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: hsl(var(--secondary));
+      text-decoration: underline;
     }
   }
 
-  .center-element{
+  .center-element {
     width: 100%;
-    height: 100%;
-    max-width: 600px;
-    //max-height: 70vh;
-    border-radius: 20px;
-    overflow: hidden;
+    max-width: 500px; // Slightly tighter for better focus
+    border-radius: var(--radius);
+    // overflow: hidden; // Allow shadows to show
+    margin-top: 1rem;
+    @include utils.animate-fade-in;
+    animation-delay: 0.2s;
   }
 }

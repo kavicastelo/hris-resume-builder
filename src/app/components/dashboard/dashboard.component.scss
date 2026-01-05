@@ -1,0 +1,191 @@
+@use "../../shared/styles/utilities" as utils;
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.dashboard-wrapper {
+    min-height: calc(100vh - 60px);
+    width: 100%;
+    padding: 2rem;
+    @include utils.mesh-gradient;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .header {
+        @include utils.flex-between;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        @include utils.glass-premium;
+        padding: 1.5rem 2rem;
+        border-radius: var(--radius);
+
+        h1 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: hsl(var(--foreground));
+            margin: 0;
+
+            span {
+                color: hsl(var(--primary));
+            }
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid hsla(var(--border)/ 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: hsl(var(--muted-foreground));
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: hsla(var(--danger)/ 0.1);
+                color: hsl(var(--danger));
+                border-color: hsla(var(--danger)/ 0.3);
+            }
+        }
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        @include utils.glass-premium;
+        border-radius: var(--radius);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px hsla(var(--primary)/ 0.2);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            .card-icon {
+                font-size: 3rem;
+                color: hsl(var(--primary));
+                margin-bottom: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                color: hsl(var(--foreground));
+            }
+
+            p {
+                color: hsl(var(--muted-foreground));
+                margin-bottom: 2rem;
+                flex: 1;
+            }
+
+            .actions {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+
+                button {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: var(--radius);
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    border: none;
+                    white-space: nowrap;
+
+                    i {
+                        font-size: 1.2rem;
+                    }
+
+                    &.btn-primary {
+                        background-color: hsl(var(--primary));
+                        color: hsl(var(--primary-foreground));
+
+                        &:hover {
+                            opacity: 0.9;
+                        }
+                    }
+
+                    &.btn-secondary {
+                        background-color: transparent;
+                        border: 1px solid hsl(var(--border));
+                        color: hsl(var(--foreground));
+
+                        &:hover {
+                            background-color: hsla(var(--foreground)/ 0.05);
+                        }
+                    }
+                }
+            }
+        }
+
+        .card-bg-shape {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, hsla(var(--primary)/ 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+    }
+
+    .stats-card {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        min-height: 150px;
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+
+            .value {
+                font-size: 2.5rem;
+                font-weight: 800;
+                @include utils.gradient-text;
+            }
+
+            .label {
+                color: hsl(var(--muted-foreground));
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        }
+    }
+}

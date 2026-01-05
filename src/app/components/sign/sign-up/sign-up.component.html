@@ -17,8 +17,11 @@
         <div class="col-12">
           <label for="password">Password:</label>
           <div class="input-group w-100 d-flex">
-            <input type="password" placeholder="Password:" id="password" formControlName="password" aria-label="Password:" aria-describedby="button-addon" style="flex:1">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon" (click)="togglePasswordVisibility()"><i [ngClass]="isp1open? 'fa fa-eye-slash':'fa fa-eye'" aria-hidden="true"></i></button>
+            <input type="password" placeholder="Password:" id="password" formControlName="password"
+              aria-label="Password:" aria-describedby="button-addon" style="flex:1">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon"
+              (click)="togglePasswordVisibility()"><i [ngClass]="isp1open? 'fa fa-eye-slash':'fa fa-eye'"
+                aria-hidden="true"></i></button>
           </div>
           <div class="error-msg">{{errorMsg}}</div>
         </div>
@@ -28,7 +31,7 @@
             <div class="form-check">
               <input class="form-check-input me-2" type="checkbox" formControlName="termsCheck" id="termsCheck">
               <label class="form-check-label" for="termsCheck">
-                I accept <a href="https://talentboozt.com/terms-and-conditions">Terms and Conditions</a>
+                I accept <a href="https://talnova.io/terms-and-conditions">Terms and Conditions</a>
               </label>
               <div class="error-msg">{{termsErrorMsg}}</div>
             </div>
@@ -42,11 +45,12 @@
         </div>
 
         <div class="col-12">
-          <button id="CVG_SU_SignUp" type="button" class="btn-1 w-100" (click)="registerUser()">Sign Up</button>
+          <button class="btn-1 w-100" (click)="registerUser()">Sign Up</button>
         </div>
 
         <div class="col-12">
-          <p class="navigation-text text-center">Already have an account ? <span id="CVG_SU_SignIn" type="link" class="link" routerLink="/sign/in">Sign In</span></p>
+          <p class="navigation-text text-center">Already have an account ? <span class="link" routerLink="/sign/in">Sign
+              In</span></p>
         </div>
       </div>
     </form>
