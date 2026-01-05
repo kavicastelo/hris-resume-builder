@@ -12,10 +12,13 @@
 
   .logo-lg {
     width: 150px;
-    height: 50px;
     background-color: hsla(var(--primary)/ 0.2);
     margin-bottom: 1.5rem;
     border-radius: var(--radius);
+
+    img {
+      width: 100%;
+    }
   }
 
   h2 {

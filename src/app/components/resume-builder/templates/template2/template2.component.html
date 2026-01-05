@@ -1,132 +1,160 @@
-<div class="cv-render" id="cv">
-  <div class="wrapper">
-    <!-- Left Column (Personal Info, Skills, Certificates) -->
-    <div class="left-column" *ngIf="personalInfo">
-      <!-- Avatar -->
-      <div class="avatar" *ngIf="avatar">
-        <div class="image-wrapper">
-          <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
-               alt="avatar">
+<div class="cv-render template-2" id="cv">
+  <div class="cv-grid">
+    <!-- Left Sidebar (Dark/Colored Background) -->
+    <aside class="sidebar">
+      <div class="profile-section">
+        <div class="avatar-wrapper" *ngIf="avatar">
+          <img [src]="avatar || '/imgs/default_emp_dp.svg'" alt="Avatar">
         </div>
+        <h1 class="name" *ngIf="personalInfo">{{personalInfo.firstname}}<br>{{personalInfo.lastname}}</h1>
+        <p class="role" *ngIf="personalInfo">{{personalInfo.occupation}}</p>
       </div>
-      <!-- Personal Information -->
-      <header style="text-align: center; margin-bottom: 30px;">
-        <h1>{{personalInfo.firstname ? personalInfo.firstname +' '+ personalInfo.lastname : ''}}</h1>
-        <p>{{personalInfo.occupation ? personalInfo.occupation : ''}}</p>
-        <p>{{personalInfo.bio ? personalInfo.bio : ''}}</p>
-      </header>
 
-      <!-- Contact Information -->
-      <section style="margin-bottom: 30px;" *ngIf="personalInfo">
-        <h2 style="color: #fff; border-bottom: 2px solid #fff;">Contact</h2>
-        <ul>
-          <li [ngStyle]="{'display': personalInfo.email ? 'block' : 'none'}"><strong>Email:</strong> {{personalInfo.email ? personalInfo.email : 'N/A'}}</li>
-          <li [ngStyle]="{'display': personalInfo.phone ? 'block' : 'none'}"><strong>Phone:</strong> {{personalInfo.phone ? personalInfo.phone : 'N/A'}}</li>
-          <li [ngStyle]="{'display': personalInfo.dob ? 'block' : 'none'}"><strong>DOB:</strong> {{personalInfo.dob ? personalInfo.dob : 'N/A'}}</li>
-        </ul>
+      <div class="sidebar-content">
+        <!-- Contact Information -->
+        <section class="sidebar-item" *ngIf="personalInfo">
+          <h2 class="sidebar-title">Contact</h2>
+          <ul class="contact-list">
+            <li *ngIf="personalInfo.email">
+              <i class="material-icons">email</i> {{personalInfo.email}}
+            </li>
+            <li *ngIf="personalInfo.phone">
+              <i class="material-icons">phone</i> {{personalInfo.phone}}
+            </li>
+            <li *ngIf="personalInfo.city || personalInfo.country">
+              <i class="material-icons">location_on</i> {{personalInfo.city}}{{personalInfo.city && personalInfo.country
+              ? ', ' : ''}}{{personalInfo.country}}
+            </li>
+            <li *ngIf="personalInfo.dob">
+              <i class="material-icons">cake</i> {{personalInfo.dob}}
+            </li>
+          </ul>
+        </section>
+
+        <!-- Skills -->
+        <section class="sidebar-item" *ngIf="skills.length > 0">
+          <h2 class="sidebar-title">Skills</h2>
+          <div class="skills-wrapper">
+            <div class="skill-entry" *ngFor="let s of skills">
+              <div class="skill-label">
+                <span>{{s.skill}}</span>
+              </div>
+              <div class="skill-bar-container">
+                <div class="skill-bar" [style.width.%]="s.percentage || 100"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Languages -->
+        <section class="sidebar-item" *ngIf="languages.length > 0">
+          <h2 class="sidebar-title">Languages</h2>
+          <ul class="info-list">
+            <li *ngFor="let l of languages">
+              <span class="info-label">{{l.name}}</span>
+              <span class="info-value">{{l.level}}</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Hobbies -->
+        <section class="sidebar-item" *ngIf="hobbies.length > 0">
+          <h2 class="sidebar-title">Interests</h2>
+          <div class="tag-cloud">
+            <span class="tag" *ngFor="let h of hobbies">{{h.name}}</span>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- About Me -->
+      <section class="main-section" *ngIf="personalInfo && personalInfo.bio">
+        <h2 class="section-title">About Me</h2>
+        <p class="bio-text">{{personalInfo.bio}}</p>
       </section>
 
-      <!-- Skills -->
-      <section style="margin-bottom: 30px;" *ngIf="skills.length > 0">
-        <h2 style="color: #fff; border-bottom: 2px solid #fff;">Skills</h2>
-        <div style="margin-bottom: 10px;" *ngFor="let s of skills">
-          <p>{{s.skill}} <span style="float: right;">{{s.percentage}}%</span></p>
-          <div class="progress">
-            <div class="progress-bar" [ngStyle]="{'width': s.percentage ? s.percentage +'%': '0%'}"></div>
+      <!-- Experience -->
+      <section class="main-section" *ngIf="experiences.length > 0">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="content-list">
+          <div class="content-item" *ngFor="let e of experiences">
+            <div class="item-header">
+              <h3 class="item-role">{{e.occupation}}</h3>
+              <span class="item-org">{{e.organization}}</span>
+            </div>
+            <div class="item-meta">
+              <span class="item-date">{{e.startDate}} - {{e.endDate}}</span>
+              <span class="item-loc" *ngIf="e.country"> | {{e.country}}</span>
+            </div>
+            <p class="item-desc">{{e.description}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="main-section" *ngIf="education.length > 0">
+        <h2 class="section-title">Education</h2>
+        <div class="content-list">
+          <div class="content-item" *ngFor="let e of education">
+            <div class="item-header">
+              <h3 class="item-role">{{e.degree}}</h3>
+              <span class="item-org">{{e.school}}</span>
+            </div>
+            <div class="item-meta">
+              <span class="item-date">{{e.startDate}} - {{e.endDate}}</span>
+              <span class="item-loc" *ngIf="e.country"> | {{e.country}}</span>
+            </div>
+            <p class="item-desc">{{e.description}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="main-section" *ngIf="projects.length > 0">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card" *ngFor="let p of projects">
+            <h3 class="project-name">{{p.name}}</h3>
+            <p class="project-role">{{p.role}}</p>
+            <p class="project-desc">{{p.description}}</p>
+            <div class="project-links" *ngIf="p.demo || p.source">
+              <a *ngIf="p.demo" [href]="p.demo" target="_blank">Demo</a>
+              <a *ngIf="p.source" [href]="p.source" target="_blank">Code</a>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Certificates -->
-      <section style="margin-bottom: 30px;" *ngIf="certificates.length > 0">
-        <h2 style="color: #fff; border-bottom: 2px solid #fff;">Certificates</h2>
-        <div style="margin-bottom: 15px;" *ngFor="let c of certificates">
-          <h3>{{c.name}}</h3>
-          <p>{{c.organization}} | {{c.date}}</p>
-          <a href="{{c.certificateUrl}}" style="color: #fff; text-decoration: underline;">View Certificate</a>
-        </div>
-      </section>
-    </div>
-
-    <!-- Right Column (Experience, Education, Projects) -->
-    <div class="right-column">
-      <!-- Experience -->
-      <section style="margin-bottom: 30px;" *ngIf="experiences.length > 0">
-        <h2>Experience</h2>
-        <div style="margin-bottom: 20px;" *ngFor="let e of experiences">
-          <h3>{{e.occupation}} at {{e.organization}}</h3>
-          <p>{{e.country}} | {{e.startDate}} - {{e.endDate}}</p>
-          <p>{{e.description}}</p>
-        </div>
+      <section class="main-section" *ngIf="certificates.length > 0">
+        <h2 class="section-title">Certifications</h2>
+        <ul class="cert-list">
+          <li *ngFor="let c of certificates">
+            <div class="cert-info">
+              <strong class="cert-name">{{c.name}}</strong>
+              <span class="cert-org">{{c.organization}} · {{c.date}}</span>
+            </div>
+            <a *ngIf="c.certificateUrl" [href]="c.certificateUrl" target="_blank" class="cert-link">View</a>
+          </li>
+        </ul>
       </section>
 
-      <!-- Education -->
-      <section style="margin-bottom: 30px;" *ngIf="education.length > 0">
-        <h2>Education</h2>
-        <div style="margin-bottom: 20px;" *ngFor="let e of education">
-          <h3>{{e.degree}} at {{e.school}}</h3>
-          <p>{{e.country}} | {{e.startDate}} - {{e.endDate}}</p>
-          <p>{{e.description}}</p>
+      <!-- References -->
+      <section class="main-section" *ngIf="references.length > 0">
+        <h2 class="section-title">References</h2>
+        <div class="ref-grid">
+          <div class="ref-card" *ngFor="let r of references">
+            <h4 class="ref-name">{{r.name}}</h4>
+            <span class="ref-comp">{{r.company}}</span>
+            <div class="ref-contact">
+              <a [href]="'mailto:'+r.email">{{r.email}}</a>
+              <a [href]="'tel:'+r.phone">{{r.phone}}</a>
+            </div>
+          </div>
         </div>
       </section>
-
-      <!-- Projects -->
-      <section style="margin-bottom: 30px;" *ngIf="projects.length > 0">
-        <h2>Projects</h2>
-        <div style="margin-bottom: 20px;" *ngFor="let p of projects">
-          <h3>{{p.name}} at {{p.company}}</h3>
-          <p>{{p.role}} | {{p.startDate}} - {{p.endDate}}</p>
-          <p>{{p.description}}</p>
-          <a href="{{p.demo}}" style="margin-right: 10px;">Demo</a>
-          <a href="{{p.source}}">Source Code</a>
-        </div>
-      </section>
-
-      <!-- Languages Section -->
-      <section style="margin-bottom: 30px;" *ngIf="languages.length > 0">
-        <h2>Languages</h2>
-        <div style="margin-bottom: 20px;">
-          <table>
-            <tr *ngFor="let l of languages">
-              <td style="padding-right: 20mm">
-                <ul style="margin-bottom: 0">
-                  <li>
-                    <p>{{l.name}}</p>
-                  </li>
-                </ul>
-              </td>
-              <td><p>{{l.level}}</p></td>
-            </tr>
-          </table>
-        </div>
-      </section>
-
-      <!-- Hobbies Section -->
-      <section style="margin-bottom: 30px;" *ngIf="hobbies.length > 0">
-        <h2>Interests & Hobbies</h2>
-        <div style="margin-bottom: 20px;">
-          <ul>
-            <li *ngFor="let h of hobbies">
-              <p>{{h.name}}</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- References Section -->
-      <section style="margin-bottom: 30px;" *ngIf="references.length > 0">
-        <h2>References</h2>
-        <div style="margin-bottom: 20px;" *ngFor="let r of references">
-          <h3>{{r.name}}</h3>
-          <p>{{r.company}}</p>
-          <table>
-            <tr>
-              <td style="padding-right: 5mm"><a href="mailto:{{r.email}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.email}}</a></td>
-              <td><a href="tel:{{r.phone}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.phone}}</a></td>
-            </tr>
-          </table>
-        </div>
-      </section>
-    </div>
+    </main>
   </div>
 </div>

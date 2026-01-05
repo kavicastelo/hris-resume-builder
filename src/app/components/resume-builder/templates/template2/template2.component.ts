@@ -1,11 +1,10 @@
-import {Component, Input} from '@angular/core';
-import {NgForOf, NgIf, NgStyle} from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-template2',
   imports: [
     NgForOf,
-    NgStyle,
     NgIf
   ],
   templateUrl: './template2.component.html',
@@ -17,7 +16,7 @@ export class Template2Component {
   @Input('certificates') certificates: any[] = []
   @Input('education') education: any[] = []
   @Input('projects') projects: any[] = []
-  @Input('skills') skills: any[] =[]
+  @Input('skills') skills: any[] = []
   @Input('experiences') experiences: any[] = []
   @Input('references') references: any[] = []
   @Input('languages') languages: any[] = []

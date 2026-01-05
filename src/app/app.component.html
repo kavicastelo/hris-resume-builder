@@ -3,7 +3,7 @@
   <div class="w-100 main-body">
     <div class="header">
       <div class="logo-area" (click)="goHome()">
-        <img [src]="themeService.isDarkMode() ? '/imgs/top-w.webp' : '/imgs/top-b.webp'" alt="Talnova Logo"
+        <img [src]="themeService.isDarkMode() ? '/imgs/g-l-b.avif' : '/imgs/g-l-w.avif'" alt="Talnova Logo"
           class="brand-logo">
       </div>
 
@@ -23,12 +23,12 @@
 
         <ng-template #guestTemplate>
           <div class="auth-buttons">
-            <button class="btn-outline" [routerLink]="['/sign/in']">Sign In</button>
-            <button class="btn-primary" [routerLink]="['/sign/up']">Sign Up</button>
+            <button class="btn-outline" (click)="login('cv', 'login')">Sign In</button>
+            <button class="btn-primary" (click)="login('cv', 'register')">Sign Up</button>
           </div>
         </ng-template>
 
-        <!-- Mobile Menu Helper (Hidden on Desktop) -->
+        <!-- Mobile Menu Helper (Hidden on Desktop)-->
         <button class="btn-icon mobile-menu-btn d-md-none">
           <i class="material-icons">menu</i>
         </button>

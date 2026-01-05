@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row footer-top">
       <div class="col-12 col-md-4 col-lg-5">
-        <div class="logo-lg"></div>
+        <div class="logo-lg">
+          <img [src]="themeService.isDarkMode() ? '/imgs/g-s-b.avif' : '/imgs/g-s-w.avif'" alt="logo">
+        </div>
         <p class="not-animate">We are committed to uplifting Human Talent <br>
           {{utilities.contactNumber2}} | {{utilities.contactNumber}}<br>
           {{utilities.contactEmail}}
@@ -36,7 +38,7 @@
     </div>
   </div>
 
-  <div class="d-md-flex align-items-center justify-content-between footer-bottom">
+  <div class="d-md-flex align-items-center justify-content-between footer-bottom px-4">
     <div class="footer-bottom-left">
       <p>© 2025. All rights reserved</p>
     </div>

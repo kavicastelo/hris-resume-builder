@@ -1,129 +1,139 @@
-<div class="cv-render" id="cv">
-  <div *ngIf="personalInfo">
-    <div class="avatar" *ngIf="avatar">
-      <div class="image-wrapper">
-        <img [src]="avatar ? avatar : '/imgs/default_emp_dp.svg'"
-             alt="avatar">
+<div class="cv-render template-3" id="cv">
+  <!-- Minimalist Header -->
+  <header class="cv-header">
+    <div class="header-main">
+      <h1 class="name" *ngIf="personalInfo">
+        <span class="first">{{personalInfo.firstname}}</span>
+        <span class="last">{{personalInfo.lastname}}</span>
+      </h1>
+      <p class="role" *ngIf="personalInfo">{{personalInfo.occupation}}</p>
+    </div>
+
+    <div class="header-side">
+      <div class="contact-grid" *ngIf="personalInfo">
+        <span *ngIf="personalInfo.email">{{personalInfo.email}}</span>
+        <span *ngIf="personalInfo.phone">{{personalInfo.phone}}</span>
+        <span *ngIf="personalInfo.city || personalInfo.country">{{personalInfo.city}}{{personalInfo.city &&
+          personalInfo.country ? ', ' : ''}}{{personalInfo.country}}</span>
+        <span *ngIf="personalInfo.dob">{{personalInfo.dob}}</span>
       </div>
     </div>
-    <h2 class="name">{{personalInfo.firstname ? personalInfo.firstname + ' ' + personalInfo.lastname : ''}}</h2>
-    <h4 class="role">{{personalInfo.occupation ? personalInfo.occupation : ''}}</h4>
-    <p class="contact-info">{{personalInfo.email ? personalInfo.email : ''}} {{personalInfo.phone ? '  |  ' + personalInfo.phone : ''}}</p>
-    <p class="intro">{{personalInfo.bio ? personalInfo.bio : ''}}</p>
-  </div>
+  </header>
 
-  <div class="experiences" *ngIf="experiences.length > 0">
-    <h5>Work Experience</h5>
-    <div *ngFor="let e of experiences; index as i">
-      <div class="company">{{e.organization}}</div>
-      <div class="position">{{e.occupation + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
-      <div class="description">{{e?.description || ''}}</div>
+  <!-- Bio / Intro -->
+  <section class="intro-section" *ngIf="personalInfo && personalInfo.bio">
+    <div class="section-label">Profile</div>
+    <div class="section-content">
+      <p class="bio-text">{{personalInfo.bio}}</p>
     </div>
-  </div>
+  </section>
 
-  <div class="educations" *ngIf="education.length > 0">
-    <h5>Education</h5>
-    <div *ngFor="let e of education; index as i">
-      <div class="degree">{{e.degree + '  |  ' + e.startDate + ' - ' + e.endDate}}</div>
-      <div class="institution">{{e.school + '  |  ' + e?.country}}</div>
-      <div class="description">{{e?.description || ''}}</div>
-    </div>
-  </div>
-
-  <div class="skills" *ngIf="skills.length > 0">
-    <h5>Skills</h5>
-    <div class="skills-wrapper">
-      <div class="skill" *ngFor="let s of skills; index as i">
-        {{s.skill}}
+  <!-- Experience -->
+  <section class="cv-section" *ngIf="experiences.length > 0">
+    <div class="section-label">Experience</div>
+    <div class="section-content">
+      <div class="timeline-entry" *ngFor="let e of experiences">
+        <div class="entry-meta">
+          <span class="entry-date">{{e.startDate}} — {{e.endDate}}</span>
+          <span class="entry-org">{{e.organization}}</span>
+          <span class="entry-loc" *ngIf="e.country">{{e.country}}</span>
+        </div>
+        <div class="entry-main">
+          <h3 class="entry-role">{{e.occupation}}</h3>
+          <p class="entry-desc">{{e.description}}</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="projects" *ngIf="projects.length > 0">
-    <h5>Projects</h5>
-    <div class="project" *ngFor="let p of projects; index as i">
-      <div class="name">{{p.name + '  |  ' + p.startDate + ' - ' + p.endDate}}</div>
-      <div class="location">{{p.company}} {{' - '+p.role}}</div>
-      <div class="sm-text" *ngIf="p.source">Source: {{p.source}}</div>
-      <div class="sm-text" *ngIf="p.demo">Demo: {{p.demo}}</div>
-      <div class="mb-2">{{p.description}}</div>
-    </div>
-  </div>
-
-  <!-- Languages Section -->
-  <section class="languages" *ngIf="languages.length > 0">
-    <h5>Languages</h5>
-    <div style="margin-bottom: 20px;">
-      <table>
-        <tr *ngFor="let l of languages">
-          <td style="padding-right: 20mm">
-            <ul style="margin-bottom: 0">
-              <li>
-                <p>{{l.name}}</p>
-              </li>
-            </ul>
-          </td>
-          <td><p>{{l.level}}</p></td>
-        </tr>
-      </table>
+  <!-- Education -->
+  <section class="cv-section" *ngIf="education.length > 0">
+    <div class="section-label">Education</div>
+    <div class="section-content">
+      <div class="timeline-entry" *ngFor="let e of education">
+        <div class="entry-meta">
+          <span class="entry-date">{{e.startDate}} — {{e.endDate}}</span>
+          <span class="entry-org">{{e.school}}</span>
+          <span class="entry-loc" *ngIf="e.country">{{e.country}}</span>
+        </div>
+        <div class="entry-main">
+          <h3 class="entry-role">{{e.degree}}</h3>
+          <p class="entry-desc">{{e.description}}</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Hobbies Section -->
-  <section class="hobbies" *ngIf="hobbies.length > 0">
-    <h5>Interests & Hobbies</h5>
-    <div style="margin-bottom: 20px;">
-      <ul>
-        <li *ngFor="let h of hobbies">
-          <p>{{h.name}}</p>
-        </li>
-      </ul>
+  <!-- Skills -->
+  <section class="cv-section" *ngIf="skills.length > 0">
+    <div class="section-label">Skills</div>
+    <div class="section-content">
+      <div class="skills-grid">
+        <div class="skill-tag" *ngFor="let s of skills">
+          {{s.skill}} <span class="skill-dot" *ngIf="s.percentage" [style.opacity]="s.percentage / 100">●</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- References Section -->
-  <section class="references" *ngIf="references.length > 0">
-    <h5>References</h5>
-    <div style="margin-bottom: 20px;" *ngFor="let r of references">
-      <div class="name">{{r.name}}</div>
-      <p style="margin-bottom: 0">{{r.company}}</p>
-      <table>
-        <tr>
-          <td style="padding-right: 5mm"><a href="mailto:{{r.email}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.email}}</a></td>
-          <td><a href="tel:{{r.phone}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">{{r.phone}}</a></td>
-        </tr>
-      </table>
+  <!-- Projects -->
+  <section class="cv-section" *ngIf="projects.length > 0">
+    <div class="section-label">Projects</div>
+    <div class="section-content">
+      <div class="project-grid">
+        <div class="project-card" *ngFor="let p of projects">
+          <h3 class="project-title">{{p.name}} <span class="project-role-tag">{{p.role}}</span></h3>
+          <p class="project-desc">{{p.description}}</p>
+          <div class="project-links" *ngIf="p.demo || p.source">
+            <a *ngIf="p.demo" [href]="p.demo">View Demo ↗</a>
+            <a *ngIf="p.source" [href]="p.source">Source ↗</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Certificates Section -->
-  <section class="certificates" style="margin-bottom: 30px;" *ngIf="certificates.length > 0">
-    <h5>Certificates</h5>
-    <div style="margin-bottom: 20px;" *ngFor="let c of certificates">
-      <h3 class="name">{{c.name}}</h3>
-      <p>{{c.organization}} | {{c.date}} | ID: {{c.certificateId}}</p>
-      <a href="{{c.certificateUrl}}" style="font-size: 0.9rem; color: #007bff; text-decoration: none;">View Certificate</a>
+  <!-- Certificates, Languages, Hobbies, References (Grid) -->
+  <section class="cv-section multi-section"
+    *ngIf="certificates.length > 0 || languages.length > 0 || hobbies.length > 0 || references.length > 0">
+    <div class="section-label">Misc</div>
+    <div class="section-content grid-misc">
+
+      <!-- Languages -->
+      <div class="misc-group" *ngIf="languages.length > 0">
+        <h4>Languages</h4>
+        <ul>
+          <li *ngFor="let l of languages">{{l.name}} <span class="faded">/ {{l.level}}</span></li>
+        </ul>
+      </div>
+
+      <!-- Hobbies -->
+      <div class="misc-group" *ngIf="hobbies.length > 0">
+        <h4>Interests</h4>
+        <div class="comma-list">
+          <span *ngFor="let h of hobbies">{{h.name}}</span>
+        </div>
+      </div>
+
+      <!-- Certificates -->
+      <div class="misc-group" *ngIf="certificates.length > 0">
+        <h4>Certifications</h4>
+        <ul>
+          <li *ngFor="let c of certificates">
+            <a [href]="c.certificateUrl ? c.certificateUrl : '#'" class="clean-link">{{c.name}}</a>
+            <span class="faded"> — {{c.organization}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- References -->
+      <div class="misc-group" *ngIf="references.length > 0">
+        <h4>References</h4>
+        <div *ngFor="let r of references" class="ref-mini">
+          <strong>{{r.name}}</strong>, {{r.company}}
+        </div>
+      </div>
+
     </div>
   </section>
-
-<!--  <div class="certificates" *ngIf="certificates.length > 0">-->
-<!--    <h5>Certifications</h5>-->
-<!--    <div class="row">-->
-<!--      <div class="col-6" *ngFor="let ec of certificates">-->
-<!--        <div class="certificate">-->
-<!--          <div class="d-flex flex-column align-items-start justify-content-start w-100 gap-2 mb-3">-->
-<!--            <div class="organization">{{ec.organization}}</div>-->
-<!--            <div class="title">{{ec.name}}</div>-->
-<!--            <div class="date">{{ec.date}}</div>-->
-<!--          </div>-->
-<!--          <div class="d-flex flex-column align-items-end justify-content-end w-100 gap-2">-->
-<!--            <div class="view">-->
-<!--              <a href="{{ec.certificateUrl}}">View Certificate</a>-->
-<!--            </div>-->
-<!--            <div class="id">{{ec.certificateId}}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 </div>

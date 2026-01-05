@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Template1Component} from "../templates/template1/template1.component";
-import {ResumeStorageService} from '../../../services/resume-storage.service';
-import {Template2Component} from '../templates/template2/template2.component';
-import {Template3Component} from '../templates/template3/template3.component';
-import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../../services/auth.service';
-import {WindowService} from '../../../services/common/window.service';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Template1Component } from "../templates/template1/template1.component";
+import { ResumeStorageService } from '../../../services/resume-storage.service';
+import { Template2Component } from '../templates/template2/template2.component';
+import { Template3Component } from '../templates/template3/template3.component';
+import { NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { WindowService } from '../../../services/common/window.service';
+import { PdfExportService } from '../../../services/pdf-export.service';
 
 @Component({
   selector: 'app-resume-preview',
@@ -26,7 +27,7 @@ import {WindowService} from '../../../services/common/window.service';
   styleUrl: './resume-preview.component.scss',
   standalone: true
 })
-export class ResumePreviewComponent implements OnInit{
+export class ResumePreviewComponent implements OnInit {
   personalInfo: any = {};
   certificates: any[] = [];
   education: any[] = [];
@@ -63,13 +64,16 @@ export class ResumePreviewComponent implements OnInit{
   cookieId: any;
 
   reloadBtn: boolean = true;
+  isPrinting: boolean = false;
+  scale: number = 1;
 
   constructor(private resumeStorage: ResumeStorageService,
-              private fb: FormBuilder,
-              private cookieService: AuthService,
-              private route: ActivatedRoute,
-              private windowService: WindowService,
-              private router: Router) {
+    private fb: FormBuilder,
+    private cookieService: AuthService,
+    private route: ActivatedRoute,
+    private windowService: WindowService,
+    private router: Router,
+    private pdfExportService: PdfExportService) {
     this.resumeForm = this.fb.group({
       personalInfo: [true],
       experiences: [true],
@@ -77,15 +81,17 @@ export class ResumePreviewComponent implements OnInit{
       skills: [true],
       projects: [false],
       certificates: [false],
-      avatar: [{value: false, disabled: true}],
+      avatar: [{ value: false, disabled: true }],
       cvType: ['0']
     });
   }
 
   ngOnInit() {
     this.locked = true;
+    this.calculateScale();
+
     const savedData = this.resumeStorage.getData();
-    if (savedData){
+    if (savedData) {
       this.personalInfo = savedData.personalInfo;
       this.certificates = savedData.certificates;
       this.education = savedData.educations;
@@ -104,12 +110,12 @@ export class ResumePreviewComponent implements OnInit{
         this.hobbies = savedData.hobbies;
       }
 
-      if (savedData.unlocked){
+      if (savedData.unlocked) {
         this.locked = false;
         this.resumeForm.get('avatar')?.enable();
       }
 
-      if (this.personalInfo?.firstname && this.personalInfo?.email){
+      if (this.personalInfo?.firstname && this.personalInfo?.email) {
         this.reloadBtn = false;
       }
     }
@@ -119,6 +125,21 @@ export class ResumePreviewComponent implements OnInit{
     })
 
     this.hasCookie = this.cookieService.isExists();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.calculateScale();
+  }
+
+  calculateScale() {
+    if (!this.windowService.nativeWindow) return;
+
+    const containerWidth = document.querySelector('.col-md-8')?.clientWidth || 800;
+    const a4WidthPx = 794; // approx 210mm at 96dpi
+
+    // Calculate scale to fit width, with some padding
+    this.scale = Math.min((containerWidth - 40) / a4WidthPx, 1);
   }
 
   chooseCV() {
@@ -140,26 +161,28 @@ export class ResumePreviewComponent implements OnInit{
 
   printCV() {
     if (this.hasId || this.hasCookie) {
-      const content = document.getElementById('cv');
-      if (content) {
-        if (this.windowService.nativeWindow)
-          window.print();
-      }
+      this.isPrinting = true;
+      // Small delay to ensure any UI states settle
+      setTimeout(() => {
+        // Use 'cv' ID which should be present in all templates
+        this.pdfExportService.exportToPdf('cv', `resume_${this.personalInfo.firstname || 'user'}.pdf`);
+        this.isPrinting = false;
+      }, 100);
     } else {
       this.router.navigate(['/sign/up']);
     }
   }
 
-  reload(){
-    setInterval(()=>{
+  reload() {
+    setInterval(() => {
       if (this.windowService.nativeWindow)
         window.location.reload();
     }, 200)
   }
 
-  addPersonalInfo(){
+  addPersonalInfo() {
     this.router.navigate(['/resume-builder']);
-    setInterval(()=>{
+    setInterval(() => {
       if (this.windowService.nativeWindow)
         window.location.reload();
     }, 200)
