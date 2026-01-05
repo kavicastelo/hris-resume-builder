@@ -1,13 +1,13 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router, RouterLink} from '@angular/router';
-import {AuthService} from '../../../services/auth.service';
-import {AlertsService} from '../../../services/alerts.service';
-import {NgClass} from '@angular/common';
-import {CredentialService} from '../../../services/credential.service';
-import {EncryptionService} from '../../../services/encryption.service';
-import {WindowService} from '../../../services/common/window.service';
-import {TimerService} from '../../../services/common/timer.service';
+import { AfterViewInit, Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { AlertsService } from '../../../services/alerts.service';
+import { NgClass } from '@angular/common';
+import { CredentialService } from '../../../services/credential.service';
+import { EncryptionService } from '../../../services/encryption.service';
+import { WindowService } from '../../../services/common/window.service';
+import { TimerService } from '../../../services/common/timer.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +20,7 @@ import {TimerService} from '../../../services/common/timer.service';
   styleUrl: './sign-in.component.scss',
   standalone: true
 })
-export class SignInComponent implements AfterViewInit{
+export class SignInComponent implements AfterViewInit {
 
   attempts = 4;
   disabled: boolean = false;
@@ -58,15 +58,15 @@ export class SignInComponent implements AfterViewInit{
   }
 
   loginUser() {
-    this.attempts --;
+    this.attempts--;
     if (this.loginForm.valid) {
       if (this.windowService.nativeSessionStorage && this.windowService.nativeLocalStorage) {
-        if (this.attempts <= 0 || sessionStorage.getItem('LgnAtT') == '0'){
+        if (this.attempts <= 0 || sessionStorage.getItem('LgnAtT') == '0') {
           sessionStorage.setItem('LgnAtT', '0');
           this.alertService.warningMessage('Too many attempts! Try again in 5 minutes', 'Warning');
           this.loginForm.reset();
           this.disabled = true;
-          this.timerService.setTimeout(()=>{
+          this.timerService.setTimeout(() => {
             this.attempts = 4;
             sessionStorage.removeItem('LgnAtT');
             this.disabled = false;
@@ -80,12 +80,12 @@ export class SignInComponent implements AfterViewInit{
             this.alertService.errorMessage('User doesn\'t exist or something went wrong', 'Error');
             return;
           }
-          if (response.disabled){
+          if (response.disabled) {
             this.alertService.errorMessage('Your account is disabled', 'Error');
             return;
           }
 
-          if (sessionStorage.getItem('LgnAtT') != '0'){
+          if (sessionStorage.getItem('LgnAtT') != '0') {
             this.cookieService.createSession(response);
 
             if (this.loginForm.get('remember')?.value) {
@@ -101,9 +101,9 @@ export class SignInComponent implements AfterViewInit{
             this.cookieService.createRefreshToken(response.refreshToken);
             this.cookieService.unlock();
 
-            await this.router.navigate(['/resume-builder'], {queryParams: {id: response.employeeId, view: 8}});
+            await this.router.navigate(['/dashboard'], { queryParams: { id: response.employeeId } });
 
-            if (response.active){
+            if (response.active) {
               this.alertService.successMessage('Login successful', 'Success');
               setTimeout(() => {
                 window.location.reload();
@@ -117,7 +117,7 @@ export class SignInComponent implements AfterViewInit{
             this.alertService.errorMessage('Too many attempts! Try again in 5 minutes', 'Warning');
           }
         }, error => {
-          this.alertService.errorMessage(error.error.message, "Code: "+error.status);
+          this.alertService.errorMessage(error.error.message, "Code: " + error.status);
         });
       }
     } else {
@@ -125,10 +125,10 @@ export class SignInComponent implements AfterViewInit{
     }
   }
 
-  togglePasswordVisibility(){
-    if (this.windowService.nativeDocument){
+  togglePasswordVisibility() {
+    if (this.windowService.nativeDocument) {
       const input: HTMLInputElement = document.getElementById('password') as HTMLInputElement;
-      if (input.type === 'password'){
+      if (input.type === 'password') {
         input.type = 'text';
         this.isp1open = false;
       } else {

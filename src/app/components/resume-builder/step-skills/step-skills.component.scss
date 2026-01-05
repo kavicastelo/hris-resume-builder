@@ -1,0 +1,148 @@
+@use "../../../shared/styles/utilities" as utils;
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.step-container {
+    padding: 1rem 0;
+}
+
+.header-actions {
+    margin-bottom: 2rem;
+
+    h5 {
+        font-weight: 700;
+        margin: 0;
+        @include utils.gradient-text;
+        font-size: 1.5rem;
+    }
+}
+
+.form-card-premium {
+    @include utils.glass-premium;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    background-color: hsl(var(--background));
+
+    .add-skill-form {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        .input-group {
+            flex: 1;
+            min-width: 200px;
+
+            input {
+                width: 100%;
+                @include utils.input-premium;
+            }
+        }
+
+        .range-group {
+            display: flex;
+            flex-direction: column;
+            width: 150px;
+            gap: 0.25rem;
+
+            label {
+                font-size: 0.8rem;
+                color: hsl(var(--muted-foreground));
+            }
+
+            input[type="range"] {
+                width: 100%;
+            }
+        }
+
+        .btn-primary-sm {
+            @include utils.btn-fill;
+            @include utils.btn-f-3;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+
+            i {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
+
+.empty-state {
+    text-align: center;
+    color: hsl(var(--muted-foreground));
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+
+    .skill-chip {
+        @include utils.glass-premium;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: hsla(var(--surface-mixed-100), 0.5);
+        border: 1px solid hsla(var(--border), 0.5);
+        cursor: grab;
+        transition: all 0.2s;
+        position: relative;
+        overflow: hidden;
+        min-width: 120px;
+        justify-content: space-between;
+
+        &:hover {
+            border-color: hsl(var(--primary));
+            background: hsla(var(--surface-mixed-200), 0.8);
+        }
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            z-index: 1;
+            position: relative;
+        }
+
+        .skill-level {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: hsl(var(--primary));
+            opacity: 0.5;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: hsl(var(--muted-foreground));
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            z-index: 1;
+
+            &:hover {
+                color: hsl(var(--destructive));
+            }
+
+            i {
+                font-size: 1.1rem;
+            }
+        }
+    }
+}

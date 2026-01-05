@@ -1,60 +1,59 @@
-.footer{
-  background-color: #222b38;
+@use "../../shared/styles/utilities" as utils;
 
-  .footer-top{
-    padding: 40px 0;
-    background-color: #222b38;
+.footer {
+  width: 100%;
+  background-color: hsl(var(--surface-mixed-100));
+  padding-top: 4rem;
+  border-top: 1px solid hsla(var(--border)/ 0.5);
 
-    h2{
-      color: #fff;
-      margin-bottom: 20px;
-      font-size: 16px;
+  .footer-top {
+    margin-bottom: 3rem;
+  }
+
+  .logo-lg {
+    width: 150px;
+    height: 50px;
+    background-color: hsla(var(--primary)/ 0.2);
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius);
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: hsl(var(--foreground));
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+
+    a {
+      color: hsl(var(--muted-foreground)/ 0.8);
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: hsl(var(--primary)/ 0.8);
+      }
     }
 
-    p{
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      a{
-        text-decoration: none;
-        color: var(--color-text-400);
-
-        &:hover{
-          color: #fff;
-          transform: translateX(5px);
-        }
-      }
-
-      &:hover{
-        color: #fff;
-        transform: translateX(5px);
-      }
-
-      &.not-animate{
-        transition: none;
-        transform: none;
-        color: var(--color-text-400);
-      }
-    }
-
-    .logo-lg{
-      width: 90%;
-      max-width: 250px;
-      aspect-ratio: 16/9;
-      margin-bottom: 16px;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-image: url("../../../../public/imgs/footer-w.webp");
+    &.not-animate {
+      font-size: 0.95rem;
     }
   }
 
-  .footer-bottom{
-    background-color: #12171e;
-    min-height: 40px;
-    padding: 16px;
+  .footer-bottom {
+    border-top: 1px solid hsla(var(--border)/ 0.5);
+    padding: 1.5rem 0;
+    margin-top: 1rem;
 
-    p{
+    p {
+      font-size: 0.9rem;
       margin: 0;
     }
   }

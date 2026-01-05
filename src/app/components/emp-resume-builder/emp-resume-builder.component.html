@@ -1,44 +1,38 @@
-<div style="position: relative;">
-  <div class="container" style="max-width: 233mm;">
-    <div [ngSwitch]="selectedCV">
-      <app-template1
-        *ngSwitchCase="0"
-        [personalInfo]="personalInfo ? personalInfo : {}"
-        [experiences]="experiences ? experiences : []"
-        [education]="education ? education : []"
-        [skills]="skills ? skills : []"
-        [certificates]="certificates ? certificates : []"
-        [projects]="projects ? projects : []"
-        [avatar]="avatar ? avatar : ''"
-      ></app-template1>
-      <app-template2
-        *ngSwitchCase="1"
-        [personalInfo]="personalInfo ? personalInfo : {}"
-        [experiences]="experiences ? experiences : []"
-        [education]="education ? education : []"
-        [skills]="skills ? skills : []"
-        [certificates]="certificates ? certificates : []"
-        [projects]="projects ? projects : []"
-        [avatar]="avatar ? avatar : ''"
-      ></app-template2>
-      <app-template3
-        *ngSwitchCase="2"
-        [personalInfo]="personalInfo ? personalInfo : {}"
-        [experiences]="experiences ? experiences : []"
-        [education]="education ? education : []"
-        [skills]="skills ? skills : []"
-        [certificates]="certificates ? certificates : []"
-        [projects]="projects ? projects : []"
-        [avatar]="avatar ? avatar : ''"
-      ></app-template3>
+<div class="preview-wrapper">
+  <!-- Control Bar -->
+  <header class="control-bar">
+    <div class="logo">
+      <span class="logo-text">Talnova</span>
     </div>
+    <div class="actions">
+      <!-- Only show dashboard link if logged in? For now, always nice to have a home link -->
+      <button class="btn-text" routerLink="/dashboard">
+        <i class="material-icons">dashboard</i> Dashboard
+      </button>
+      <button class="btn-primary" (click)="printCV()">
+        <i class="material-icons">download</i> Download PDF
+      </button>
+    </div>
+  </header>
 
-    <div class="loading" *ngIf="loading">
-      <div class="loader"></div>
+  <!-- Resume Container -->
+  <div class="resume-container">
+    <div class="resume-paper" id="cv">
+      <div [ngSwitch]="selectedCV">
+        <app-template1 *ngSwitchCase="0" [personalInfo]="personalInfo || {}" [experiences]="experiences || []"
+          [education]="education || []" [skills]="skills || []" [certificates]="certificates || []"
+          [projects]="projects || []" [avatar]="avatar || ''"></app-template1>
+        <app-template2 *ngSwitchCase="1" [personalInfo]="personalInfo || {}" [experiences]="experiences || []"
+          [education]="education || []" [skills]="skills || []" [certificates]="certificates || []"
+          [projects]="projects || []" [avatar]="avatar || ''"></app-template2>
+        <app-template3 *ngSwitchCase="2" [personalInfo]="personalInfo || {}" [experiences]="experiences || []"
+          [education]="education || []" [skills]="skills || []" [certificates]="certificates || []"
+          [projects]="projects || []" [avatar]="avatar || ''"></app-template3>
+      </div>
     </div>
   </div>
 
-  <div class="download-cv" (click)="printCV()">
-    <i class="material-icons">download</i>
+  <div class="loading-overlay" *ngIf="loading">
+    <div class="loader"></div>
   </div>
 </div>

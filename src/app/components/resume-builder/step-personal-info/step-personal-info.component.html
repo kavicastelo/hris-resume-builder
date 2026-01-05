@@ -1,50 +1,72 @@
-<div class="form-card-1">
-  <form (ngSubmit)="saveData()" class="w-100">
-
-    <div class="d-flex align-items-center justify-content-between gap-2">
-      <h5>Personal Detail :</h5>
-      <div class="form-group">
-        <button type="submit" class="btn-1">Save</button>
-      </div>
+<div class="step-container">
+  <div class="header-actions">
+    <h5>Personal Details</h5>
+    <div class="status-indicator" [class.saving]="saveStatus === 'Saving...'">
+      <i class="material-icons" *ngIf="saveStatus === 'Saved'">check_circle</i>
+      <i class="material-icons rotating" *ngIf="saveStatus === 'Saving...'">sync</i>
+      <span>{{ saveStatus }}</span>
     </div>
+  </div>
 
-    <div class="row form-wrapper">
+  <div class="form-card-premium">
+    <div class="row form-wrapper g-3">
       <div class="col-12 col-md-6">
         <div class="form-group">
           <label for="firstname">First Name *</label>
-          <input type="text" class="form-control" id="firstname" placeholder="John" [(ngModel)]="personalInfo.firstname" required [ngModelOptions]="{standalone: true}">
+          <input type="text" class="form-control" id="firstname" placeholder="John" [(ngModel)]="personalInfo.firstname"
+            (ngModelChange)="onInputChange()" required [ngModelOptions]="{standalone: true}">
         </div>
       </div>
       <div class="col-12 col-md-6">
         <div class="form-group">
           <label for="lastname">Last Name</label>
-          <input type="text" class="form-control" id="lastname" placeholder="Doe" [(ngModel)]="personalInfo.lastname" [ngModelOptions]="{standalone: true}">
+          <input type="text" class="form-control" id="lastname" placeholder="Doe" [(ngModel)]="personalInfo.lastname"
+            (ngModelChange)="onInputChange()" [ngModelOptions]="{standalone: true}">
         </div>
       </div>
+
       <div class="col-12 col-md-6">
         <div class="form-group">
-          <label for="email">Email Address *</label>
-          <input type="email" class="form-control" id="email" placeholder="XwVpP@example.com" [(ngModel)]="personalInfo.email" required [ngModelOptions]="{standalone: true}">
+          <label for="occupation">Job Title *</label>
+          <input type="text" class="form-control" id="occupation" placeholder="Web Developer"
+            [(ngModel)]="personalInfo.occupation" (ngModelChange)="onInputChange()" required
+            [ngModelOptions]="{standalone: true}">
         </div>
       </div>
-      <div class="col-12 col-md-6">
-        <div class="form-group">
-          <label for="occupation">Occupation</label>
-          <input type="text" class="form-control" id="occupation" placeholder="Web Developer" [(ngModel)]="personalInfo.occupation" required [ngModelOptions]="{standalone: true}">
-        </div>
-      </div>
+
       <div class="col-12 col-md-6">
         <div class="form-group">
           <label for="dob">Date of Birth</label>
-          <input type="date" class="form-control" id="dob" [(ngModel)]="personalInfo.dob" [ngModelOptions]="{standalone: true}">
+          <input type="date" class="form-control" id="dob" [(ngModel)]="personalInfo.dob"
+            (ngModelChange)="onInputChange()" [ngModelOptions]="{standalone: true}">
         </div>
       </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" class="form-control" id="email" placeholder="john@example.com"
+            [(ngModel)]="personalInfo.email" (ngModelChange)="onInputChange()" required
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" class="form-control" id="phone" placeholder="+1 234 567 890"
+            [(ngModel)]="personalInfo.phone" (ngModelChange)="onInputChange()" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+
       <div class="col-12">
         <div class="form-group">
-          <label for="intro">Intro</label>
-          <textarea class="form-control" id="intro" rows="5" placeholder="Your bio" [(ngModel)]="personalInfo.bio" [ngModelOptions]="{standalone: true}"></textarea>
+          <label for="intro">Professional Summary</label>
+          <textarea class="form-control" id="intro" rows="5"
+            placeholder="Briefly describe your professional background and goals..." [(ngModel)]="personalInfo.bio"
+            (ngModelChange)="onInputChange()" [ngModelOptions]="{standalone: true}"></textarea>
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>

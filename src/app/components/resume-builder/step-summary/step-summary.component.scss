@@ -1,30 +1,131 @@
-.form-card-1{
-  align-items: flex-start;
-  justify-content: flex-start;
+@use "../../../shared/styles/utilities" as utils;
 
-  .top-title{
-    color: var(--color-text-100);
-    font-weight: 600;
-    font-size: 24px;
-    text-align: center;
-    width: 100%;
-    margin-bottom: 12px;
+:host {
+  display: block;
+  width: 100%;
+}
+
+.step-container {
+  padding: 1rem 0;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h5 {
+    font-weight: 700;
+    margin: 0;
+    @include utils.gradient-text;
+    font-size: 1.5rem;
   }
 
-  .title{
-    color: var(--color-text-100);
-    font-size: 18px;
-    font-weight: 550;
-    margin-bottom: 8px;
+  .btn-icon.danger {
+    background: transparent;
+    border: none;
+    color: hsl(var(--destructive));
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+
+    &:hover {
+      background: hsla(var(--destructive), 0.1);
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.summary-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.summary-card {
+  @include utils.glass-premium;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid hsla(var(--border), 0.5);
+  background-color: hsl(var(--background));
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid hsla(var(--border), 0.3);
+
+    i {
+      color: hsl(var(--primary));
+      font-size: 1.25rem;
+    }
+
+    h6 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
   }
 
-  ul{
-    li{
-      color: var(--color-text-300);
+  .card-body {
+    font-size: 0.95rem;
+    color: hsl(var(--muted-foreground));
 
-      strong{
-        color: var(--color-text-200);
-        font-weight: 550;
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .item {
+        strong {
+          color: hsl(var(--foreground));
+          font-weight: 600;
+        }
+      }
+    }
+
+    .list-item {
+      margin-bottom: 0.75rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .main {
+        color: hsl(var(--foreground));
+        font-weight: 600;
+      }
+
+      .sub {
+        font-size: 0.9rem;
+      }
+
+      .meta {
+        font-size: 0.85rem;
+        font-style: italic;
+        opacity: 0.8;
+      }
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .skill-tag {
+        background: hsla(var(--primary), 0.1);
+        color: hsl(var(--primary));
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
       }
     }
   }

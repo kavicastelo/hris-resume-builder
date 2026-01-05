@@ -1,18 +1,22 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {ResumeStorageService} from '../../../services/resume-storage.service';
-import {FormsModule} from '@angular/forms';
-import {AlertsService} from '../../../services/alerts.service';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ResumeStorageService } from '../../../services/resume-storage.service';
+import { FormsModule } from '@angular/forms';
+import { AlertsService } from '../../../services/alerts.service';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-step-personal-info',
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './step-personal-info.component.html',
   styleUrl: './step-personal-info.component.scss',
   standalone: true
 })
-export class StepPersonalInfoComponent implements AfterViewInit{
+export class StepPersonalInfoComponent implements OnInit, OnDestroy {
   personalInfo = {
     firstname: '',
     lastname: '',
@@ -23,25 +27,50 @@ export class StepPersonalInfoComponent implements AfterViewInit{
     bio: ''
   };
 
-  constructor(private resumeStorage: ResumeStorageService, private alertService: AlertsService) {}
+  saveStatus = 'Saved';
+  private modelChanged: Subject<any> = new Subject<any>();
+  private subscription: Subscription;
 
-  ngAfterViewInit(): void {
+  constructor(private resumeStorage: ResumeStorageService) {
+    this.subscription = this.modelChanged
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe(() => {
+        this.saveData();
+      });
+  }
+
+  ngOnInit(): void {
     const savedData = this.resumeStorage.getData();
     if (savedData?.personalInfo) {
-      this.personalInfo = savedData.personalInfo;
+      this.personalInfo = { ...this.personalInfo, ...savedData.personalInfo };
     }
   }
 
+  onInputChange() {
+    this.saveStatus = 'Saving...';
+    this.modelChanged.next(this.personalInfo);
+  }
+
   saveData(): void {
-    if (this.isValidEmail(this.personalInfo.email) && this.personalInfo.email && this.personalInfo.firstname) {
+    if (this.isValidEmail(this.personalInfo.email) || this.personalInfo.firstname) {
       this.resumeStorage.saveData('personalInfo', this.personalInfo);
+      this.saveStatus = 'Saved';
     } else {
-      this.alertService.errorMessage('Please enter a valid email address', 'Error');
+      // Silent fail or update status
+      this.saveStatus = 'Incomplete';
     }
   }
 
   isValidEmail(email: string): boolean {
+    if (!email) return true; // Allow empty execution save
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

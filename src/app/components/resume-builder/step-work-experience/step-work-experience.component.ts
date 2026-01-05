@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {ResumeStorageService} from '../../../services/resume-storage.service';
-import {FormsModule} from '@angular/forms';
-import {NgForOf, NgIf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ResumeStorageService } from '../../../services/resume-storage.service';
+import { FormsModule } from '@angular/forms';
+import { NgForOf, NgIf } from '@angular/common';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-step-work-experience',
   imports: [
     FormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    DragDropModule
   ],
   templateUrl: './step-work-experience.component.html',
   styleUrl: './step-work-experience.component.scss',
@@ -26,7 +28,10 @@ export class StepWorkExperienceComponent implements OnInit {
     present: false
   };
 
-  constructor(private resumeStorage: ResumeStorageService) {}
+  isModalOpen = false;
+  editingIndex = -1;
+
+  constructor(private resumeStorage: ResumeStorageService) { }
 
   ngOnInit(): void {
     const savedData = this.resumeStorage.getData();
@@ -35,17 +40,49 @@ export class StepWorkExperienceComponent implements OnInit {
     }
   }
 
-  addExperience(): void {
+  openModal(index: number = -1) {
+    this.editingIndex = index;
+    if (index > -1) {
+      // Edit mode
+      this.newExperience = { ...this.workExperiences[index] };
+    } else {
+      // Add mode
+      this.resetForm();
+    }
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.resetForm();
+  }
+
+  saveExperience(): void {
     if (this.newExperience.organization && this.newExperience.occupation) {
       if (this.newExperience.present) this.newExperience.endDate = 'Present';
-      this.workExperiences.push({ ...this.newExperience });
+
+      if (this.editingIndex > -1) {
+        // Update existing
+        this.workExperiences[this.editingIndex] = { ...this.newExperience };
+      } else {
+        // Add new
+        this.workExperiences.push({ ...this.newExperience });
+      }
+
       this.saveData();
-      this.resetForm();
+      this.closeModal();
     }
   }
 
   removeExperience(index: number): void {
-    this.workExperiences.splice(index, 1);
+    if (confirm('Are you sure you want to delete this experience?')) {
+      this.workExperiences.splice(index, 1);
+      this.saveData();
+    }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.workExperiences, event.previousIndex, event.currentIndex);
     this.saveData();
   }
 
@@ -55,5 +92,6 @@ export class StepWorkExperienceComponent implements OnInit {
 
   resetForm(): void {
     this.newExperience = { organization: '', occupation: '', startDate: '', endDate: '', description: '', country: '', present: false };
+    this.editingIndex = -1;
   }
 }

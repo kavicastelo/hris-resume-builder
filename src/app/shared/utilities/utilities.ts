@@ -1,8 +1,8 @@
 export var Utilities = {
-  companyName: 'Talent Boozt',
+  companyName: 'Talnova',
   contactNumber: '+94 74 410 4850',
   contactNumber2: '+358 45 197 6700',
-  contactEmail: 'talentboozt@gmail.com',
+  contactEmail: 'contact@talnova.io',
   contactLocation: 'Matara, Sri Lanka',
   contactLocation2: 'Helsinki, Finland',
   popularJobCategories: [
@@ -27,12 +27,12 @@ export var Utilities = {
       icon: "fa fa-laptop"
     }
   ],
-  facebook: "https://www.facebook.com/people/Talent-Boozt/61568541891062/",
-  linkedin: "https://www.linkedin.com/company/talent-boozt/",
-  twitter: "https://x.com/TalentBoozt",
+  facebook: "https://www.facebook.com",
+  linkedin: "https://www.linkedin.com",
+  twitter: "https://x.com",
   github: "https://www.github.com",
   instagram: "https://www.instagram.com",
-  youtube: "https://www.youtube.com/@TalentBoozt",
+  youtube: "https://www.youtube.com",
   faq: [
     {
       id: "1",

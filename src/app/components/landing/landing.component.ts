@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {Meta, Title} from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing',
@@ -17,13 +17,17 @@ export class LandingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Talentboozt - CV Generator');
+    this.title.setTitle('Talnova - CV Generator');
     this.meta.addTags([
-      { name: 'description', content: 'Create a professional resume for free with TalentBoozt\'s easy-to-use online ' +
-          'resume builder. Customize your resume with our templates and manage your profile effortlessly.' },
-      { name: 'keywords', content: 'Free resume builder, Online resume builder, Create resume for free, ' +
-          'TalentBoozt resume tool, Easy resume creation, Professional resume builder, Customize resume online, ' +
-          'Free resume templates, Online CV builder, TalentBoozt profile management' }
+      {
+        name: 'description', content: 'Create a professional resume for free with Talnova\'s easy-to-use online ' +
+          'resume builder. Customize your resume with our templates and manage your profile effortlessly.'
+      },
+      {
+        name: 'keywords', content: 'Free resume builder, Online resume builder, Create resume for free, ' +
+          'Talnova resume tool, Easy resume creation, Professional resume builder, Customize resume online, ' +
+          'Free resume templates, Online CV builder, Talnova profile management'
+      }
     ]);
   }
 }

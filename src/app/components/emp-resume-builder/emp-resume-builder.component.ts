@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
-import {AuthService} from '../../services/auth.service';
-import {EmployeeService} from '../../services/employee.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgIf, NgSwitch, NgSwitchCase} from '@angular/common';
-import {Template1Component} from "../resume-builder/templates/template1/template1.component";
-import {Template2Component} from "../resume-builder/templates/template2/template2.component";
-import {Template3Component} from "../resume-builder/templates/template3/template3.component";
-import {ResumeStorageService} from '../../services/resume-storage.service';
-import {WindowService} from '../../services/common/window.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from "@angular/forms";
+import { AuthService } from '../../services/auth.service';
+import { EmployeeService } from '../../services/employee.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { Template1Component } from "../resume-builder/templates/template1/template1.component";
+import { Template2Component } from "../resume-builder/templates/template2/template2.component";
+import { Template3Component } from "../resume-builder/templates/template3/template3.component";
+import { ResumeStorageService } from '../../services/resume-storage.service';
+import { WindowService } from '../../services/common/window.service';
 
 @Component({
   selector: 'app-emp-resume-builder',
@@ -20,7 +20,8 @@ import {WindowService} from '../../services/common/window.service';
     Template2Component,
     Template3Component,
     NgSwitch,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   styleUrl: './emp-resume-builder.component.scss'
 })
@@ -44,12 +45,12 @@ export class EmpResumeBuilderComponent implements OnInit {
   loading = false;
 
   constructor(private fb: FormBuilder,
-              private router: Router,
-              private route: ActivatedRoute,
-              private cookieService: AuthService,
-              private windowService: WindowService,
-              private resumeStorage: ResumeStorageService,
-              private employeeService: EmployeeService) {}
+    private router: Router,
+    private route: ActivatedRoute,
+    private cookieService: AuthService,
+    private windowService: WindowService,
+    private resumeStorage: ResumeStorageService,
+    private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -148,7 +149,7 @@ export class EmpResumeBuilderComponent implements OnInit {
       this.avatar = this.employee?.employee?.image || '';
 
       // Saving Mapped Data to Local Storage
-      if (this.replaced){
+      if (this.replaced) {
         this.resumeStorage.saveData('personalInfo', this.personalInfo);
         this.resumeStorage.saveData('workExperiences', this.experiences);
         this.resumeStorage.saveData('educations', this.education);
